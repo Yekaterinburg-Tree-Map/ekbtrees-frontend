@@ -1,43 +1,41 @@
-.userContainer{
+.userContainer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* padding: 10px 15px; */
-    /* box-shadow: 0px 0px 15px -5px rgba(34, 60, 80, 0.57); */
     position: relative;
-    /* background-color: white; */
 }
-.user{
+
+.user {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.userMenuWrapper {
-
-}
-
-.user-heading{
+.user-heading {
     font-size: 18px;
 }
-.userName, .userRole{
+
+.userName,
+.userRole {
     display: block;
+    color: white;
 }
-.userName{
+
+.userName {
     font-weight: 600;
 }
-.userRole{
+
+.userRole {
     font-size: 12px;
-    color: grey;
     text-transform: lowercase;
     line-height: 1.5;
 }
-.userIcon{
-    width: 35px;
-    height: 35px;
-    border: 1px solid black;
-    border-radius: 20px;
-    margin: 0px 5px;
+
+.userIcon {
+    width: 45px;
+    height: 45px;
+    margin-left: 10px;
+    flex: 0;
 }
 
 .userBtn {
@@ -49,15 +47,16 @@
 
 .faChevronDown,
 .faBell,
-.faSignOut{
+.faSignOut {
     color: lightgrey;
     font-size: 20px;
     cursor: pointer;
-    margin-left:10px;
+    margin-left: 10px;
 }
+
 .faChevronDown:hover,
 .faBell:hover,
-.faSignOut:hover{
+.faSignOut:hover {
     color: #54ABFDFF;
 }
 
@@ -82,7 +81,7 @@
     content: "\f078";
 }
 
-.userControls{
+.userControls {
     display: flex;
     justify-content: space-between;
     flex-basis: 60px;
@@ -94,11 +93,12 @@
     }
 }
 
-@media screen and (min-width: 768px){
-    .container{
+@media screen and (min-width: 768px) {
+    .container {
         margin: 0;
     }
-    .userContainer{
+
+    .userContainer {
         /*margin: 0px 10%;*/
     }
 }

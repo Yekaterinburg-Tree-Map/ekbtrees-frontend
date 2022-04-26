@@ -108,7 +108,7 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
                         <p className={styles.privacyTerms}>© 2020 — 2021 Privacy-Terms</p>
                     </form>
                     <aside className={styles.registrationAside}>
-                        <h2 className={styles.title}>Добро пожаловать!</h2>
+                        <h2 className={styles.title}>Привет, Друг!</h2>
                         <p>Введите данные, чтобы продолжить</p>
                         {/*<NavLink className={styles.linkLogin} exact to='/login' activeclassname="active">Авторизоваться</NavLink>*/}
                         <NavLink className={styles.linkLogin} exact to='/login'

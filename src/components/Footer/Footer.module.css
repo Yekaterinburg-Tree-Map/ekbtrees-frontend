@@ -3,14 +3,13 @@
     justify-content: flex-end;
     background-color: var(--first-color);
     color: white;
-    font-family: "Segou UI", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
-
 
 .info {
     display: flex;
     flex-direction: column;
-    padding: 50px;
+    padding: 30px 50px;
     margin-right: auto;
 }
 
@@ -21,7 +20,7 @@
 
 .slogan span {
     font-weight: 700;
-    font-family: "Segou UI", sans-serif;
+    font-family: "Poppins", sans-serif;
     margin-bottom: 10px;
 }
 
@@ -29,162 +28,66 @@
     color: #aec400;
 }
 
-.company, .support, .email {
+.column,
+.support {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
     padding: 50px;
 }
 
-.company a{
+.link {
     color: #d9dbe1
 }
 
-.company a:hover{
+.link:hover {
     color: #1d53aa;
 }
 
-.company :first-child {
+.nameColumn {
     margin-bottom: 5px;
     font-size: 20px;
     font-weight: 500;
     color: white;
 }
 
-.email input[type=text] {
-    padding-left: 24px;
-}
-
 .images {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-around;
+    margin: 20px 0 0 0;
 }
 
 .image {
-    width: 25px;
-    height: 25px;
+    width: 40px;
 }
 
 .email {
-    display: flex;
-    flex-direction: column;
-}
-
-.email input {
-    background-color: var(--email-input);
-    height: 50px;
-    outline: none;
-    border: 0;
-    border-radius: 5px;
-    color: white;
-    margin-bottom: 10px;
-}
-
-.footerMenu {
-    display: flex;
-    align-items: center;
-    width: 80%;
-    justify-content: space-between;
-    margin: 0 auto;
-}
-
-.footerMenu a {
-    letter-spacing: 0.05vw;
-    font-weight: bold;
-    color: rgb(0, 92, 92);
-    margin: 0px 10px;
-    font-size: 12px;
-    text-align: center;
-}
-
-.logo .smallHeader {
-    font-family: "Merriweather", serif;
-    font-size: 20px;
-    display: block;
-    text-align: center;
-}
-
-.logo .bigHeader {
-    font-family: "Merriweather", serif;
-    font-size: 40px;
-    line-height: 30px;
-}
-
-.line {
-    background-color: #ADBEA5;
-    height: 1px;
-    width: 75%;
-    margin: 0 auto;
-}
-
-.footerWrapper .social {
-    display: flex;
-    width: 25%;
-    margin: 30px auto;
-    justify-content: space-between;
-}
-
-.footerWrapper .social img {
-    height: auto;
-    width: 30px;
-}
-
-.privacyTerms {
-    display: flex;
-    justify-content: center;
-}
-
-.underLine {
-    padding: 30px 20%;
+    color: #d9dbe1;
 }
 
 .copyright {
     margin-top: 10px;
 }
 
-@media screen and (min-width: 1024px) {
-    .footerMenu a {
-        font-size: 14px;
-    }
-
-    /* .underLine{
-        padding: 30px 30%;
-    } */
-}
-
-@media screen and (min-width: 2000px) {
-    .footerWrapper {
-        padding: 0 10%;
-    }
-}
-
 @media screen and (max-width: 830px) {
-    .email{
-        display: none;
-    }
-
-    .footerWrapper{
+    .footerWrapper {
         flex-direction: column;
     }
 
-    .company{
+    .column {
         align-items: center;
-        padding: 25px;
+        padding: 15px;
     }
-    
-    .company span{
+
+    .email {
+        padding-bottom: 15px;
+    }
+
+    .nameColumn {
         font-weight: 500px;
     }
 
-    .info{
+    .info {
         padding: 30px 0 0 0;
         align-items: center;
         margin-right: 0;
     }
-
-    .images a{
-        padding: 0px 7px;
-    }
-
 }

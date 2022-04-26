@@ -23,7 +23,7 @@
     padding: 0 20px;
 }
 
-.desktopHeader img {
+.logoImage {
     width: 100px;
     margin: 10px;
 }
@@ -72,15 +72,6 @@
     color: white !important;
 }
 
-/* @media screen and (min-width: 768px) {
-    .desktopHeader {
-        position: relative;
-        
-    }
-
-    
-} */
-
 @media screen and (min-width: 1024px) {
     .desktopHeader {
         position: static;
@@ -102,7 +93,5 @@
 @media screen and (min-width: 1024px) {
     .desktopHeader img {
         display: block;
-
     }
 }
-

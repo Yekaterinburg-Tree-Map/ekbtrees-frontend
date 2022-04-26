@@ -1,9 +1,8 @@
 * {
   box-sizing: border-box;
-  font-family: "Recursive", sans-serif;
 }
 
-body{
+body {
   background-color: var(--background-color) !important;
 }
 
@@ -19,8 +18,9 @@ body{
 .loginContainer {
   box-shadow: 0px 0px 15px -5px rgba(34, 60, 80, 0.57);
   background-color: var(--third-color);
-  margin-top: 40px !important;
-  margin-bottom: 40px !important;
+  display: flex;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 .wrapper input {
@@ -59,7 +59,7 @@ body{
 }
 
 .wrapper .loginMessage {
-  color: lightgray;
+  color: var(--grey-black);
   text-align: center;
   margin: 0;
   font-size: 14px;
@@ -109,7 +109,6 @@ body{
 .loginHelp {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   margin: 15px 0;
   font-size: 14px;
 }
@@ -126,7 +125,7 @@ body{
   color: #aec400;
 }
 
-.login-checkbox input[type="checkbox"] + .checkbox-indicator {
+.login-checkbox input[type="checkbox"]+.checkbox-indicator {
   position: absolute;
   top: -2px;
   left: 0;
@@ -135,7 +134,7 @@ body{
   border: 2px solid #000000;
 }
 
-.login-checkbox input[type="checkbox"]:checked + .checkbox-indicator::before {
+.login-checkbox input[type="checkbox"]:checked+.checkbox-indicator::before {
   content: "\f00c";
   font-family: "FontAwesome";
   position: relative;
@@ -146,7 +145,7 @@ body{
 .restore {
   color: var(--second-color);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 20px;
 }
 
 .restore:hover,
@@ -173,14 +172,11 @@ body{
 
 .title {
   display: none;
-  color: var(--first-color); /* Вход в аккаунт */
-  font-size: 20px;
+  color: var(--first-color);
+  font-size: 35px;
   text-align: center;
   padding: 30px 0px;
-}
-
-.loginContainer {
-  display: flex;
+  font-weight: 700;
 }
 
 .loginAside {
@@ -202,21 +198,23 @@ body{
   padding: 10px 0px;
   color: #AEC400;
 }
-.flexSocial{
+
+.flexSocial {
   display: flex;
   justify-content: center;
   padding: 10px 0px;
 }
+
 .loginAside .linkRegister {
   width: 200px;
   height: 40px;
   text-align: center;
   line-height: 40px;
   text-transform: uppercase;
-  color: white;
+  color: var(--white-bright-green);
   font-size: 12px;
   background-color: inherit;
-  border: 1px solid white;
+  border: 1px solid var(--white-bright-green);
   border-radius: 5px;
   margin: 10px 0px;
 }
@@ -227,16 +225,21 @@ body{
   color: #4f802c;
   transition: ease-in 0.15s;
 }
-.loginMessage{
+
+.loginMessage {
   height: 40px;
   padding: 10px 0;
 }
-.loginMessage p{
+
+.loginMessage p {
   color: red;
 }
-@media screen and (min-width: 768px) {
+
+@media screen and (min-width: 1024px) {
   .loginContainer {
     height: 550px;
+    width: 80%;
+    margin: 40px auto;
   }
 
   .title {
@@ -257,17 +260,13 @@ body{
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .loginContainer {
-    width: 80%;
-    margin: 0 auto;
+    margin-top: 0;
+    margin-bottom: 0;
   }
-}
 
-@media screen and (min-width: 1440px) {
-  .loginContainer {
-    width: 1000px;
-    margin-top: 40px;
-    margin-bottom: 40px;
+  .loginHelp {
+    justify-content: center;
   }
 }

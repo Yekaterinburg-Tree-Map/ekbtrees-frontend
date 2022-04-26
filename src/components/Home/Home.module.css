@@ -1,33 +1,126 @@
-.theme {
+.volunteers {
   background-color: var(--black-white);
+  display: flex;
 }
 
-.logi .container {
-  margin: 10px;
+.startTextWrapper {
+  display: flex;
 }
 
-.slogan {
-  color: #50802c;
-  text-transform: uppercase;
+.wrapper {
+  width: 473px;
+  flex-shrink: 0;
+  position: relative;
+  min-height: 150px;
+}
+
+.startInfo {
+  display: flex;
+  flex-direction: row;
+  background-color: #aec400;
+}
+
+.popup {
+  background-color: #02390b;
+  color: white;
   font-size: 20px;
-  font-family: "Oswald", sans-serif;
-  font-weight: 600;
-  margin: 5px 0;
+  border-radius: 10px;
+  height: 368px;
+  width: 473px;
+  z-index: 2;
+  flex-shrink: 0;
+  position: absolute;
+  bottom: 40px;
+  left: 20px;
 }
 
-.ready {
-  font-family: "Recursive", sans-serif;
-  margin: 5px 0;
+.popupText {
+  text-align: justify;
+  display: inline-block;
+  margin: 0 30px 30px 30px;
 }
 
-.map {
-  width: 100%;
+.popupTitle {
+  text-transform: uppercase;
+  display: block;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 30px auto 10px auto;
+}
+
+.startWrapper {
+  margin-left: 50px;
+  padding-bottom: 10px;
+}
+
+.startTitle {
+  font-weight: 700;
+  font-size: 40px;
+}
+
+.startText {
+  font-size: 21px;
+  flex-grow: 1;
+}
+
+.startLink {
+  text-decoration: underline;
+  font-size: 21px;
+  margin-right: 15px;
+}
+
+.startButton {
+  display: block;
+  margin: 0 auto;
+  height: 49px;
+  line-height: 49px;
+  text-align: center;
+  width: 238px;
+  border: 0;
+  background-color: black;
+  color: #06C167;
+  border-radius: 10px;
   position: relative;
 }
 
-.flex {
+
+.volontaryImage {
+  height: 50%;
+  width: 50%;
+  border-radius: 50%;
+  margin: 50px 0 0 50px;
+}
+
+.weDoBlock {
+  background-color: #eef0f2;
+  padding-bottom: 80px;
+}
+
+.weDoHeader {
+  font-size: 35px;
+  font-weight: 700;
+  color: #02390B;
+  display: inline-block;
+  margin: 30px 0 0 66px;
+  text-transform: uppercase;
+}
+
+.weDoInner {
+  font-size: 30px;
+  margin: 25px 50px 0 50px;
+  background-color: black;
+  color: white;
   display: flex;
-  justify-content: space-between;
+}
+
+.weDoContent {
+  padding: 50px;
+}
+
+.weDoImage {
+  width: 45%;
+  aspect-ratio: 1.7;
 }
 
 .login,
@@ -63,51 +156,7 @@
   padding-right: 20px;
 }
 
-.map {
-  height: 100%;
-}
-
-.mapContainer {
-  height: 100%;
-}
-
-.flexSearchMap {
-  display: flex;
-  justify-content: space-around;
-  background-color: #0000;
-}
-
-.search {
-  width: 20%;
-}
-
-.desktopMap {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.slogan {
-  font-size: 24px;
-}
-
-.green {
-  background-color: #50802c;
-}
-
-.searchBlock {
-  height: 30px;
-  margin-bottom: 10px;
-}
-
-.mapBlock {
-  height: 10px;
-  background-color: #000000;
-}
-
-.getStart {}
-
-.volontary {
+.volontaryWrapper {
   min-height: 800px;
   height: fit-content;
   padding: 75px 0;
@@ -119,218 +168,125 @@
 }
 
 .volontaryQuestion {
+  font-size: 35px;
+  font-weight: 700;
   text-transform: uppercase;
   color: #aec400;
+  margin-bottom: 20px;
 }
 
-.regular {
+
+.volontaryText {
   font-family: "Recursive", sans-serif;
   font-size: 20px;
   font-weight: 400;
 }
 
-.regular2 {
-  font-family: "Recursive", sans-serif;
-  font-size: 20px;
-  font-weight: 400;
-}
 
-
-.bold {
-  font-weight: bold;
-  font-size: 26px;
-}
-
-.hidden {
-  display: none;
-}
-
-.unhidden {
-  display: block;
-}
-
-.getStartRight {
-  width: 500px;
-  display: flex;
-  justify-content: space-around;
-}
-
-.getStartRight button {
-  margin: 70px 0;
-}
-
-.containerSearch {
-  width: 100%;
-  vertical-align: middle;
-  white-space: nowrap;
-  position: relative;
-}
-
-.inputSearch {
-  font-family: "Recursive", sans-serif;
-  width: 100%;
-  height: 50px;
-  background: white;
-  border: none;
-  font-size: 16px;
-  float: left;
-  color: #63717f;
-  padding-left: 45px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  margin-top: 10px;
-  margin-bottom: 30px;
-}
-
-.icon {
-  position: absolute;
-  top: 10px;
-  margin-left: 17px;
-  margin-top: 17px;
-  z-index: 1;
-  color: #838aa6;
-}
-
-.logInDesktop {
-  background-color: #fa881a;
-  border: 1px solid #fa881a;
-  width: 200px;
-  height: 45px;
-  border-radius: 5px;
-  color: white;
-  font-family: "Oswald", sans-serif;
-  font-weight: 300;
-  text-transform: uppercase;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.signUpDesktop {
-  background-color: #50802c;
-  border: 1px solid white;
-  width: 200px;
-  height: 45px;
-  border-radius: 5px;
-  color: white;
-  font-family: "Oswald", sans-serif;
-  font-weight: 300;
-  text-transform: uppercase;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.flexContainer,
-.flexContainer2 {
-  display: flex;
-  justify-content: space-around;
-}
-
-.leftPart {
-  width: 45%;
-}
-
-.rightPart {
-  width: 45%;
-}
-
-.rightPartImg {
-  width: 40%;
-  display: flex;
-  align-items: center;
-}
-
-.lastPart {}
-
-.aboutTrees {
-  align-items: center;
-  margin-top: 30px;
-}
-
-.fas {
-  color: #1d53aa;
-  margin: 20px 0;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  line-height: 1;
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 900;
-  padding: 8px 10px;
-}
-
-.regularSmall {
-  font-family: "Recursive", sans-serif;
-  font-size: 16px;
-  font-weight: 200;
-}
-
-@media screen and (max-width: 769px) {
-
-  .searchBlock {
-    display: none;
+@media screen and (max-width: 1024px) {
+  .startInfo {
+    flex-direction: column;
+    align-items: center;
   }
 
-  .search {
+  .startWrapper {
+    text-align: center;
+  }
+
+  .popup {
+    left: 0;
+  }
+
+  .volunteers {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .volontaryImage {
+    margin: 25px 0;
+    width: 80%;
+  }
+
+  .volontaryWrapper {
+    padding: 0 10px;
+    min-height: 0;
+  }
+
+  .volontaryQuestion {
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .popup {
+    width: 90vw;
+    height: fit-content;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  .popupText {
+    font-size: 15px;
+    margin-bottom: 0;
+  }
+
+  .popupTitle {
+    font-size: 18px;
+  }
+
+  .startTextWrapper {
+    flex-direction: column;
+  }
+
+  .wrapper {
+    width: 100vw;
+    left: 0;
+  }
+
+  .startWrapper {
+    padding: 0;
+    text-align: left;
+    margin-left: 14px;
+    top: 24.5px;
+  }
+
+  .startTitle {
+    font-size: 22px;
+  }
+
+  .startLink {
+    margin-left: auto;
+    margin-right: 10px;
+  }
+
+
+  .startButton {
+    display: block;
+    left: 0;
+    margin: 0 auto;
+    z-index: 3;
+    top: 24.5px;
+  }
+
+  .weDoImage {
+    aspect-ratio: 1;
     width: 100%;
+    padding: 10px;
   }
 
-  .getStart {
-    flex-direction: column;
-  }
-
-  .inOrReg {
-    display: none;
-  }
-
-  .flexContainer2 {
-    flex-direction: column;
-  }
-
-  .flexContainer {
+  .weDoInner {
     flex-direction: column-reverse;
+    font-size: 20px;
+    margin: 25px 25px 0;
   }
 
-  .leftPart,
-  .rightPart {
-    width: 100%;
-    margin: 10px 0;
+  .weDoHeader {
+    font-size: 23px;
+    margin: 30px 0 0 25px;
   }
 
-  .getStartRight {
-    margin-bottom: 40px;
-  }
-
-  .slogan {
-    margin-top: 40px;
-  }
-
-  .lastPart {
-    margin: 0;
-    padding: 0 7px;
-  }
-
-  .rightPartImg {
-    width: 100%;
-  }
-}
-
-
-@media screen and (max-width: 510px) {
-  .getStartRight {
-    margin-bottom: 40px;
-    flex-direction: column;
-    width: inherit;
-  }
-
-  .signUpDesktop {
-    margin-top: 20px;
+  .weDoContent {
+    padding: 10px;
   }
 }

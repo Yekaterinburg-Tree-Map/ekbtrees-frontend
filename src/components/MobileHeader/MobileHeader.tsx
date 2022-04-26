@@ -55,7 +55,7 @@ export class MobileHeader extends Component<IMobileHeaderProps, IMobileHeaderSta
 		return (
 			<div className={styles.mobileHeader}>
 				<div className={styles.topNav}>
-					<Logo> </Logo>
+					<Logo />
 					<div className={styles.links}>
 						<NavLink exact to='/map' className={styles.mapLink} activeClassName={styles.activeLink}>Карта</NavLink>
 						<NavLink exact to='/aboutUs' className={styles.mapLink} activeClassName={styles.activeLink}>Контакты</NavLink>

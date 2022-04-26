@@ -3,8 +3,8 @@ import styles from './UserInfo.module.css';
 import Man from '../../img/man.png';
 import UserMenu from '../UserMenu';
 import cn from 'classnames';
-import {closest} from '../../helpers/dom';
-import {IUserInfoProps, IUserInfoState} from "./types";
+import { closest } from '../../helpers/dom';
+import { IUserInfoProps, IUserInfoState } from "./types";
 
 
 const DOCUMENT_ELEMENT = window.document.documentElement;
@@ -27,15 +27,15 @@ export default class UserInfo extends Component<IUserInfoProps, IUserInfoState> 
         openMenu: false
     }
 
-    componentDidMount () {
+    componentDidMount() {
         !this.isSmallScreen && window.document.addEventListener(event, this.handleOutsideClick);
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
         !this.isSmallScreen && window.document.removeEventListener(event, this.handleOutsideClick);
     }
 
-    handleClick = () => this.setState({openMenu: !this.state.openMenu});
+    handleClick = () => this.setState({ openMenu: !this.state.openMenu });
 
     handleOutsideClick = (e: (TouchEvent | MouseEvent)) => {
         if (this.button && this.state.openMenu) {
@@ -47,7 +47,7 @@ export default class UserInfo extends Component<IUserInfoProps, IUserInfoState> 
                 (!button.length || (button.length && button[0] !== this.button))
                 && (!menu.length || (menu.length && menu[0] !== this.menu))
             ) {
-                this.setState({openMenu: false});
+                this.setState({ openMenu: false });
             }
         }
     };
@@ -56,8 +56,8 @@ export default class UserInfo extends Component<IUserInfoProps, IUserInfoState> 
         this.menu = ref;
     }
 
-    renderMenu () {
-        const {openMenu} = this.state;
+    renderMenu() {
+        const { openMenu } = this.state;
 
         if (openMenu) {
             return (
@@ -74,7 +74,7 @@ export default class UserInfo extends Component<IUserInfoProps, IUserInfoState> 
         this.button = ref;
     }
 
-    renderToggleButton () {
+    renderToggleButton() {
         const classNameCN = cn({
             [styles.faChevronDown]: true,
             'fa': true,
@@ -95,11 +95,12 @@ export default class UserInfo extends Component<IUserInfoProps, IUserInfoState> 
                 <div className={styles.userContainer}>
                     <div className={styles.user}>
                         <div>
-                            <span className={styles.userName}>{this.props.user?.firstName}</span>
+                            <span className={styles.userName}>{`${this.props.user?.firstName}\xa0${this.props.user?.lastName}`}</span>
                             <span className={styles.userRole}>{this.props.user?.role}</span>
                         </div>
-                        <img src={Man} className={styles.userIcon} alt="profile-icon" />
-                        {this.renderToggleButton()}
+                        <a href="profileSettings">
+                            <img src={Man} className={styles.userIcon} alt="profile-icon" />
+                        </a>
                     </div>
                     <div className={styles.userControls}>
                         {/*<i className={cn([styles.faBell, "fa"])} aria-hidden="true" />*/}

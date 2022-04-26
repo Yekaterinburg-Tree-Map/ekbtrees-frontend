@@ -1,13 +1,16 @@
 .logo {
     display: flex;
     align-items: center;
-    font-weight: 400;
-    font-family: "Merriweather", serif;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
     margin-bottom: 0px;
+    margin: 10px 0;
+    font-size: 31px;
 }
 
 .firstPart {
     color: #ffffff;
+    margin-left: 5px;
 }
 
 .secondPart {

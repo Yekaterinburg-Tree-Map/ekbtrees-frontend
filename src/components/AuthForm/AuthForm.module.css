@@ -9,7 +9,7 @@ a {
 }
 
 .welcome {
-  background-color: #50802c;
+  background-color: var(--black-dark-green);
   text-align: center;
 }
 
@@ -51,12 +51,12 @@ a {
 .btnSignUp {
   width: 50%;
   height: 4em;
-  background-color: #50802c;
+  background-color: var(--black-dark-green);
   border: none;
   font-family: "Recursive", sans-serif;
   font-weight: 600;
   font-size: 13px;
-  color: #91b475;
+  color: #aec400;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -64,11 +64,10 @@ a {
 }
 
 .active {
-  border-bottom: 3px solid #fb8f07;
-  color: #fb8f07;
+  border-bottom: 3px solid #aec400;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
   .welcome {
     display: none;
   }

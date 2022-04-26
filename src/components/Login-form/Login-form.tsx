@@ -4,7 +4,8 @@ import base64 from 'base-64';
 import utf8 from 'utf8';
 import styles from './Login-form.module.css';
 import AuthForm from '../AuthForm';
-import vkIcon from '../../img/vk.png';
+import googleIcon from '../../img/googleSignUp.png';
+import vkIcon from '../../img/vkSignUp.png';
 import { ILogingFormUser } from "../../common/types";
 import { ILoginFormProps, ILoginFormState } from "./types";
 
@@ -38,10 +39,10 @@ export default class LoginForm extends Component<ILoginFormProps, ILoginFormStat
         this.props.history.push('/registration');
     }
 
-    handleSubmit:  React.FormEventHandler<HTMLFormElement> = (e) => {
+    handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
 
-        const {user} = this.state;
+        const { user } = this.state;
         // const value = base64.encode(`${utf8.encode(user.email)}:${utf8.encode(user.password)}`);
         // replaced with empty string if null
         const value = base64.encode(`${utf8.encode(user.email ?? "")}:${utf8.encode(user.password ?? "")}`);
@@ -49,16 +50,16 @@ export default class LoginForm extends Component<ILoginFormProps, ILoginFormStat
     }
 
     handleChange: (fieldName: keyof ILogingFormUser) => React.ChangeEventHandler<HTMLInputElement> = (fieldName) => (event) => {
-        const {user} = this.state;
+        const { user } = this.state;
         // TODO: find out how to add indexing
 
         user[fieldName] = event.target.value;
 
-        this.setState({user})
+        this.setState({ user })
     }
 
-    fetchToken (value: string) {
-        const {handleCookie} = this.props;
+    fetchToken(value: string) {
+        const { handleCookie } = this.props;
 
         return fetch('/auth/login', {
             headers: {
@@ -68,21 +69,21 @@ export default class LoginForm extends Component<ILoginFormProps, ILoginFormStat
         })
             .then(async response => {
                 if (response.status === 200) {
-                    this.setState({error: false}, handleCookie);
+                    this.setState({ error: false }, handleCookie);
                     window.location.href = '/';
                 } else {
-                    this.setState({error: true});
+                    this.setState({ error: true });
                 }
             })
     }
 
-    renderAuthTitle () {
+    renderAuthTitle() {
         return (
             <h2 className={styles.title}>Войдите в аккаунт</h2>
         );
     }
 
-    renderErrorMessage () {
+    renderErrorMessage() {
         if (this.state.error) {
             return (
                 <div className={styles.loginMessage}>
@@ -94,32 +95,33 @@ export default class LoginForm extends Component<ILoginFormProps, ILoginFormStat
         return null;
     }
 
-    renderButton () {
+    renderButton() {
         return (
             <button type="submit">Войти</button>
         );
     }
 
-    renderSocial () {
+    renderSocial() {
         return (
             <div className={styles.flexSocial}>
                 <div className={styles.social}>
+                    <NavLink to="/vk"><img src={googleIcon} alt="google-link" /></NavLink>
                     <NavLink to="/vk"><img src={vkIcon} alt="vk-link" /></NavLink>
                 </div>
             </div>
         );
     }
 
-    renderFields () {
+    renderFields() {
         return (
             <>
-                <input type="text" placeholder="Почта" id="userLogin" onChange={this.handleChange('email')}  required />
+                <input type="text" placeholder="Почта" id="userLogin" onChange={this.handleChange('email')} required />
                 <input type="password" placeholder="Пароль" id="userPassword" onChange={this.handleChange('password')} required />
             </>
         );
     }
 
-    renderLoginHelp () {
+    renderLoginHelp() {
         return (
             <>
                 <p className={styles.loginHelp}>
@@ -130,7 +132,7 @@ export default class LoginForm extends Component<ILoginFormProps, ILoginFormStat
         );
     }
 
-    renderRegistrationHelp () {
+    renderRegistrationHelp() {
         return (
             <div className={styles.flexRegister}>
                 <p>Нет аккаунта?</p><p className={styles.yellow}> <NavLink to='/registration'>Зарегистрируйтесь сейчас!</NavLink></p>
@@ -138,13 +140,13 @@ export default class LoginForm extends Component<ILoginFormProps, ILoginFormStat
         );
     }
 
-    renderPrivacyTerms () {
+    renderPrivacyTerms() {
         return (
             <p className={styles.privacyTerms}>© 2020 — 2021 Privacy-Terms</p>
         );
     }
 
-    renderAuthForm () {
+    renderAuthForm() {
         return (
             <form onSubmit={this.handleSubmit} className={styles.wrapper}>
                 {this.renderAuthTitle()}
