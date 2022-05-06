@@ -75,10 +75,11 @@ class App extends Component<IAppProps & RouteComponentProps, IAppState> {
 
     render() {
         const { user } = this.state;
+        const theme = this.state.theme === 'light' ? 'background-white' : 'background-gray'
 
         return (
             <>
-                <div className={this.state['theme'] === 'light' ? 'background-white' : 'background-gray'}>
+                <div className={theme}>
                     <Header user={user} onCookieRemove={this.removeCookie} switchTheme={this.switchTheme} theme={this.state.theme} />
                     <Main user={user} onCookie={this.handleCookie} theme={this.state.theme} />
                     <Footer theme={this.state.theme} />

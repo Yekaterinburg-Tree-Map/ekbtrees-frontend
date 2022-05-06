@@ -5,12 +5,6 @@
     z-index: 1000;
 }
 
-.mobileHeader img {
-    height: 60px;
-    width: 90px;
-    margin: 10px;
-}
-
 .mapLink {
     font-size: 18px;
     letter-spacing: 0.05vw;
@@ -37,7 +31,7 @@
 .burgerBtn {
     background: none;
     border: 0;
-    font-size: 25px;
+    font-size: 40px;
     padding: 15px 20px;
     cursor: pointer;
 }
@@ -73,7 +67,7 @@
     }
 }
 
-@media screen and (min-width: 480px) and (max-width: 1024px) {
+@media screen and (min-width: 580px) and (max-width: 1024px) {
     .links {
         display: block;
     }

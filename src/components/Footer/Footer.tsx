@@ -14,15 +14,15 @@ export default class Footer extends Component<IFooterProps, IFooterState> {
                     <span>Copyrights EkbTrees</span>
                     <span className={styles.copyright}>All rights reserved.</span>
                     <div className={styles.images}>
-                        <a href={"https://parklandekb.ru"}><img className={styles.image} src={telegramIcon} alt={"website"} /></a>
-                        <a href={"https://vk.com/parklandekb"}><img className={styles.image} src={vkIcon} alt={"vk"} /></a>
+                        <a href="https://parklandekb.ru"><img className={styles.image} src={telegramIcon} alt={"website"} /></a>
+                        <a href="https://vk.com/parklandekb"><img className={styles.image} src={vkIcon} alt={"vk"} /></a>
                     </div>
 
                 </div>
                 <div className={styles.column}>
                     <span className={styles.nameColumn}>Компания</span>
                     <NavLink className={styles.link} exact to='/aboutUs' activeClassName="active">О нас</NavLink>
-                    <NavLink className={styles.link} exact to='/aboutUs' activeClassName="active">Что мы делаем ?</NavLink>
+                    <NavLink className={styles.link} exact to='/aboutUs' activeClassName="active">Что мы делаем&nbsp;?</NavLink>
                 </div>
                 <div className={styles.column}>
                     <span className={styles.nameColumn}>Помощь</span>
@@ -30,7 +30,7 @@ export default class Footer extends Component<IFooterProps, IFooterState> {
                 </div>
                 <div className={styles.column}>
                     <span className={styles.nameColumn}>Общие вопросы</span>
-                    <span className={styles.email}>Email: example@example.com</span>
+                    <a href="mailto:mail@example@example.com" className={styles.email}>Email: example@example.com</a>
                 </div>
             </footer >
         )

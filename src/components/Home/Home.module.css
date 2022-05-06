@@ -84,14 +84,6 @@
   position: relative;
 }
 
-
-.volontaryImage {
-  height: 50%;
-  width: 50%;
-  border-radius: 50%;
-  margin: 50px 0 0 50px;
-}
-
 .weDoBlock {
   background-color: #eef0f2;
   padding-bottom: 80px;
@@ -156,9 +148,7 @@
   padding-right: 20px;
 }
 
-.volontaryWrapper {
-  min-height: 800px;
-  height: fit-content;
+.voluntaryWrapper {
   padding: 75px 0;
   display: flex;
   flex-direction: column;
@@ -167,7 +157,7 @@
   color: var(--black-white-text);
 }
 
-.volontaryQuestion {
+.voluntaryQuestion {
   font-size: 35px;
   font-weight: 700;
   text-transform: uppercase;
@@ -175,8 +165,14 @@
   margin-bottom: 20px;
 }
 
+.voluntaryImage {
+  height: 50%;
+  width: 50%;
+  border-radius: 50%;
+  margin: 50px 0 50px 50px;
+}
 
-.volontaryText {
+.voluntaryText {
   font-family: "Recursive", sans-serif;
   font-size: 20px;
   font-weight: 400;
@@ -202,22 +198,21 @@
     align-items: center;
   }
 
-  .volontaryImage {
+  .voluntaryImage {
     margin: 25px 0;
-    width: 80%;
+    /* width: 60%; */
   }
 
-  .volontaryWrapper {
+  .voluntaryWrapper {
     padding: 0 10px;
-    min-height: 0;
   }
 
-  .volontaryQuestion {
+  .voluntaryQuestion {
     font-size: 25px;
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 580px) {
   .popup {
     width: 90vw;
     height: fit-content;
@@ -249,6 +244,10 @@
     text-align: left;
     margin-left: 14px;
     top: 24.5px;
+  }
+
+  .voluntaryImage {
+     width: 70%;
   }
 
   .startTitle {

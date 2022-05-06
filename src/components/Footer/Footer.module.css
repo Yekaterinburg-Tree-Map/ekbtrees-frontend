@@ -28,8 +28,7 @@
     color: #aec400;
 }
 
-.column,
-.support {
+.column {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
@@ -65,6 +64,16 @@
 
 .copyright {
     margin-top: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+    .column {
+        padding: 30px;
+    }
+
+    .info {
+        padding: 30px;
+    }
 }
 
 @media screen and (max-width: 830px) {

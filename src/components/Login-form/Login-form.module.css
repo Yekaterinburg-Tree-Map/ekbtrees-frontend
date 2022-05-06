@@ -145,7 +145,7 @@ body {
 .restore {
   color: var(--second-color);
   text-decoration: none;
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .restore:hover,

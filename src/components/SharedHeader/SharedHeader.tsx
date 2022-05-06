@@ -4,7 +4,6 @@ import { ISharedHeaderProps } from "./types";
 
 export class SharedHeader extends Component<ISharedHeaderProps> {
 
-
 	render() {
 		return (
 			<div className={styles.sharedHeader}>
