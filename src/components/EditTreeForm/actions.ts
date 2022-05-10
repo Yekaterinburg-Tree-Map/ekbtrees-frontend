@@ -1,6 +1,6 @@
 import RequestService from "../../helpers/requests";
-import {baseUrl} from '../ApiDataLoadHelper/DataLoadHelper'
-import {IPostJsonTree, IFile, IJsonTree, ITreePropertyValue} from "../../common/types";
+import { baseUrl } from '../ApiDataLoadHelper/DataLoadHelper'
+import { IPostJsonTree, IFile, IJsonTree, ITreePropertyValue } from "../../common/types";
 
 
 export const getTree = (id: string | number): Promise<IJsonTree> => {
