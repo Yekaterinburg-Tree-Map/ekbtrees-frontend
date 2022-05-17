@@ -2,15 +2,20 @@ a:hover {
     text-decoration: none;
 }
 
-.treeHeader {
-    margin: 10px 15px 15px 15px;
-    text-align: center;
+.treeListHeader {
+    margin: 25px 0 85px 0;
+    display: flex;
+    align-items: center;
+    font-size: 35px;
+    font-weight: bold;
+    color: rgba(2, 57, 11, 1);
 }
 
-.treeHeader p {
-    text-transform: uppercase;
-    text-align: center;
-    margin: 10px 0;
+.treeListHeaderSplit {
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+    height: 100px;
+    background-color: rgba(2, 57, 11, 1);
+    width: 30%;
 }
 
 .buttonNavigation {
@@ -43,7 +48,7 @@ a:hover {
     border-radius: 5px;
     margin-bottom: 25px;
     max-width: 300px;
-    background: #fafafa;
+    background: rgba(212, 229, 215, 0.5);
     box-shadow: 0 0 10px -5px rgb(34 60 80 / 57%);
 }
 
@@ -114,19 +119,20 @@ a:hover {
 }
 
 .treeTable {
-    max-width: 1300px;
-    width: 100%;
+    max-width: 1500px;
+    width: 95%;
     display: table;
     margin: 0 auto;
     padding: 0 15px;
+    border-collapse: collapse;
 }
 
 .treeTableHeader {
     display: table-row;
+    border: 1px black solid;
 }
 
 .treeTableItemWrapper {
-    background: none;
     box-shadow: none;
     display: table-row;
     height: 70px;
@@ -154,14 +160,17 @@ a:hover {
     font-weight: bold;
     padding: 20px;
     vertical-align: middle;
+    color: rgba(2, 57, 11, 1);
+    border: 1px solid black;
 }
 
 .treeTableItem {
     display: table-cell;
     text-align: center;
     padding: 5px 20px;
-    color: grey;
+    color: black;
     vertical-align: middle;
+    font-size: 25px;
 }
 
 .treeTableItemImg {
@@ -191,4 +200,3 @@ a:hover {
 .faPencil:hover {
     color: #181818;
 }
-

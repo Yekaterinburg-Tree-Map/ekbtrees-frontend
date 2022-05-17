@@ -1,19 +1,29 @@
 .container {
-    max-width: 1150px;
-    width: 100%;
+    max-width: 1500px;
+    width: 90%;
     margin: 15px auto;
-    padding: 0 20px;
 }
 
-.title {
-    font-size: 24px;
+.treeHeader {
+    margin: 25px 0 50px 0;
+    display: flex;
+    align-items: center;
+    font-size: 35px;
+    font-weight: bold;
+    color: rgba(2, 57, 11, 1);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.treeHeaderSplit {
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+    height: 100px;
+    background-color: rgba(2, 57, 11, 1);
+    width: 30%;
 }
 
 .wrapper {
     background: #fff;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
-    padding: 20px 25px;
-    margin: 15px 0;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
     word-break: break-word;
     word-wrap: break-word;
 }
@@ -23,31 +33,31 @@
     text-align: right;
     margin-bottom: 20px;
     border-bottom: 1px solid #e1e1e1;
-    padding: 15px 0;
+    padding: 15px 25px;
+    background: #02390B;
+    box-shadow: 0px 12px 14px 0px rgba(0, 0, 0, 0.1);
+}
+
+.editLink,
+.removeLink {
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    color: white;
+    padding: 10px 20px;
 }
 
 .editLink {
-    cursor: pointer;
-    color: #00529f;
-    font-size: 15px;
-}
-
-.editLink:hover {
-    text-decoration: underline;
+    background-color: #aec400;
 }
 
 .removeLink {
-    margin: 0 2em;
-    cursor: pointer;
-    color: #ff3131;
-    font-size: 15px;
-}
-
-.removeLink:hover {
-    text-decoration: underline;
+    margin-right: 10px;
+    background-color: #c40000;
 }
 
 .table {
+    margin: 0 20px;
     width: 100%;
 }
 
@@ -60,7 +70,7 @@
     display: flex;
     word-break: break-word;
     word-wrap: break-word;
-    width: 100%;
+    width: 50%;
     margin-bottom: 20px;
 }
 
@@ -102,7 +112,7 @@
     }
 }
 
-@media screen and (max-width: 551px){
+@media screen and (max-width: 551px) {
     .row {
         width: 100%;
     }

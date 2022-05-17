@@ -349,8 +349,11 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 				<Modal show={this.state.modalShow} onClose={this.closeModal}>
 					{this.renderModalContent()}
 				</Modal>
+				<header className={styles.treeHeader}>
+                <div className={styles.treeHeaderSplit}> </div>
+                <div>&mdash;&mdash; Карточка дерева</div>
+            </header>
 				<div className={styles.container}>
-					<h3 className={styles.title}> Карточка дерева </h3>
 					{this.renderDetails()}
 					{this.renderImages()}
 					{this.renderFiles()}

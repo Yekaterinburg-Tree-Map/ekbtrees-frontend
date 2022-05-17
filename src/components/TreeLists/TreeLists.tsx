@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styles from './TreeLists.module.css';
 import cn from "classnames";
-import {formatDate} from '../../helpers/date';
-import {getMyTrees} from '../../api/tree';
+import { formatDate } from '../../helpers/date';
+import { getMyTrees } from '../../api/tree';
 import Spinner from "../Spinner/Spinner";
 import { IJsonTreeWithImage } from "../../common/types";
 import {
@@ -46,23 +46,23 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
     componentDidMount() {
         getMyTrees()
             .then(data => {
-                this.setState({trees: data, loading: false})
+                this.setState({ trees: data, loading: false })
             })
             .catch(error => {
                 console.error('Произошла ошибка при получении деревьев!', error);
             })
     }
 
-    handleClick:  React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    handleClick: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         this.setState({
             currentPage: Number((event.target as HTMLButtonElement).id)
         });
     }
 
     getTree = (tree: IJsonTreeWithImage, index: string | number) => {
-        const {age, created, id, image, species, treeHeight} = tree;
+        const { age, created, id, image, species, treeHeight } = tree;
         // console.log(tree);
-        return ( id &&
+        return (id &&
             <NavLink to={getTreeLink(id)} className={styles.treeTableItemWrapper} key={id}>
                 <div className={cn([styles.treeTableItem, styles.treeTableItemImg])}>
                     <img src={image || defaultTreeImage} alt='tree' className={styles.tableImg} />
@@ -79,8 +79,8 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
         )
     }
 
-    renderTrees () {
-        const {trees, currentPage} = this.state;
+    renderTrees() {
+        const { trees, currentPage } = this.state;
         const items = trees.slice(currentPage * treeCountPerPage, (currentPage + 1) * treeCountPerPage);
 
         return (
@@ -90,8 +90,8 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
         );
     }
 
-    getPageNumbers () {
-        const {trees, treeCountPerPage} = this.state;
+    getPageNumbers() {
+        const { trees, treeCountPerPage } = this.state;
         const pageCount = Math.ceil(trees.length / treeCountPerPage);
         const pageNumbers = [];
 
@@ -120,12 +120,12 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
         );
     }
 
-    renderButtonsByNumbers () {
+    renderButtonsByNumbers() {
         return this.getPageNumbers().map(number => this.renderPageButton(number));
     }
 
     renderTableHeader = () => {
-        const {age, creationDate, height, image, species} = locale.treeTable;
+        const { age, creationDate, height, image, species } = locale.treeTable;
 
         return (
             <div className={styles.treeTableHeader}>
@@ -138,7 +138,7 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
         )
     }
 
-    renderTable () {
+    renderTable() {
         return (
             <div className={styles.treeTable}>
                 {this.renderTableHeader()}
@@ -147,8 +147,17 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
         )
     }
 
-    renderBody () {
-        const {loading} = this.state;
+    renderHeader() {
+        return (
+            <header className={styles.treeListHeader}>
+                <div className={styles.treeListHeaderSplit}> </div>
+                <div>&mdash;&mdash; Список деревьев</div>
+            </header>
+        );
+    }
+
+    renderBody() {
+        const { loading } = this.state;
 
         if (loading) {
             return <Spinner />
@@ -169,6 +178,7 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
     render() {
         return (
             <>
+                {this.renderHeader()}
                 {this.renderBody()}
             </>
         );
