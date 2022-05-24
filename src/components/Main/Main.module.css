@@ -12,13 +12,13 @@
 
 @media screen and (min-width: 1024px) {
     .fullMap {
-        height: 100vh;
+        height: 80vh;
     }
 }
 
 @media screen and (max-width: 480px) {
     .fullMap {
-        height: 80vh;
+        height: 70vh;
     }
 }
 

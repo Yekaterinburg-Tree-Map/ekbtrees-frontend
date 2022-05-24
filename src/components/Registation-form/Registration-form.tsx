@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom';
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import styles from './Registration-form.module.css';
 import FormHeader from '../AuthForm';
 import vkIcon from '../../img/vk.png';
@@ -10,13 +10,16 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
     state: IRegistrationFormState = {
         touchStart: null,
         error: false,
-        errorMail: false
+        errorMail: false,
+        success: false,
     }
+
     handleTouch: React.TouchEventHandler<HTMLElement> = (e) => {
         this.setState({
             touchStart: e.changedTouches[0].clientX
         })
     }
+
     handleTouchEnd: React.TouchEventHandler<HTMLElement> = (e) => {
         let difference = e.changedTouches[0].clientX - this.state.touchStart;
         var width = window.innerWidth;
@@ -62,6 +65,15 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
         }
     }
 
+    renderSuccess() {
+        if (this.state.success) {
+            window.setTimeout(() => { window.location.href = "/login" }, 5000);
+            return (
+                <p className={styles.regSuccess}>Пользователь зарегистрирован. Вы будете перенаправлены на страницу входа</p>
+            )
+        }
+    }
+
     async register(input: IRegistrationFormInput) {
         const response = await fetch('/auth/register', {
             method: "POST",
@@ -71,38 +83,40 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
             body: JSON.stringify(input)
         })
         if (response.ok) {
-            this.setState({errorMail: false})
-            alert("Пользователь зарегистрирован");
+            this.setState({ errorMail: false })
+            this.setState({ success: true });
         } else {
-            this.setState({errorMail: true})
+            this.setState({ errorMail: true });
+            this.setState({ success: false });
         }
     }
 
     render() {
         return (
             <div>
-                <FormHeader/>
+                <FormHeader />
                 <section className={styles.registrationContainer} onTouchStart={this.handleTouch}
-                         onTouchEnd={this.handleTouchEnd}>
+                    onTouchEnd={this.handleTouchEnd}>
                     <form name="registration" method="post" className={styles.registrationForm}
-                          onSubmit={this.checkPasswords}>
+                        onSubmit={this.checkPasswords}>
                         <h2 className={styles.title}>Регистрация</h2>
-                        <input type="text" placeholder="Имя" name="firstName" id="userFirstName" required/>
-                        <input type="text" placeholder="Фамилия" name="lastName" id="userLastName" required/>
-                        <input type="email" placeholder="Введите почту" name="email" id="userEmail" required/>
-                        <input type="password" placeholder="Придумайте пароль" name="psw" id="userPassword" required/>
+                        <input type="text" placeholder="Имя" name="firstName" id="userFirstName" required />
+                        <input type="text" placeholder="Фамилия" name="lastName" id="userLastName" required />
+                        <input type="email" placeholder="Введите почту" name="email" id="userEmail" required />
+                        <input type="password" placeholder="Придумайте пароль" name="psw" id="userPassword" required />
                         <input type="password" placeholder="Подтвердите пароль" name="psw2" id="userConfirmPassword"
-                               required/>
+                            required />
 
                         <div className={styles.loginMessage}>
                             {this.renderError()}
+                            {this.renderSuccess()}
                         </div>
                         <button type="submit">Регистрация</button>
 
                         <p className={styles.loginMessage}>или зарегистрируйтесь с</p>
                         <div className={styles.flexSocial}>
                             <div className={styles.social}>
-                                <NavLink to="/vk"><img src={vkIcon} alt="google-link"/></NavLink>
+                                <NavLink to="/vk"><img src={vkIcon} alt="google-link" /></NavLink>
                             </div>
                         </div>
                         <p className={styles.privacyTerms}>© 2020 — 2021 Privacy-Terms</p>
@@ -110,9 +124,8 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
                     <aside className={styles.registrationAside}>
                         <h2 className={styles.title}>Привет, Друг!</h2>
                         <p>Введите данные, чтобы продолжить</p>
-                        {/*<NavLink className={styles.linkLogin} exact to='/login' activeclassname="active">Авторизоваться</NavLink>*/}
                         <NavLink className={styles.linkLogin} exact to='/login'
-                                 activeClassName="active">Авторизоваться</NavLink>
+                            activeClassName="active">Авторизоваться</NavLink>
                     </aside>
                 </section>
             </div>

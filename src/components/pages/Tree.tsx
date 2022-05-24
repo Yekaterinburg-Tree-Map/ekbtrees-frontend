@@ -4,13 +4,13 @@ import modalStyles from "../Modal/Modal.module.css";
 import { NavLink } from "react-router-dom";
 import Spinner from "../Spinner";
 import { getUrlParamValueByKey } from "../../helpers/url";
-import {getTree, getFilesByTree, deleteTree, deleteFiles} from "../EditTreeForm/actions";
-import { formatDate} from '../../helpers/date';
+import { getTree, getFilesByTree, deleteTree, deleteFiles } from "../EditTreeForm/actions";
+import { formatDate } from '../../helpers/date';
 import FileUpload from "../FileUpload";
 import { ITreeModelConverted, IJsonTree, IFile } from "../../common/types";
 import { ITreeProps, ITreeState } from "./types";
 import Modal from "../Modal/Modal";
-import {isNumber} from "../../common/treeForm";
+import { isNumber } from "../../common/treeForm";
 
 
 export class Tree extends Component<ITreeProps, ITreeState> {
@@ -38,7 +38,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 		}
 	}
 
-	convertTree (tree: IJsonTree): ITreeModelConverted {
+	convertTree(tree: IJsonTree): ITreeModelConverted {
 		const {
 			age,
 			created,
@@ -172,10 +172,10 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 	}
 
 	confirmDeleteCurrentTree = () => {
-		this.setState({modalShow: true});
+		this.setState({ modalShow: true });
 	}
 
-	closeModal = () => this.setState({modalShow: false});
+	closeModal = () => this.setState({ modalShow: false });
 
 	trySetMaoViewPosition = () => {
 		if (this.state.tree) {
@@ -185,7 +185,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 			if (lat && lng) {
 				const latNum = isNumber(lat) ? lat : parseFloat(lat.toString());
 				const lngNum = isNumber(lng) ? lng : parseFloat(lng.toString());
-				this.props.setMapViewPosition({lat: latNum, lng: lngNum});
+				this.props.setMapViewPosition({ lat: latNum, lng: lngNum });
 			}
 		}
 	}
@@ -202,7 +202,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 					if (succ) {
 						// alert("tree is deleted");
 						this.trySetMaoViewPosition();
-						this.setState({modalShow: false});
+						this.setState({ modalShow: false });
 						// this.props.history.goBack();
 						this.props.history.push("/map");
 					} else {
@@ -228,19 +228,19 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 		)
 	}
 
-	renderEditLink () {
-		const {tree} = this.state;
+	renderEditLink() {
+		const { tree } = this.state;
 		return (
 			<div className={styles.editLinkWrapper}>
-				{ this.canDelete && <span className={styles.removeLink} onClick={this.confirmDeleteCurrentTree}>Удалить</span> }
-				{ this.canEdit && <NavLink to={`/trees/tree=${tree?.id}/edit`} className={styles.editLink}>Редактировать</NavLink> }
+				{this.canDelete && <span className={styles.removeLink} onClick={this.confirmDeleteCurrentTree}>Удалить</span>}
+				{this.canEdit && <NavLink to={`/trees/tree=${tree?.id}/edit`} className={styles.editLink}>Редактировать</NavLink>}
 			</div>
 		)
 	}
 
-	renderRows () {
-		const {tree} = this.state;
-		const result: JSX.Element[]  = [];
+	renderRows() {
+		const { tree } = this.state;
+		const result: JSX.Element[] = [];
 		if (tree == null) {
 			return result;
 		}
@@ -266,7 +266,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 		return result;
 	}
 
-	renderTable () {
+	renderTable() {
 		return (
 			<div className={styles.table}>
 				<div className={styles.tbody}>
@@ -276,8 +276,8 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 		)
 	}
 
-	renderDetails () {
-		const {user} = this.props;
+	renderDetails() {
+		const { user } = this.props;
 
 		return (
 			<div className={styles.wrapper}>
@@ -287,8 +287,8 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 		)
 	}
 
-	renderFiles () {
-		const {files, loadingFiles} = this.state;
+	renderFiles() {
+		const { files, loadingFiles } = this.state;
 
 		if (loadingFiles) {
 			return <Spinner />;
@@ -306,8 +306,8 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 		return null;
 	}
 
-	renderImages () {
-		const {images, loadingFiles} = this.state;
+	renderImages() {
+		const { images, loadingFiles } = this.state;
 
 		if (loadingFiles) {
 			return <Spinner />;
@@ -329,8 +329,8 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 		return null;
 	}
 
-	renderContent () {
-		const {loading} = this.state;
+	renderContent() {
+		const { loading } = this.state;
 
 		if (loading) {
 			return <Spinner />;
@@ -350,9 +350,9 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 					{this.renderModalContent()}
 				</Modal>
 				<header className={styles.treeHeader}>
-                <div className={styles.treeHeaderSplit}> </div>
-                <div>&mdash;&mdash; Карточка дерева</div>
-            </header>
+					<div className={styles.treeHeaderSplit}> </div>
+					<div>&mdash;&mdash; Карточка дерева</div>
+				</header>
 				<div className={styles.container}>
 					{this.renderDetails()}
 					{this.renderImages()}
@@ -362,7 +362,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 		)
 	}
 
-	render () {
+	render() {
 		return this.renderContent();
 	}
 }

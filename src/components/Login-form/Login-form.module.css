@@ -29,7 +29,7 @@ body {
   font-size: 14px;
   border-radius: 25px;
   border: 1px solid rgb(175, 175, 175);
-  height: 50px;
+  height: 35px;
   margin-bottom: 15px;
   padding: 0px 24px;
 }
@@ -239,6 +239,7 @@ body {
   .loginContainer {
     height: 550px;
     width: 80%;
+    max-width: 1220px;
     margin: 40px auto;
   }
 
@@ -252,7 +253,7 @@ body {
 
   .wrapper {
     flex-basis: 50%;
-    padding: 0px 40px;
+    padding: 0px 70px;
   }
 
   .privacyTerms {
@@ -260,7 +261,7 @@ body {
   }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 600px) {
   .loginContainer {
     margin-top: 0;
     margin-bottom: 0;

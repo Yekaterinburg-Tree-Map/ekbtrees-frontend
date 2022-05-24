@@ -61,6 +61,12 @@
     flex-shrink: 0;
 }
 
+@media screen and (max-width: 320px) {
+    .burgerBtn {
+        padding: 0;
+    }
+}
+
 @media screen and (min-width: 1024px) {
     .mobileHeader {
         display: none;
@@ -70,5 +76,11 @@
 @media screen and (min-width: 580px) and (max-width: 1024px) {
     .links {
         display: block;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .burgerBtn {
+        padding: 5px ;
     }
 }
