@@ -61,7 +61,6 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
 
     getTree = (tree: IJsonTreeWithImage, index: string | number) => {
         const { age, created, id, image, species, treeHeight } = tree;
-        // console.log(tree);
         return (id &&
             <NavLink to={getTreeLink(id)} className={styles.treeTableItemWrapper} key={id}>
                 <div className={cn([styles.treeTableItem, styles.treeTableItemImg])}>
@@ -79,6 +78,32 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
         )
     }
 
+    getTreeMobile = (tree: IJsonTreeWithImage, index: string | number) => {
+        const { age, created, id, image, species, treeHeight } = tree;
+        return (id &&
+            <NavLink to={getTreeLink(id)} className={styles.treeTableRowMobile} key={id}>
+                <div className={cn([styles.treeTableItemMobile, styles.treeTableItemImgMobile])}>
+                    <img src={image || defaultTreeImage} alt='tree' className={styles.tableImgMobile} />
+                </div>
+                <div className={styles.treeTableItemWrapperHeadingMobile}>
+                    <span>Порода</span>
+                    <span>Возраст</span>
+                    <span>Высота</span>
+                    <span>Дата добавления</span>
+                </div>
+                <div className={styles.treeTableItemWrapperMobile}>
+                    <span className={styles.treeTableItemMobile}>{species?.title}</span>
+                    <span className={styles.treeTableItemMobile}>{age}</span>
+                    <span className={styles.treeTableItemMobile}>{treeHeight}</span>
+                    <span className={styles.treeTableItemMobile}>
+                        {formatDate(created ?? Date.now())}
+                    </span>
+                </div>
+            </NavLink>
+        )
+    }
+
+
     renderTrees() {
         const { trees, currentPage } = this.state;
         const items = trees.slice(currentPage * treeCountPerPage, (currentPage + 1) * treeCountPerPage);
@@ -86,6 +111,17 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
         return (
             <div className={styles.treeTableBody}>
                 {items.map(this.getTree)}
+            </div>
+        );
+    }
+
+    renderTreesMobile() {
+        const { trees, currentPage } = this.state;
+        const items = trees.slice(currentPage * treeCountPerPage, (currentPage + 1) * treeCountPerPage);
+
+        return (
+            <div className={styles.treeTableBodyMobile}>
+                {items.map(this.getTreeMobile)}
             </div>
         );
     }
@@ -147,6 +183,15 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
         )
     }
 
+    renderTableMobile() {
+        return (
+            <div className={styles.treeTableMobile}>
+                {this.renderTreesMobile()}
+            </div>
+        )
+    }
+
+
     renderHeader() {
         return (
             <header className={styles.treeListHeader}>
@@ -166,6 +211,7 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
         return (
             <>
                 {this.renderTable()}
+                {this.renderTableMobile()}
                 <div className={styles.treeNavigation}>
                     <div role="group" aria-label="Basic example">
                         {this.renderButtonsByNumbers()}

@@ -1,9 +1,60 @@
+.tableImgMobile {
+    height: 88px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.treeTableRowMobile {
+    display: flex;
+    border: 1px solid black;
+    padding: 0 9px;
+    background: rgba(212, 229, 215, 0.5);
+}
+
+.treeTableRowMobile:hover {
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 0 15px -5px rgb(34 60 80 / 57%);
+}
+
+.treeTableMobile {
+    display: none;
+    margin: 0 33px;
+}
+
+.treeTableItemWrapperHeadingMobile,
+.treeTableItemWrapperMobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 13px;
+}
+
+.treeTableItemWrapperHeadingMobile {
+    color: rgba(2, 57, 11, 1);
+
+    flex-grow: 1;
+    margin-left: 16px;
+}
+
+.treeTableItemWrapperMobile {
+    color: rgba(151, 159, 160, 1);
+    ;
+}
+
+
+
+
+
+
+
+
 a:hover {
     text-decoration: none;
 }
 
 .treeListHeader {
-    margin: 25px 0 85px 0;
+    margin: 25px 0 60px 0;
     display: flex;
     align-items: center;
     font-size: 35px;
@@ -199,4 +250,18 @@ a:hover {
 
 .faPencil:hover {
     color: #181818;
+}
+
+@media screen and (max-width: 600px) {
+    .treeTableMobile {
+        display: block
+    }
+
+    .treeTable {
+        display: none;
+    }
+
+    .treeListHeader {
+        font-size: 23px;
+    }
 }

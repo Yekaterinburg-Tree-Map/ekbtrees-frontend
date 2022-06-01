@@ -226,8 +226,11 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
 
     // FIXME: What type of events should 2-gis have
     const handleClick = useCallback((event: any) => {
-        // console.log(event.latlng);
-        // console.log(`handleClick: ${mapState}`);
+        console.log(window.location.pathname);
+        if (window.location.pathname !== "/map") {
+            return;
+        }
+
         if (mapState === MapState.addTreeSelected) {
             return;
         }
@@ -357,6 +360,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
     }
 
     const renderButtons = () => user &&
+        window.location.pathname === "/map" &&
         <MapButtonContainer>
             {(mapState != MapState.default) && (
                 <MapButtonGeneral state={mapState} changeState={HandleAddTreeCancel}
@@ -440,7 +444,10 @@ function setUpTreeCircles(state: number, data: IMapDataSeparateTrees | IMapDataC
 
 
 const handleLayerClick = (trees: { data: IJsonMapTree[] }, threshold: number, handleTreeClick: any) => (event: any) => {
-    // console.log(event);
+    if (window.location.pathname !== "/map") {
+        return;
+    }
+
     let nearsetTree: IJsonMapTree | null = null;
     let minDist: number = 1e9;
     trees.data.forEach(item => {

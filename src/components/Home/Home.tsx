@@ -55,8 +55,9 @@ export default class Home extends Component<IHomeProps> {
         <img src={voluntary} className={styles.voluntaryImage} />
         <div className={styles.voluntaryWrapper}>
           <p className={styles.voluntaryQuestion} >Как&nbsp;стать волонтером?</p>
-          <p className={styles.voluntaryText}>Присоединяйтесь к нам как волонтера с сегодняшнего дня Aliquam dapibus sapien molestie, dictum turpis quis, euismod felis. Duis hendrerit lacus eu quam pharetra, a hendrerit massa sodales. Curabitur lacinia leo nisl, sit amet suscipit turpis mollis in.</p>
-          <p className={styles.voluntaryText}> Pellentesque nulla arcu, fermentum ultrices ipsum at, suscipit fermentum mauris. Suspendisse potenti. Aenean vel sagittis velit. Ut et facilisis tellus, eu ornare leo..</p>
+          <p className={styles.voluntaryText}>Мы - группа неравнодушных горожан Екатеринбурга. Уже более трех лет мы добиваемся соблюдения права жителей на зеленый город.
+Нас много и мы разные, в нашей команде есть архитекторы, экологи, it-специалисты, градостроители, дендрологи и многие другие. Нас объединяет любовь к родному городу и желание сделать его лучше.
+Наша команда уже реализовала множество проектов: мы провели День Исети, благотворительный концерт #СКВЕРУБЫТЬ, Ночь городских сообществ и много чего еще, подробнее вы можете ознакомится в нашей группе ВКонтакте</p>
         </div>
       </section>
     )
