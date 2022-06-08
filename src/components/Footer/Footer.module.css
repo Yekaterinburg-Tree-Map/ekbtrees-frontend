@@ -1,7 +1,7 @@
 .footerWrapper {
     display: flex;
     justify-content: flex-end;
-    background-color: var(--first-color);
+    background-color: var(--footer);
     color: white;
     font-family: "Poppins", sans-serif;
 }

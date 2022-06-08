@@ -20,6 +20,7 @@
 .treeTableMobile {
     display: none;
     margin: 0 33px;
+    font-family: "Poppins", sans-serif;
 }
 
 .treeTableItemWrapperHeadingMobile,
@@ -54,7 +55,8 @@ a:hover {
 }
 
 .treeListHeader {
-    margin: 25px 0 60px 0;
+    margin-bottom: 60px;
+    padding-top: 25px;
     display: flex;
     align-items: center;
     font-size: 35px;

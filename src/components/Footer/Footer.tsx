@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './Footer.module.css';
 import telegramIcon from '../../img/telegram.png';
 import vkIcon from '../../img/vk.png'
+import websiteIcon from '../../img/website.png'
 import { IFooterProps, IFooterState } from './types';
 
 export default class Footer extends Component<IFooterProps, IFooterState> {
@@ -14,14 +15,15 @@ export default class Footer extends Component<IFooterProps, IFooterState> {
                     <span>Copyrights EkbTrees</span>
                     <span className={styles.copyright}>All rights reserved.</span>
                     <div className={styles.images}>
-                        <a href="https://parklandekb.ru"><img className={styles.image} src={telegramIcon} alt={"website"} /></a>
+                        <a href="https://t.me/parklandekb"><img className={styles.image} src={telegramIcon} alt={"telegram"} /></a>
                         <a href="https://vk.com/parklandekb"><img className={styles.image} src={vkIcon} alt={"vk"} /></a>
+                        <a href="https://parklandekb.ru"><img className={styles.image} src={websiteIcon} alt={"website"} /></a>
                     </div>
 
                 </div>
                 <div className={styles.column}>
                     <span className={styles.nameColumn}>Компания</span>
-                    <NavLink className={styles.link} exact to='/aboutUs' activeClassName="active">О нас</NavLink>
+                    {/* <NavLink className={styles.link} exact to='/aboutUs' activeClassName="active">О нас</NavLink> */}
                     <NavLink className={styles.link} exact to='/aboutUs' activeClassName="active">Что мы делаем&nbsp;?</NavLink>
                 </div>
                 <div className={styles.column}>
@@ -30,7 +32,7 @@ export default class Footer extends Component<IFooterProps, IFooterState> {
                 </div>
                 <div className={styles.column}>
                     <span className={styles.nameColumn}>Общие вопросы</span>
-                    <a href="mailto:mail@example@example.com" className={styles.email}>Email: example@example.com</a>
+                    <a href="mailto:parklandekb@gmail.com" className={styles.email}>parklandekb@gmail.com</a>
                 </div>
             </footer >
         )

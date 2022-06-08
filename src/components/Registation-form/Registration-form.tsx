@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Registration-form.module.css';
 import FormHeader from '../AuthForm';
-import vkIcon from '../../img/vk.png';
+import vkIcon from '../../img/vkSignUp.png';
+import googleIcon from '../../img/googleSignUp.png';
 import { IRegistrationFormInput, IRegistrationFormProps, IRegistrationFormState } from "./types";
 
 
@@ -116,7 +117,8 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
                         <p className={styles.loginMessage}>или зарегистрируйтесь с</p>
                         <div className={styles.flexSocial}>
                             <div className={styles.social}>
-                                <NavLink to="/vk"><img src={vkIcon} alt="google-link" /></NavLink>
+                                <NavLink to="/vk"><img src={vkIcon} alt="vk-link" /></NavLink>
+                                <NavLink to="/vk"><img src={googleIcon} alt="google-link" /></NavLink>
                             </div>
                         </div>
                         <p className={styles.privacyTerms}>© 2020 — 2021 Privacy-Terms</p>

@@ -1,3 +1,54 @@
+.switch {
+    position: relative;
+    width: 60px;
+    height: 34px;
+    margin-right: 5px;
+    margin-top: .5rem;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cccccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 28px;
+    width: 28px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider{
+    background: #2196f3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(24px);
+    -ms-transform: translateX(24px);
+    transform: translateX(24px);
+}
+
+
 .logo h1 {
     color: #50802c;
     font-weight: 400;
@@ -16,7 +67,7 @@
 }
 
 .desktopHeader {
-    background-color: var(--first-color);
+    background-color: var(--dark-green-black);
     display: none;
     justify-content: space-between;
     align-items: center;
@@ -62,7 +113,7 @@
 }
 
 .signLinks :last-child {
-    border-radius: 10px;
+    border-radius: 4px;
     background-color: #aec400;
 }
 

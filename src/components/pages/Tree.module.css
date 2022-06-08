@@ -5,7 +5,8 @@
 }
 
 .treeHeader {
-    margin: 25px 0 50px 0;
+    margin-bottom:50px;
+    padding-top: 25px;
     display: flex;
     align-items: center;
     font-size: 35px;
@@ -93,31 +94,8 @@
     width: 100%;
 }
 
-@media screen and (max-width: 769px) {
-    .container {
-        margin: 75px auto;
-    }
-
-    .wrapper {
-        background-color: #fff;
-    }
-
-    .row {
-        display: block;
-    }
-
-    .col:nth-child(1) {
-        min-width: 100%;
-        width: 100%;
-    }
-}
-
-@media screen and (max-width: 551px) {
-    .row {
-        width: 100%;
-    }
-
-    .row:nth-child(2n) {
-        margin-left: 0;
+@media screen and (max-width: 600px) {
+    .treeHeader{
+        font-size: 23px;
     }
 }

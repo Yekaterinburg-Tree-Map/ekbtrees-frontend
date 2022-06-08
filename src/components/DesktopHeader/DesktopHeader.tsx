@@ -26,12 +26,18 @@ export class DesktopHeader extends Component<IDesktopHeaderProps, IDesktopHeader
 	renderContent() {
 		return (
 			<div className={styles.desktopHeader}>
-				<Logo />
+				<div style={{ display: "flex", alignItems:"center"}}>
+					<label className={styles.switch}>
+						<input type="checkbox" onClick={this.props.switchTheme} />
+						<span className={styles.slider} />
+					</label>
+					<Logo />
+				</div>
 				<div className={styles.menu}>
 					<NavLink exact to='/map' activeClassName={styles.activeLink}>Карта</NavLink>
-					<NavLink exact to='/aboutUs' activeClassName={styles.activeLink}>О&nbsp;нас</NavLink>
-					<NavLink exact to='/aboutUs' activeClassName={styles.activeLink}>Инструкции</NavLink>
-					<NavLink exact to='/aboutUs' activeClassName={styles.activeLink}>Контакты</NavLink>
+					{/* <NavLink exact to='/aboutUs' activeClassName={styles.activeLink}>О&nbsp;нас</NavLink> */}
+					<NavLink exact to='/map' activeClassName={styles.activeLink}>Инструкции</NavLink>
+					<NavLink exact to='/map' activeClassName={styles.activeLink}>Контакты</NavLink>
 					{this.renderUserLinks()}
 				</div>
 				{this.renderUserInfo()}

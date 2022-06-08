@@ -175,7 +175,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
             })
             .catch(err => {
                 waitingLoadData.current = false;
-                alert("Возникла ошибка при загрузке деревьев");
+                // alert("Возникла ошибка при загрузке деревьев");
                 console.error(err);
             });
     };
@@ -199,7 +199,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
             })
             .catch(err => {
                 waitingLoadData.current = false;
-                alert("Возникла ошибка при загрузке деревьев");
+                // alert("Возникла ошибка при загрузке деревьев");
                 console.error(err);
             });
     };
@@ -309,7 +309,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
                     setActiveTreeData(jsonData);
                 })
                 .catch(err => {
-                    alert("Возникла ошибка при загрузке информации о дереве");
+                    // alert("Возникла ошибка при загрузке информации о дереве");
                     console.error(err);
                 })
     }, [activeTreeId]);
