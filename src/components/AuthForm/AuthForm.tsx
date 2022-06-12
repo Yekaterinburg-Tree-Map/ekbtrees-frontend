@@ -9,7 +9,7 @@ export default class AuthForm extends Component<IAuthFormProps, IAuthFormState> 
 
         return (
             <div className={styles.welcome}>
-                <h2 className={styles.title}>Привет, Друг!</h2>
+                <h2 className={styles.title}>{window.location.pathname === "/login" ? "С возвращением!" : "Привет, Друг!"}</h2>
                 <div className={styles.links}>
                     <NavLink className={styles.btnLogin} to='/login' activeClassName={styles.active}>Войти</NavLink>
                     <NavLink className={styles.btnSignUp} to='/registration' activeClassName={styles.active}>Зарегистрироваться</NavLink>

@@ -4,12 +4,12 @@
   padding: 0;
 }
 
-body {
-  background-color: #F3F6FA;
-
+body,
+html,
+#root {
+  height: 100%;
 }
 
-html {}
 
 @font-face {
   font-family: "Merriweather";
@@ -33,10 +33,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background-color: var(--background-color);
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -54,6 +50,8 @@ code {
   --white-dark-grey: #FFFFFF;
   --white-light-green: #FFFFFF;
   --footer: #02390B;
+  --login-form: #FFFFFF;
+  --background-color: #FFFFFF;
 }
 
 [data-theme='dark'] {
@@ -68,4 +66,6 @@ code {
   --white-light-green: #AEC400;
   --dark-green-light-green: #AEC400;
   --footer: #232624;
+  --login-form: rgba(0, 0, 0, 0.3);
+  --background-color: #2c2c2c;
 }

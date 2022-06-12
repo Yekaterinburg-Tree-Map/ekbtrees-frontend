@@ -135,7 +135,7 @@ export default class LoginForm extends Component<ILoginFormProps, ILoginFormStat
     renderRegistrationHelp() {
         return (
             <div className={styles.flexRegister}>
-                <p>Нет аккаунта?</p><p className={styles.yellow}> <NavLink to='/registration'>Зарегистрируйтесь сейчас!</NavLink></p>
+                <p>Нет аккаунта?</p><p> <NavLink to='/registration'>Зарегистрируйтесь сейчас!</NavLink></p>
             </div>
         );
     }

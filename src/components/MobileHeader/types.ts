@@ -6,6 +6,7 @@ export interface IMobileHeaderProps {
     user: IUser | null;
     onClick?: React.MouseEventHandler<HTMLElement>;
     onCookieRemove?: React.MouseEventHandler<HTMLElement>;
+    switchTheme?: React.MouseEventHandler<HTMLElement>;
 }
 
 export interface IMobileHeaderState {

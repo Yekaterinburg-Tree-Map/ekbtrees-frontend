@@ -8,7 +8,7 @@
 
 .registrationContainer {
     box-shadow: 0px 0px 15px -5px rgba(34, 60, 80, 0.57);
-    background-color: var(--third-color);
+    background-color: var(--login-form);
 }
 
 .registrationForm input {
@@ -37,7 +37,7 @@
     border: none;
     color: white;
     text-transform: uppercase;
-    background-color: var(--first-color);
+    background-color: var(--dark-green-black);
     cursor: pointer;
 }
 
@@ -47,7 +47,7 @@
 }
 
 .registrationForm .loginMessage {
-    color: var(--grey-black);
+    color: var(--black-white);
     text-align: center;
     margin: 0;
     font-size: 14px;
@@ -97,7 +97,7 @@
 
 .title {
     display: none;
-    color: var(--first-color);
+    color: var(--dark-green-white);
     font-size: 35px;
     text-align: center;
     padding: 30px 0px;
@@ -110,7 +110,7 @@
 .registrationAside {
     display: none;
     flex-basis: 50%;
-    background-color: var(--first-color);
+    background-color: var(--dark-green-black);
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -141,10 +141,10 @@
     text-align: center;
     line-height: 40px;
     text-transform: uppercase;
-    color: var(--white-bright-green);
+    color: var(--white-light-green);
     font-size: 12px;
-    background-color: inherit;
-    border: 1px solid var(--white-bright-green);
+    background-color: var(--dark-green-dark-grey);
+    border: 1px solid var(--white-light-green);
     border-radius: 5px;
     margin: 10px 0px;
 }

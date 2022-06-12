@@ -57,7 +57,7 @@ export class MobileHeader extends Component<IMobileHeaderProps, IMobileHeaderSta
 				<div className={styles.topNav}>
 				<div style={{ display: "flex", alignItems:"center"}}>
 					<label className={styles.switch}>
-						<input type="checkbox" />
+						<input type="checkbox" onClick={this.props.switchTheme}/>
 						<span className={styles.slider} />
 					</label>
 					<Logo />

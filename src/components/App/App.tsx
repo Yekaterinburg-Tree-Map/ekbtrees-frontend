@@ -8,7 +8,7 @@ import { IAppProps, IAppState } from './types';
 import RequestService from "../../helpers/requests";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Footer from '../Footer';
-import './App.css';
+import styles from './App.module.css';
 
 const cookies = new Cookies();
 
@@ -75,11 +75,10 @@ class App extends Component<IAppProps & RouteComponentProps, IAppState> {
 
     render() {
         const { user } = this.state;
-        const theme = this.state.theme === 'light' ? 'background-white' : 'background-gray'
 
         return (
             <>
-                <div className={theme}>
+                <div className={styles.wrapper} data-theme={this.state.theme}>
                     <Header user={user} onCookieRemove={this.removeCookie} switchTheme={this.switchTheme} theme={this.state.theme} />
                     <Main user={user} onCookie={this.handleCookie} theme={this.state.theme} />
                     <Footer theme={this.state.theme} />
