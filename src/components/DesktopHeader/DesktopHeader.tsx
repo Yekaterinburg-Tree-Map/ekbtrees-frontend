@@ -36,8 +36,8 @@ export class DesktopHeader extends Component<IDesktopHeaderProps, IDesktopHeader
 				<div className={styles.menu}>
 					<NavLink exact to='/map' activeClassName={styles.activeLink}>Карта</NavLink>
 					{/* <NavLink exact to='/aboutUs' activeClassName={styles.activeLink}>О&nbsp;нас</NavLink> */}
-					<NavLink exact to='/map' activeClassName={styles.activeLink}>Инструкции</NavLink>
-					<NavLink exact to='/map' activeClassName={styles.activeLink}>Контакты</NavLink>
+					{/* <NavLink exact to='/map' activeClassName={styles.activeLink}>Инструкции</NavLink>
+					<NavLink exact to='/map' activeClassName={styles.activeLink}>Контакты</NavLink> */}
 					{this.renderUserLinks()}
 				</div>
 				{this.renderUserInfo()}

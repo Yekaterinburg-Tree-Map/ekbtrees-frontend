@@ -64,7 +64,7 @@ export class MobileHeader extends Component<IMobileHeaderProps, IMobileHeaderSta
 				</div>
 					<div className={styles.links}>
 						<NavLink exact to='/map' className={styles.mapLink} activeClassName={styles.activeLink}>Карта</NavLink>
-						<NavLink exact to='/aboutUs' className={styles.mapLink} activeClassName={styles.activeLink}>Контакты</NavLink>
+						{/* <NavLink exact to='/aboutUs' className={styles.mapLink} activeClassName={styles.activeLink}>Контакты</NavLink> */}
 					</div>
 					<button className={styles.burgerBtn} onClick={this.handleClick}>
 						<i className="fa fa-bars" />
