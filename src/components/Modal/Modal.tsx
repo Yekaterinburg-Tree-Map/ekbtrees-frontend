@@ -7,7 +7,6 @@ const Modal: React.FC<IModalProps> = (props) => {
         <React.Fragment>
             <div className={`${styles.modalWrap} ${props.show ? styles.visible : ""}`}>
                 <div className={styles.modal}>
-                    <button onClick={props.onClose} className={styles.closeBtn}>&#xD7;</button>
                     {props.children}
                 </div>
             </div>

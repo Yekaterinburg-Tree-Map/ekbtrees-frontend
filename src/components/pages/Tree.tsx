@@ -59,18 +59,18 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 		return {
 			latitude: {
 				title: 'Широта',
-				value: geographicalPoint?.latitude ?? null
+				value: geographicalPoint?.latitude?.toFixed(6) ?? null
 			},
 			longitude: {
 				title: 'Долгота',
-				value: geographicalPoint?.longitude ?? null
+				value: geographicalPoint?.longitude?.toFixed(6) ?? null
 			},
 			age: {
 				title: 'Возраст (в годах)',
 				value: age as number
 			},
 			created: {
-				title: 'Дата и время добавления записи',
+				title: 'Дата добавления записи',
 				value: created ? formatDate(created) : null
 			},
 			conditionAssessment: {
@@ -110,7 +110,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 				value: trunkGirth ?? null
 			},
 			updated: {
-				title: 'Дата и время последнего редактирования',
+				title: 'Дата последнего редактирования',
 				value: updated ? formatDate(updated) : null
 			},
 			id: id ?? 0 // FIXME: is it possible to not know tree id
@@ -268,10 +268,8 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 
 	renderTable() {
 		return (
-			<div className={styles.table}>
-				<div className={styles.tbody}>
-					{this.renderRows()}
-				</div>
+			<div className={styles.tbody}>
+				{this.renderRows()}
 			</div>
 		)
 	}
@@ -282,6 +280,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 		return (
 			<div className={styles.wrapper}>
 				{user ? this.renderEditLink() : null}
+				<h3 className={styles.title}> Файлы </h3>
 				{this.renderTable()}
 			</div>
 		)
