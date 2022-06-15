@@ -94,7 +94,7 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
 
     render() {
         return (
-            <div>
+            <>
                 <FormHeader />
                 <section className={styles.registrationContainer} onTouchStart={this.handleTouch}
                     onTouchEnd={this.handleTouchEnd}>
@@ -130,7 +130,7 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
                             activeClassName="active">Авторизоваться</NavLink>
                     </aside>
                 </section>
-            </div>
+            </>
         );
     }
 }
