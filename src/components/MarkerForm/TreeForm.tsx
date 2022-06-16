@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import cn from "classnames";
 import { NavLink } from "react-router-dom";
 import { ITreeFormProps } from "./types";
-import treeImage from '../../img/tree.png';
+import treeImage from '../../img/defaultTree.png';
 import { getFilesByTree } from "../EditTreeForm/actions";
 import { IFile } from "../../common/types";
 import FileUpload from "../FileUpload";
@@ -13,14 +13,19 @@ export const TreeForm = ({ activeTree, onClose }: ITreeFormProps) => {
     const [loading, setLoading] = useState<Boolean>(true);
 
     useEffect(() => {
+        const myImage: HTMLImageElement | null = document.querySelector(".imageTreeBlock");
         getFilesByTree(activeTree.fileIds ?? [])
             .then(async files => {
                 const file = files.filter((file: IFile) => file.mimeType.startsWith("image"))[0];
-                await fetch(file.uri)
+                if(!file?.uri){
+                    myImage!.src = treeImage;
+                    setLoading(false);
+                    return;
+                }
+                fetch(file.uri)
                     .then(response => response.blob())
                     .then(imageBlob => {
                         const urlImage: string = URL.createObjectURL(imageBlob);
-                        const myImage: HTMLImageElement | null = document.querySelector(".imageTreeBlock");
                         myImage!.src = urlImage;
                     });
                 setLoading(false);
@@ -30,7 +35,7 @@ export const TreeForm = ({ activeTree, onClose }: ITreeFormProps) => {
     return (
         <figure className={styles.block}>
             <div className={styles.leftBlock}>
-                 <button className={styles.close} onClick={onClose}><i className="fa fa-times" /></button>
+                <button className={styles.close} onClick={onClose}><i className="fa fa-times" /></button>
                 <div className={styles.row}>
                     <span className={styles.rowName}>ID</span>
                     <span className={styles.rowValue}>{activeTree?.id}</span>

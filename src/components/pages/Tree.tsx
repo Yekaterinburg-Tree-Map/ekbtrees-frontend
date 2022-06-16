@@ -346,7 +346,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 
 		return (
 			<React.Fragment>
-				<Modal show={this.state.modalShow} onClose={this.closeModal}>
+				<Modal show={this.state.modalShow} onClose={this.closeModal} modalHeadingMessage={"Подтвердите"} danger={true}>
 					{this.renderModalContent()}
 				</Modal>
 				<header className={styles.treeHeader}>

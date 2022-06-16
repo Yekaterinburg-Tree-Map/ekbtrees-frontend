@@ -210,10 +210,10 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                 if (lat && lng) {
                     this.props.setMapViewPosition({lat, lng}); // set map position on success
                 }
-                this.setState({modalShow: true, modalMessage: 'Дерево успешно добавлено!', successfullyAdded: true});
+                this.setState({modalShow: true, modalMessage: 'Дерево успешно добавлено!', successfullyAdded: true, modalHeadingMessage:'Успех!'});
             })
             .catch(error => {
-                this.setState({modalShow: true, modalMessage: 'Ошибка при добавлении дерева'});
+                this.setState({modalShow: true, modalMessage: 'Ошибка при добавлении дерева', modalHeadingMessage:'Ошибка!'});
                 console.error('Ошибка при добавлении дерева', error);
             });
     }
@@ -492,10 +492,12 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
 
 
     render() {
+        const {successfullyAdded, modalHeadingMessage} = this.state;
         return (
             <React.Fragment>
-                <Modal show={this.state.modalShow} onClose={this.handleModalClose}>
+                <Modal show={this.state.modalShow} danger={!successfullyAdded} onClose={this.handleModalClose} modalHeadingMessage={modalHeadingMessage}>
                     <p>{this.state.modalMessage}</p>
+                    <button onClick={this.handleModalClose}>{successfullyAdded ? "ОК" : "Попробовать снова"}</button>
                 </Modal>
                 <div className={styles.formContainer}>
                     <div className={styles.form}>

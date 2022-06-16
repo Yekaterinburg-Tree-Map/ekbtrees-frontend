@@ -1,4 +1,3 @@
-
 .modalWrap {
     position: fixed;
     display: flex;
@@ -9,7 +8,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 100;
+    z-index: 10000;
     overflow-x: hidden;
     background-color: rgba(30, 43, 30, .75);
     pointer-events: none;
@@ -28,18 +27,18 @@
     position: relative;
     display: block;
     width: 50%;
+    height: 500px;
+    width: 1000px;
     min-height: 150px;
     min-width: 300px;
     margin: 20px auto;
     border-radius: 10px;
-    padding: 20px 3rem 20px 20px;
+    padding: 0;
     background-color: #fff;
     align-self: center;
-    box-shadow: 0 12px 25px 0 rgba(130, 220, 49, 0.25);
     opacity: 0;
     transition: opacity 125ms 125ms ease, transform 150ms 125ms ease;
     transform: scale(0);
-
     font-size: 1.2em;
 }
 
@@ -49,58 +48,54 @@
     transition: opacity 125ms 250ms ease, transform 175ms 250ms ease;
 }
 
-.closeBtn {
-    width: 2.5rem;
-    height: 2.5rem;
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0.75rem;
-    border-radius: 50%;
-    color: #4F802C;
-    border-color: #4F802C;
-    background-color: transparent;
-    opacity: 0.5;
-    display: block;
-    padding: 0;
-    font-size: 3em;
-    line-height: 0;
+.heading,
+.modalContent {
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.closeBtn:hover {
-    opacity: 1;
+.heading {
+    justify-content: flex-end;
+}
+
+.modalContent {
+    justify-content: space-evenly;
+}
+
+.modalContent button {
+    border-radius: 6px;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    font-size: 40px;
+    font-weight: 700;
+    min-width: 275px;
+}
+
+.modalContent p {
+    font-size: 35px;
+    color: rgba(2, 57, 11, 0.46);
+    font-weight: 600;
+}
+
+.modalHeadingMessage {
+    font-size: 60px;
+    color: white;
 }
 
 .buttonContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-}
-
-.buttonContainer > button {
-    min-width: 100px;
-    /*background-color: transparent;*/
-    border-radius: 10px;
-    padding: 0.25em;
-    margin: 0.25em;
-}
-
-.buttonContainer > button:hover {
-    box-shadow: inset 1px 0 10px #fff;
+    width: 100%;
 }
 
 .success {
-    background-color: #87c25b;
+    background-color: #02390B;
 }
-
-/*.success:hover {*/
-/*    box-shadow: inset 0 0 10px #6bc22a;*/
-/*}*/
 
 .danger {
-    background-color: #fc8181;
+    background-color: #F14336;
 }
-
-/*.danger:hover {*/
-/*    box-shadow: inset 0 0 10px #ff3131;*/
-/*}*/

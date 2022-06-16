@@ -8,15 +8,15 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
     renderLinks() {
         const { user } = this.props;
         const availWidth = window.screen.availWidth;
-        let links: IMenuLink[] = availWidth > 480 ? [
-            // {
-            //     activeClassName: styles.active,
-            //     exact: true,
-            //     onClick: this.props.onClick,
-            //     title: 'Инструкции',
-            //     to: '/aboutUs',
-            //     className: styles.visibleMenuLink,
-            // }
+        let links: IMenuLink[] = availWidth <= 580 ? [
+            {
+                activeClassName: styles.active,
+                exact: true,
+                onClick: this.props.onClick,
+                title: 'Карта',
+                to: '/map',
+                className: styles.visibleMenuLink,
+            }
         ] : [];
 
 

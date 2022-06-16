@@ -82,7 +82,7 @@ a:hover {
 
 .activeNavigationButton {
     color: black;
-    border-bottom: 2px solid #FB8F07;
+    border-bottom: 2px solid #AEC400;
 }
 
 .treeTableHeader {
@@ -103,6 +103,11 @@ a:hover {
     max-width: 300px;
     background: rgba(212, 229, 215, 0.5);
     box-shadow: 0 0 10px -5px rgb(34 60 80 / 57%);
+}
+
+.treeTableItemWrapper:hover {
+    transform: scale(1.01);
+    transition: 1s;
 }
 
 .treeTableItem {

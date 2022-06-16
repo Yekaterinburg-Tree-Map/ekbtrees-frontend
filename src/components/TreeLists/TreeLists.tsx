@@ -11,7 +11,6 @@ import {
     ITreeListsState,
     ITreeListsStateLocale
 } from "./types";
-// import defaultTreeImage from './default_treelists_tree_img.png';
 import defaultTreeImage from '../../common/images/default_treelists_tree_img.png';
 
 

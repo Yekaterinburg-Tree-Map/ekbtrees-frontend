@@ -20,6 +20,7 @@ export interface IAddNewTreeFormState {
     uploadingImages?: boolean;
     modalShow: boolean;
     modalMessage?: string;
+    modalHeadingMessage?: string;
     successfullyAdded?: boolean;
     errors: {[key: string]: string}
 }
