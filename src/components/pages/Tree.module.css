@@ -5,7 +5,7 @@
 }
 
 .treeHeader {
-    margin-bottom:50px;
+    margin-bottom: 50px;
     padding-top: 25px;
     display: flex;
     align-items: center;
@@ -56,6 +56,11 @@
     background-color: #c40000;
 }
 
+.editLink:hover,
+.removeLink:hover {
+    color: black;
+}
+
 .table {
     margin: 0 20px;
     width: 100%;
@@ -94,7 +99,7 @@
 }
 
 @media screen and (max-width: 600px) {
-    .treeHeader{
+    .treeHeader {
         font-size: 23px;
     }
 }

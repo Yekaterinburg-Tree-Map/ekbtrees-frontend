@@ -41,7 +41,7 @@
 .link:hover,
 .link:focus,
 .link:active {
-    color: blue !important;
+    color: white !important;
 }
 
 .wrapper {
