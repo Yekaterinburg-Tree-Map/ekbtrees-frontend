@@ -64,11 +64,6 @@
     color: black;
 }
 
-.table {
-    margin: 0 20px;
-    width: 100%;
-}
-
 .tbody {
     display: flex;
     flex-wrap: wrap;
@@ -95,4 +90,20 @@
     .treeHeader {
         font-size: 23px;
     }
+}
+
+@media screen and (max-width: 1024px) {
+    .tbody {
+        flex-direction: column;
+        margin: 0px 10px;
+    }
+
+    .row {
+        width: 100%;
+    }
+
+    .title{
+        margin-left: 10px;
+    }
+
 }
