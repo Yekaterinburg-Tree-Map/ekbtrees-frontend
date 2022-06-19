@@ -16,7 +16,7 @@ import Tree from "../pages/Tree";
 import UserList from '../UserList';
 import {IMainProps, IMainState} from "./types";
 import {IMapPosition} from "../../common/types";
-// import SaveTrees from '../SaveTrees';
+import SaveTrees from '../SaveTrees';
 
 export const setMapViewPositionContext = React.createContext<((viewPos: IMapPosition | undefined) => void)>(() => {});
 export const mapViewPositionContext = React.createContext<IMapPosition | undefined>(undefined);
@@ -96,7 +96,7 @@ export default class Main extends Component<IMainProps, IMainState> {
                           <Route exact path='/trees/tree=:id' render={(props) => <Tree {...props} setMapViewPosition={this.setMapViewPosition} user={user}/>}/>
                           <Route exact path='/passRecovery' component={PassRecovery}/>
                           {/* <Route exact path='/aboutUs' component={AboutUs}/> */}
-                          {/* <Route exact path='/saveTrees' component={SaveTrees}/> */}
+                          <Route exact path='/saveTrees' component={SaveTrees}/>
                           <Route path='/vk' component={this.vkAuth2}/>
                           <Route exact path='/image/:id' component={ImageView}/>
                           {this.renderRoutes()}

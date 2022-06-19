@@ -41,7 +41,7 @@ export default class Home extends Component<IHomeProps> {
           <span className={styles.startTitle}>Ежегодно Екатеринбург теряет сотни взрослых деревьев. Пора&nbsp;действовать!</span><br />
           <div className={styles.startTextWrapper}>
             <span className={styles.startText}>Городские деревья часто страдают при строительстве...</span>
-            <a href="/aboutUs" className={styles.startLink}>читать дальше</a>
+            <a href="/saveTrees" className={styles.startLink}>читать дальше</a>
           </div>
         </article>
       </section>

@@ -24,11 +24,11 @@ export default class Footer extends Component<IFooterProps, IFooterState> {
                 <div className={styles.column}>
                     <span className={styles.nameColumn}>Компания</span>
                     {/* <NavLink className={styles.link} exact to='/aboutUs' activeClassName="active">О нас</NavLink> */}
-                    <NavLink className={styles.link} exact to='/aboutUs' activeClassName="active">Что мы делаем&nbsp;?</NavLink>
+                    <NavLink className={styles.link} exact to='/saveTrees' activeClassName="active">Что мы делаем&nbsp;?</NavLink>
                 </div>
                 <div className={styles.column}>
                     <span className={styles.nameColumn}>Помощь</span>
-                    <NavLink className={styles.link} exact to='/aboutUs' activeClassName="active">Политика конфиденциальности</NavLink>
+                    <NavLink className={styles.link} exact to='/saveTrees' activeClassName="active">Политика конфиденциальности</NavLink>
                 </div>
                 <div className={styles.column}>
                     <span className={styles.nameColumn}>Общие вопросы</span>
