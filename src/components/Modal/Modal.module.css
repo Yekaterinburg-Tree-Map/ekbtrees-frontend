@@ -99,3 +99,24 @@
 .danger {
     background-color: #F14336;
 }
+
+@media screen and (max-width:1024px) {
+    .modal {
+        width: 80%;
+    }
+
+    .modalHeadingMessage {
+        font-size: 35px;
+    }
+    .modalContent p{
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .modalContent button {
+        padding: 5px 15px;
+        color: white;
+        font-size: 30px;
+        min-width: auto;
+    }
+}

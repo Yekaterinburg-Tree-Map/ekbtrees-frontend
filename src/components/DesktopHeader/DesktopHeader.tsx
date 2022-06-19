@@ -27,10 +27,10 @@ export class DesktopHeader extends Component<IDesktopHeaderProps, IDesktopHeader
 		return (
 			<div className={styles.desktopHeader}>
 				<div style={{ display: "flex", alignItems:"center"}}>
-					<label className={styles.switch}>
+					{/* <label className={styles.switch}>
 						<input type="checkbox" onClick={this.props.switchTheme} />
 						<span className={styles.slider} />
-					</label>
+					</label> */}
 					<Logo />
 				</div>
 				<div className={styles.menu}>

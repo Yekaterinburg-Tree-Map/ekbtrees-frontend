@@ -280,7 +280,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 		return (
 			<div className={styles.wrapper}>
 				{user ? this.renderEditLink() : null}
-				<h3 className={styles.title}> Файлы </h3>
+				<h3 className={styles.title}>Основная информация</h3>
 				{this.renderTable()}
 			</div>
 		)
@@ -296,7 +296,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 		if (files.length) {
 			return (
 				<>
-					<h3 className={styles.title}> Файлы </h3>
+					<h3 className={styles.title}>Файлы</h3>
 					<FileUpload mode="read" files={files} />
 				</>
 			)

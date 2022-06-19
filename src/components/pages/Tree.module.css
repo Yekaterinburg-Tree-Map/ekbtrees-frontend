@@ -93,6 +93,10 @@
 }
 
 @media screen and (max-width: 1024px) {
+    .editLinkWrapper {
+        padding: 15px 5px;
+    }
+
     .tbody {
         flex-direction: column;
         margin: 0px 10px;
@@ -102,7 +106,7 @@
         width: 100%;
     }
 
-    .title{
+    .title {
         margin-left: 10px;
     }
 

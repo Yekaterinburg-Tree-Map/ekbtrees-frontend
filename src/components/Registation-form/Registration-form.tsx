@@ -118,7 +118,7 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
                         <div className={styles.flexSocial}>
                             <div className={styles.social}>
                                 <NavLink to="/vk"><img src={vkIcon} alt="vk-link" /></NavLink>
-                                <NavLink to="/vk"><img src={googleIcon} alt="google-link" /></NavLink>
+                                {/* <NavLink to="/vk"><img src={googleIcon} alt="google-link" /></NavLink> */}
                             </div>
                         </div>
                         <p className={styles.privacyTerms}>© 2020 — 2021 Privacy-Terms</p>
