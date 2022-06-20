@@ -350,7 +350,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 				</Modal>
 				<header className={styles.treeHeader}>
 					<div className={styles.treeHeaderSplit}> </div>
-					<div>&mdash;&mdash; Карточка дерева</div>
+					<div>&mdash; Карточка дерева</div>
 				</header>
 				<div className={styles.container}>
 					{this.renderDetails()}

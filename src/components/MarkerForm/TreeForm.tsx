@@ -1,6 +1,8 @@
 import styles from "./TreeForm.module.css";
 import React, { useState, useEffect } from "react";
 import cn from "classnames";
+import { MapState } from "../Map/MapState";
+
 import { NavLink } from "react-router-dom";
 import { ITreeFormProps } from "./types";
 import treeImage from '../../img/defaultTree.png';
@@ -9,20 +11,21 @@ import { IFile } from "../../common/types";
 import FileUpload from "../FileUpload";
 import Spinner from "../Spinner";
 
-export const TreeForm = ({ activeTree, onClose }: ITreeFormProps) => {
+export const TreeForm = ({ activeTree, onClose, changeState }: ITreeFormProps) => {
     const [loading, setLoading] = useState<Boolean>(true);
-
+    
     useEffect(() => {
+        changeState(MapState.disabled);
         const myImage: HTMLImageElement | null = document.querySelector(".imageTreeBlock");
         getFilesByTree(activeTree.fileIds ?? [])
             .then(async files => {
                 const file = files.filter((file: IFile) => file.mimeType.startsWith("image"))[0];
-                if(!file?.uri){
+                if (!file?.uri) {
                     myImage!.src = treeImage;
                     setLoading(false);
                     return;
                 }
-                fetch(file.uri)
+                await fetch(file.uri)
                     .then(response => response.blob())
                     .then(imageBlob => {
                         const urlImage: string = URL.createObjectURL(imageBlob);

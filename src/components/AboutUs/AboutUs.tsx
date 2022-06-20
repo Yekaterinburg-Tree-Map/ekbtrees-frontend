@@ -9,7 +9,7 @@ export default class AboutUs extends Component<IAboutUsProps, IAboutUsState> {
     return (
       <header className="header">
         <div className="header__split"> </div>
-        <div>&mdash;&mdash; О нас</div>
+        <div>&mdash; О нас</div>
       </header>
     )
   }

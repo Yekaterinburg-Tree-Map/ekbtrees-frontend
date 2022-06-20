@@ -9,7 +9,7 @@ export default class SaveTrees extends Component<ISaveTreesProps, ISaveTreesStat
     return (
       <header className="header">
         <div className="header__split"> </div>
-        <div>&mdash;&mdash; Защитим деревья вместе</div>
+        <div>&mdash; Защитим деревья вместе</div>
       </header>
     )
   }

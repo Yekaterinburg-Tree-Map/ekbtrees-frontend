@@ -18,7 +18,7 @@ export default class Home extends Component<IHomeProps> {
           {setMapViewPosition => (
             <mapViewPositionContext.Consumer>
               {mapViewPosition => (
-                <MapContain user={this.props.user} mapViewPosition={mapViewPosition} setMapViewPosition={setMapViewPosition} />
+                <MapContain disabled={true} user={this.props.user} mapViewPosition={mapViewPosition} setMapViewPosition={setMapViewPosition} />
               )}
             </mapViewPositionContext.Consumer>
           )}
@@ -66,7 +66,7 @@ export default class Home extends Component<IHomeProps> {
   renderWhatWeDoSection() {
     return (
       <article className={styles.weDoBlock}>
-        <header className={styles.weDoHeader}>&mdash;&mdash;  Что мы делаем ?</header>
+        <header className={styles.weDoHeader}>&mdash;  Что мы делаем ?</header>
         <div className={styles.weDoInner}>
           <p className={styles.weDoContent}>Мы заботимся о деревьях в нашем городе. Городские деревья часто страдают при строительстве. Карта деревьев Екатеринбурга - это инструмент для регистрации городских деревьев...</p>
           <img className={styles.weDoImage} src={tree} />

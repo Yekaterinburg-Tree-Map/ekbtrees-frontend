@@ -68,6 +68,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
     const userCircleColor: string = "#35C1DE";
 
     const startWatchUserGeolocation = () => {
+        if(window.location.pathname !== "/map") return;
         watchPositionId.current = navigator.geolocation.watchPosition(updateUserGeolocation, () => {
         }, { enableHighAccuracy: true });
         geometryLayer.addTo(map);
@@ -88,7 +89,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
                 .addTo(geometryLayer);
             userCircleMarkerRef.current = new DG.circleMarker([latitude, longitude],
                 { color: '#ffffff', fillColor: userCircleColor, fill: true, fillOpacity: 1 })
-                .bindPopup("You are Here").openPopup()
+                .bindPopup("Вы здесь").openPopup()
                 .addTo(geometryLayer);
             // console.log(`GeojsonLayer: setMapViewOnUser: `);
             // console.log(setMapViewOnUser);
@@ -227,6 +228,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
     // FIXME: What type of events should 2-gis have
     const handleClick = useCallback((event: any) => {
         if (window.location.pathname !== "/map") {
+            window.location.href = "/map";
             return;
         }
 
@@ -262,6 +264,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
     };
 
     const handleClickTreeFormWrapper = () => {
+        return;
         setActiveTreeId(null);
         waitingLoadData.current = false;
     }
@@ -270,9 +273,14 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
         // console.log("handle close");
         setActiveTreeData(null);
         waitingLoadData.current = false;
+        setMapState(MapState.default)
     }
 
     const handleZoomEndMoveEnd = useCallback(() => {
+        // if (window.location.pathname !== "/map") {
+        //     // window.location.href = "/map"
+        //     return;
+        // }
         if (waitingLoadData.current) return;
         clearLayer(treesLayer);
         map && loadData();
@@ -375,7 +383,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
     return (
         <>
             <div className={stylesCN} onClick={handleClickTreeFormWrapper}>
-                {activeTreeData && <TreeForm activeTree={activeTreeData} onClose={handleClose} />}
+                {activeTreeData && <TreeForm activeTree={activeTreeData} onClose={handleClose} changeState={setMapState} />}
             </div>
             {!activeTreeData && renderButtons()}
         </>
@@ -406,7 +414,13 @@ function setUpTreeCircles(state: number, data: IMapDataSeparateTrees | IMapDataC
                 iconSize: [40, 40]
             });
             DG.marker([latitude, longitude], { icon: markerIcon })
-                .on("click", () => map.setView([latitude, longitude], 30 * 2)).addTo(layer);
+                .on("click", () => {
+                    if (window.location.pathname !== "/map") {
+                        window.location.href = "/map";
+                        return;
+                    }
+                    map.setView([latitude, longitude], 30 * 2)
+                }).addTo(layer);
         });
     } else {
         data.json.forEach(item => {
@@ -500,7 +514,6 @@ function getMarkerClusterGroup(state: number, data: IMapDataSeparateTrees | IMap
         return (
             <MarkerClusterGroup disableClusteringAtZoom={19}>
                 {data.json
-
                     .map((f: any, idx: number) => (
                         <ClusterMarker
                             key={idx}

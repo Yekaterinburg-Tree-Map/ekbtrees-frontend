@@ -29,6 +29,7 @@
 }
 
 .link {
+    pointer-events: all;
     padding: 10px 0;
     background-color: black;
     color: #06C167 !important;
@@ -73,6 +74,7 @@
 }
 
 .close {
+    pointer-events: all;
     color: white;
     position: absolute;
     top: 0;
@@ -91,6 +93,7 @@
 .block {
     display: flex;
     background-color: #02390B;
+    border: 1px solid #AEC400;
     color: white;
     border-radius: 10px;
     padding: 15px 0 20px 20px;
@@ -201,6 +204,7 @@
         flex-direction: column;
         padding: 25px;
         z-index: 9999;
+        top: 25px;
     }
 
     .hr {
