@@ -1,81 +1,102 @@
 .footerWrapper {
-    display: none;
-    flex-shrink: 0;
-    margin-top: 40px;
-}
-
-.footerMenu {
     display: flex;
-    align-items: center;
-    width: 80%;
-    justify-content: space-between;
-    margin: 0 auto;
+    justify-content: flex-end;
+    background-color: var(--footer);
+    color: white;
+    font-family: "Poppins", sans-serif;
 }
 
-.footerMenu a {
-    letter-spacing: 0.05vw;
-    font-weight: bold;
-    color: rgb(0, 92, 92);
-    margin: 0px 10px;
-    font-size: 12px;
-    text-align: center;
+.info {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 50px;
+    margin-right: auto;
 }
 
-.logo .smallHeader {
-    font-family: "Merriweather", serif;
+.slogan {
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.slogan span {
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 10px;
+}
+
+.slogan :last-child {
+    color: #aec400;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 50px;
+}
+
+.link {
+    color: #d9dbe1
+}
+
+.link:hover {
+    color: #1d53aa;
+}
+
+.nameColumn {
+    margin-bottom: 5px;
     font-size: 20px;
-    display: block;
-    text-align: center;
+    font-weight: 500;
+    color: white;
 }
 
-.logo .bigHeader {
-    font-family: "Merriweather", serif;
-    font-size: 40px;
-    line-height: 30px;
+.images {
+    margin: 20px 0 0 0;
 }
 
-.line {
-    background-color: #ADBEA5;
-    height: 1px;
-    width: 75%;
-    margin: 0 auto;
+.image {
+    width: 40px;
 }
 
-.footerWrapper .social {
-    display: flex;
-    width: 25%;
-    margin: 30px auto;
-    justify-content: space-between;
+.email {
+    color: #d9dbe1;
 }
 
-.footerWrapper .social img {
-    height: auto;
-    width: 30px;
+.copyright {
+    margin-top: 10px;
 }
 
-.privacyTerms {
-    display: flex;
-    justify-content: center;
-}
+@media screen and (max-width: 1024px) {
+    .column {
+        padding: 30px;
+    }
 
-.underLine{
-    padding: 30px 20%;
-}
-@media screen and (min-width: 768px){
-    .footerWrapper {
-        display: block;
+    .info {
+        padding: 30px;
     }
 }
-@media screen and (min-width: 1024px) {
-    .footerMenu a {
-        font-size: 14px;
-    }
-    /* .underLine{
-        padding: 30px 30%;
-    } */
-}
-@media screen and (min-width: 2000px){
+
+@media screen and (max-width: 830px) {
     .footerWrapper {
-        padding: 0 10%;
+        flex-direction: column;
+    }
+
+    .column {
+        align-items: center;
+        padding: 15px;
+    }
+
+    .email {
+        padding-bottom: 15px;
+    }
+
+    .nameColumn {
+        font-weight: 500px;
+    }
+
+    .info {
+        padding: 30px 0 0 0;
+        align-items: center;
+        margin-right: 0;
     }
 }

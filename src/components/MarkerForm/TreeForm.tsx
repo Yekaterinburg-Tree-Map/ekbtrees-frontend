@@ -1,36 +1,72 @@
 import styles from "./TreeForm.module.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import cn from "classnames";
-import {NavLink} from "react-router-dom";
-import {ITreeFormProps} from "./types";
+import { NavLink } from "react-router-dom";
+import { ITreeFormProps } from "./types";
+import treeImage from '../../img/defaultTree.png';
+import { getFilesByTree } from "../EditTreeForm/actions";
+import { IFile } from "../../common/types";
+import FileUpload from "../FileUpload";
+import Spinner from "../Spinner";
 
+export const TreeForm = ({ activeTree, onClose }: ITreeFormProps) => {
+    const [loading, setLoading] = useState<Boolean>(true);
 
-export const TreeForm = ({activeTree, onClose} : ITreeFormProps) => {
+    useEffect(() => {
+        const myImage: HTMLImageElement | null = document.querySelector(".imageTreeBlock");
+        getFilesByTree(activeTree.fileIds ?? [])
+            .then(async files => {
+                const file = files.filter((file: IFile) => file.mimeType.startsWith("image"))[0];
+                if(!file?.uri){
+                    myImage!.src = treeImage;
+                    setLoading(false);
+                    return;
+                }
+                fetch(file.uri)
+                    .then(response => response.blob())
+                    .then(imageBlob => {
+                        const urlImage: string = URL.createObjectURL(imageBlob);
+                        myImage!.src = urlImage;
+                    });
+                setLoading(false);
+            });
+    }, [])
+
     return (
         <figure className={styles.block}>
-            <div className={styles.closeWrapper}>
-              <button className={styles.close} onClick={onClose}><i className="fa fa-times" /></button>
+            <div className={styles.leftBlock}>
+                <button className={styles.close} onClick={onClose}><i className="fa fa-times" /></button>
+                <div className={styles.row}>
+                    <span className={styles.rowName}>ID</span>
+                    <span className={styles.rowValue}>{activeTree?.id}</span>
+                </div>
+                <hr className={styles.hr} />
+                <div className={styles.row}>
+                    <span className={styles.rowName}>Порода</span>
+                    <span className={styles.rowValue}>{activeTree?.species?.title}</span>
+                </div>
+                <hr className={styles.hr} />
+                <div className={styles.row}>
+                    <span className={styles.rowName}>Высота в метрах</span>
+                    <span className={styles.rowValue}>{activeTree?.treeHeight}</span>
+                </div>
+                <hr className={styles.hr} />
+                <div className={styles.row}>
+                    <span className={styles.rowName}>Визуальная оценка состояния</span>
+                    <span className={styles.rowValue}>{activeTree?.conditionAssessment}</span>
+                </div>
+                <hr className={styles.hr} />
+                <div className={styles.row}>
+                    <span className={styles.rowName}>Обхват самого толстого ствола (см)</span>
+                    <span className={styles.rowValue}>{activeTree?.diameterOfCrown}</span>
+                </div>
+                <hr className={styles.hr} />
             </div>
-            <h3 className={styles.title}> Карточка дерева </h3>
-            <div className={styles.wrapperFlex}>
-                <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                    <span className={styles.blockPrefix}> Порода</span>
-                    <input className={styles.blockValue} type="text" disabled value={activeTree?.species?.title ?? ""}/>
+            <div className={styles.rightBlock}>
+                {loading ? <Spinner /> : null}
+                <div className={styles.wrapper}>
+                    <img className="imageTreeBlock" height="170px" style={{ display: loading ? "none" : "block" }} />
                 </div>
-                <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                    <span className={styles.blockPrefix}>Визуальная  оценка состояния</span>
-                    <input className={styles.blockValue} type="text" disabled value = {activeTree?.conditionAssessment ?? ""}/>
-                </div>
-                <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                    <span className={styles.blockPrefix}> Высота (в метрах)</span>
-                    <input className={styles.blockValue} type="text" disabled value = {activeTree?.treeHeight ?? ""} />
-                </div>
-                <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                    <span className={styles.blockPrefix}>Обхват самого толстого ствола (в сантиметрах)</span>
-                    <input className={styles.blockValue} type="text" disabled value = {activeTree?.trunkGirth ?? ""} />
-                </div>
-            </div>
-            <div className={styles.navigation}>
                 <NavLink to={`trees/tree=${activeTree?.id}`} className={styles.link} >Узнать подробнее</NavLink>
             </div>
         </figure>

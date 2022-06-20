@@ -1,24 +1,92 @@
-.mobileHeader {
-    position: fixed;
+.switch {
+    position: relative;
+    width: 47px;
+    height: 25px;
+    margin-right: 5px;
+    margin-top: 0.5rem;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
     top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cccccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 23px;
+    width: 23px;
+    left: 3px;
+    bottom: 1px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider{
+    background: #2196f3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(18px);
+}
+
+
+
+.mobileHeader {
+    position: relative;
     width: 100%;
     z-index: 1000;
 }
 
+.mapLink {
+    font-size: 18px;
+    letter-spacing: 0.05vw;
+    font-weight: bold;
+    color: #ffff;
+    margin: 0 10px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.links {
+    display: none;
+}
+
 .topNav {
-    background-color: #50802c;
+    height: 110px;
+    background-color: var(--dark-green-black);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 10px;
 }
 
 .burgerBtn {
     background: none;
     border: 0;
-    font-size: 25px;
+    font-size: 40px;
     padding: 15px 20px;
     cursor: pointer;
+}
+
+.burgerBtn {
+    color: #aec400;
 }
 
 .menu {
@@ -39,10 +107,29 @@
 
 .logo {
     color: #ffffff;
+    flex-shrink: 0;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 320px) {
+    .burgerBtn {
+        padding: 0;
+    }
+}
+
+@media screen and (min-width: 1024px) {
     .mobileHeader {
         display: none;
+    }
+}
+
+@media screen and (min-width: 580px) and (max-width: 1024px) {
+    .links {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .burgerBtn {
+        padding: 5px ;
     }
 }

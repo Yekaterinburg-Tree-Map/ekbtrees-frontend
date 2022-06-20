@@ -1,37 +1,121 @@
-.container {
-  margin: 10px;
-}
-
-.slogan {
-  color: #50802c;
-  text-transform: uppercase;
-  font-size: 20px;
-  font-family: "Oswald", sans-serif;
-  font-weight: 600;
-  margin: 5px 0;
-}
-
-.ready {
-  font-family: "Recursive", sans-serif;
-  margin: 5px 0;
-}
-
-.map {
-  width: 100%;
-  position: relative;
-}
-
-.flex {
+.volunteers {
+  background-color: var(--white-dark-grey);
   display: flex;
-  justify-content: space-between;
 }
 
-.log-in,
-.sign-up {
-  width: 49%;
-  height: 50px;
+.startTextWrapper {
+  display: flex;
+}
+
+.wrapper {
+  width: 473px;
+  flex-shrink: 0;
+  position: relative;
+  min-height: 150px;
+}
+
+.startInfo {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--light-grey-black);
+}
+
+.popup {
+  background-color: #02390b;
+  color: white;
+  font-size: 20px;
+  border-radius: 10px;
+  height: 368px;
+  width: 473px;
+  z-index: 2;
+  flex-shrink: 0;
+  position: absolute;
+  bottom: 40px;
+  left: 20px;
+}
+
+.popupText {
+  text-align: justify;
+  display: inline-block;
+  margin: 0 30px 30px 30px;
+}
+
+.popupTitle {
+  text-transform: uppercase;
+  display: block;
+  text-align: center;
+  font-size: 26px;
+  font-weight: 700;
+  margin: 30px auto 10px auto;
+}
+
+.startWrapper {
+  margin-left: 50px;
+  padding-bottom: 10px;
+}
+
+.startTitle,
+.startText,
+.startLink {
+  color: var(--black-white);
+}
+
+.startTitle {
+
+  font-weight: 700;
+  font-size: 40px;
+}
+
+.startText {
+  font-size: 21px;
+  flex-grow: 1;
+}
+
+.startLink {
+  text-decoration: underline;
+  text-underline-position: under;
+  font-size: 21px;
+  margin-right: 15px;
+}
+
+.weDoBlock {
+  background-color: var(--light-grey-black);
+  padding-bottom: 80px;
+}
+
+.weDoHeader {
+  font-size: 35px;
+  font-weight: 700;
+  color: var(--dark-green-light-green);
+  display: inline-block;
+  margin: 30px 0 0 66px;
+  text-transform: uppercase;
+}
+
+.weDoInner {
+  font-size: 30px;
+  margin: 25px 50px 0 50px;
+  background-color: var(--dark-gray-black);
+  color: white;
+  display: flex;
+}
+
+.weDoContent {
+  padding: 50px;
+}
+
+.weDoImage {
+  width: 45%;
+  aspect-ratio: 1.7;
+}
+
+.login,
+.signup {
+  height: 60px;
+  min-width: 200px;
+
   border-radius: 5px;
-  font-family: "Oswald", sans-serif;
+  font-family: sans-serif;
   text-transform: uppercase;
   font-size: 16px;
   cursor: pointer;
@@ -41,297 +125,162 @@
   align-items: center;
 }
 
-.log-in {
-  background-color: white;
-  border: 2px solid #edad08;
-  color: #edad08;
+.login {
+  background-color: var(--button-login);
+  color: white;
   font-weight: 600;
 }
 
-.sign-up {
-  background-color: #50802c;
-  border: none;
-  color: white;
+.signup {
+  margin-left: 15px;
+  background-color: var(--button-signup);
+  border: 1px solid;
+  border-color: var(--button-login);
+  color: var(--button-login);
   font-weight: 300;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.map {
-  height: 100%;
-}
-.mapContainer {
-  height: 100%;
-}
-/* .page {
+.voluntaryWrapper {
+  padding: 75px 0;
   display: flex;
   flex-direction: column;
-  height: auto;
-}
-main {
-  flex: 1 1 0;
-  height: 100%;
-} */
-
-  /* .leaflet-container {
-    height: 100%;
-  } */
-
-.flexSearchMap {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-  margin-bottom: 60px;
-  min-height: 400px;
+  padding-left: 100px;
+  padding-right: 150px;
+  color: var(--black-white-text);
 }
 
-.search {
-  width: 20%;
-}
-
-.desktopMap {
-  width: 70%;
-  display: flex;
-  flex-direction: column;
-}
-
-    .slogan {
-      font-size: 24px;
-    }
-
-.green {
-  background-color: #50802c;
-}
-
-.searchBlock {
-  height: 30px;
-  margin-bottom: 10px;
-}
-
-.mapBlock {
-  height: 10px;
-}
-
-.getStart {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0 20px;
-}
-
-.regular {
-  font-family: "Recursive", sans-serif;
-  margin: 40px 0;
-  font-size: 20px;
-  font-weight: 400;
-}
-
-.regular2 {
-  font-family: "Recursive", sans-serif;
-  margin-top: 40px;
-  font-size: 20px;
-  font-weight: 400;
-}
-
-
-.bold {
-  font-weight: bold;
-  font-size: 26px;
-}
-
-.get-start-left {
-  width: 30%;
-}
-
-.getStartRight {
-  width: 500px;
-  display: flex;
-  justify-content: space-around;
-}
-
-.getStartRight button {
-  margin: 70px 0;
-}
-
-.containerSearch {
-  width: 100%;
-  vertical-align: middle;
-  white-space: nowrap;
-  position: relative;
-}
-
-.inputSearch {
-  font-family: "Recursive", sans-serif;
-  width: 100%;
-  height: 50px;
-  background: white;
-  border: none;
-  font-size: 16px;
-  float: left;
-  color: #63717f;
-  padding-left: 45px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  margin-top: 10px;
-  margin-bottom: 30px;
-}
-
-.icon {
-  position: absolute;
-  top: 10px;
-  margin-left: 17px;
-  margin-top: 17px;
-  z-index: 1;
-  color: #838aa6;
-}
-
-.logInDesktop {
-  background-color: #fa881a;
-  border: 1px solid #fa881a;
-  width: 200px;
-  height: 45px;
-  border-radius: 5px;
-  color: white;
-  font-family: "Oswald", sans-serif;
-  font-weight: 300;
+.voluntaryQuestion {
+  font-size: 35px;
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: var(--dark-green-light-green);
+  margin-bottom: 20px;
 }
 
-.signUpDesktop {
-  background-color: #50802c;
-  border: 1px solid white;
-  width: 200px;
-  height: 45px;
-  border-radius: 5px;
-  color: white;
-  font-family: "Oswald", sans-serif;
-  font-weight: 300;
-  text-transform: uppercase;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.flexContainer,
-.flexContainer2 {
-  display: flex;
-  justify-content: space-around;
-}
-
-.leftPart {
-  width: 45%;
-}
-
-.rightPart {
-  width: 45%;
-}
-
-.rightPartImg {
+.voluntaryImage {
+  height: 50%;
   width: 40%;
-  display: flex;
-  align-items: center;
+  border-radius: 50%;
+  margin: 50px 0 50px 50px;
 }
 
-.lastPart {
-  margin: 70px 0;
-}
-
-.aboutTrees {
-  align-items: center;
-  margin-top: 30px;
-}
-
-.fas {
-  color: #1d53aa;
-  margin: 20px 0;
-  display: inline-block;
-  font-style: normal;
-  font-variant: normal;
-  text-rendering: auto;
-  line-height: 1;
-  font-family: 'Font Awesome 5 Free';
-  font-weight: 900;
-  padding: 8px 10px;
-}
-
-.regularSmall {
+.voluntaryText {
+  color: var(--black-white);
   font-family: "Recursive", sans-serif;
-  font-size: 16px;
-  font-weight: 200;
+  font-size: 20px;
+  font-weight: 400;
 }
 
-@media screen and (max-width: 769px) {
-  .desktopMap {
-    display: none;
+
+@media screen and (max-width: 1024px) {
+  .startInfo {
+    flex-direction: column;
+    align-items: center;
   }
 
-  .searchBlock {
-    display: none;
+  .startWrapper {
+    text-align: center;
   }
 
-  .search {
+  .popup {
+    left: 0;
+  }
+
+  .volunteers {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .voluntaryImage {
+    margin: 25px 0;
+    /* width: 60%; */
+  }
+
+  .voluntaryWrapper {
+    padding: 0 20px;
+  }
+
+  .voluntaryQuestion {
+    font-size: 25px;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .popup {
+    width: 90vw;
+    height: fit-content;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, 0);
+  }
+
+  .popupText {
+    font-size: 15px;
+  }
+
+  .popupTitle {
+    font-size: 18px;
+  }
+
+  .startTextWrapper {
+    flex-direction: column;
+  }
+
+  .wrapper {
+    width: 100vw;
+    left: 0;
+  }
+
+  .startWrapper {
+    padding: 0;
+    text-align: left;
+    margin-left: 14px;
+    top: 24.5px;
+  }
+
+  .voluntaryImage {
+    width: 70%;
+  }
+
+  .startTitle {
+    font-size: 22px;
+  }
+
+  .startLink {
+    margin-left: auto;
+    margin-right: 10px;
+  }
+
+
+  .startButton {
+    display: block;
+    left: 0;
+    margin: 0 auto;
+    z-index: 3;
+    top: 24.5px;
+  }
+
+  .weDoImage {
+    aspect-ratio: 1;
     width: 100%;
+    padding: 10px;
   }
 
-  .getStart {
-    flex-direction: column;
-  }
-
-  .inOrReg {
-    display: none;
-  }
-
-  .flexContainer2{
-    flex-direction: column;
-  }
-
-  .flexContainer {
+  .weDoInner {
     flex-direction: column-reverse;
+    font-size: 20px;
+    margin: 25px 25px 0;
   }
 
-  .leftPart,
-  .rightPart {
-    width: 100%;
-    margin: 10px 0;
+  .weDoHeader {
+    font-size: 23px;
+    margin: 30px 0 0 25px;
   }
 
-  .getStartRight {
-    margin-bottom: 40px;
-  }
-
-  .flexSearchMap {
-    padding: 0px 7px;
-  }
-
-  .slogan {
-    margin-top: 40px;
-  }
-
-  .lastPart {
-    margin: 0;
-    padding: 0 7px;
-  }
-
-  .rightPartImg {
-    width: 100%;
-  }
-}
-
-
-@media screen and (max-width: 510px) {
-  .getStartRight {
-    margin-bottom: 40px;
-    flex-direction: column;
-    width: inherit;
-  }
-
-  .signUpDesktop {
-    margin-top: 20px;
+  .weDoContent {
+    padding: 10px;
   }
 }

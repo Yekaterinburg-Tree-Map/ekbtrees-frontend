@@ -1,16 +1,74 @@
+.tableImgMobile {
+    height: 88px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.treeTableRowMobile {
+    display: flex;
+    border: 1px solid black;
+    padding: 0 9px;
+    background: rgba(212, 229, 215, 0.5);
+}
+
+.treeTableRowMobile:hover {
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 0 15px -5px rgb(34 60 80 / 57%);
+}
+
+.treeTableMobile {
+    display: none;
+    margin: 0 33px;
+    font-family: "Poppins", sans-serif;
+}
+
+.treeTableItemWrapperHeadingMobile,
+.treeTableItemWrapperMobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 13px;
+}
+
+.treeTableItemWrapperHeadingMobile {
+    color: rgba(2, 57, 11, 1);
+
+    flex-grow: 1;
+    margin-left: 16px;
+}
+
+.treeTableItemWrapperMobile {
+    color: rgba(151, 159, 160, 1);
+    ;
+}
+
+
+
+
+
+
+
+
 a:hover {
     text-decoration: none;
 }
 
-.treeHeader {
-    margin: 10px 15px 15px 15px;
-    text-align: center;
+.treeListHeader {
+    margin-bottom: 60px;
+    padding-top: 25px;
+    display: flex;
+    align-items: center;
+    font-size: 35px;
+    font-weight: bold;
+    color: rgba(2, 57, 11, 1);
 }
 
-.treeHeader p {
-    text-transform: uppercase;
-    text-align: center;
-    margin: 10px 0;
+.treeListHeaderSplit {
+    clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+    height: 100px;
+    background-color: rgba(2, 57, 11, 1);
+    width: 30%;
 }
 
 .buttonNavigation {
@@ -24,7 +82,7 @@ a:hover {
 
 .activeNavigationButton {
     color: black;
-    border-bottom: 2px solid #FB8F07;
+    border-bottom: 2px solid #AEC400;
 }
 
 .treeTableHeader {
@@ -43,8 +101,13 @@ a:hover {
     border-radius: 5px;
     margin-bottom: 25px;
     max-width: 300px;
-    background: #fafafa;
+    background: rgba(212, 229, 215, 0.5);
     box-shadow: 0 0 10px -5px rgb(34 60 80 / 57%);
+}
+
+.treeTableItemWrapper:hover {
+    transform: scale(1.01);
+    transition: 1s;
 }
 
 .treeTableItem {
@@ -114,19 +177,20 @@ a:hover {
 }
 
 .treeTable {
-    max-width: 1300px;
-    width: 100%;
+    max-width: 1500px;
+    width: 95%;
     display: table;
     margin: 0 auto;
     padding: 0 15px;
+    border-collapse: collapse;
 }
 
 .treeTableHeader {
     display: table-row;
+    border: 1px black solid;
 }
 
 .treeTableItemWrapper {
-    background: none;
     box-shadow: none;
     display: table-row;
     height: 70px;
@@ -154,14 +218,17 @@ a:hover {
     font-weight: bold;
     padding: 20px;
     vertical-align: middle;
+    color: rgba(2, 57, 11, 1);
+    border: 1px solid black;
 }
 
 .treeTableItem {
     display: table-cell;
     text-align: center;
     padding: 5px 20px;
-    color: grey;
+    color: black;
     vertical-align: middle;
+    font-size: 25px;
 }
 
 .treeTableItemImg {
@@ -192,3 +259,16 @@ a:hover {
     color: #181818;
 }
 
+@media screen and (max-width: 600px) {
+    .treeTableMobile {
+        display: block
+    }
+
+    .treeTable {
+        display: none;
+    }
+
+    .treeListHeader {
+        font-size: 23px;
+    }
+}

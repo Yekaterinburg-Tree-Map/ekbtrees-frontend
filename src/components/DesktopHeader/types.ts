@@ -1,9 +1,10 @@
 import React from "react";
-import {IUser} from "../../common/types";
+import { IUser } from "../../common/types";
 
 export interface IDesktopHeaderProps {
     user: IUser | null;
     onCookieRemove?: React.MouseEventHandler<HTMLElement>;
+    switchTheme?: React.MouseEventHandler<HTMLElement>;
 }
 
 export interface IDesktopHeaderState {

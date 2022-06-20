@@ -1,41 +1,40 @@
-import cn from 'classnames';
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Footer.module.css';
-import twitterIcon from '../../img/twitter.png';
-import youtubeIcon from '../../img/youtube.png';
-import pinterestIcon from '../../img/pinterest.png';
-import {IFooterProps, IFooterState} from "./types";
+import telegramIcon from '../../img/telegram.png';
+import vkIcon from '../../img/vk.png'
+import websiteIcon from '../../img/website.png'
+import { IFooterProps, IFooterState } from './types';
 
 export default class Footer extends Component<IFooterProps, IFooterState> {
     render() {
         return (
-            <footer className={styles.footerWrapper}>
-                <div className={styles.footerMenu}>
-                    <NavLink exact to='/map' activeClassName="active">Карта</NavLink>
-                    <NavLink exact to='/aboutUs' activeClassName="active">О нас</NavLink>
-                    {/* <NavLink exact to='/trees' activeclassname="active">Список деревьев</NavLink> */}
-                    <div className={styles.logo}>
-                        <h1 className={styles.bigHeader}>Ekb <span className={styles.smallHeader}>Trees</span></h1>
+            <footer className={styles.footerWrapper} data-theme={this.props.theme}>
+                <div className={styles.info}>
+                    <div className={styles.slogan}><span>Ekb</span><span>Trees</span></div>
+                    <span>Copyrights EkbTrees</span>
+                    <span className={styles.copyright}>All rights reserved.</span>
+                    <div className={styles.images}>
+                        <a href="https://t.me/parklandekb" target="_blank"><img className={styles.image} src={telegramIcon} alt={"telegram"} /></a>
+                        <a href="https://vk.com/parklandekb" target="_blank"><img className={styles.image} src={vkIcon} alt={"vk"} /></a>
+                        <a href="https://parklandekb.ru" target="_blank"><img className={styles.image} src={websiteIcon} alt={"website"} /></a>
                     </div>
-                    {/* <NavLink exact to='/users' activeclassname="active">Список пользователей</NavLink> */}
 
-                    <a href="#!">Контакты</a>
-                    <a href="#!">Помощь</a>
                 </div>
-                <div className={styles.line} />
-                <div className={cn([styles.footerMenu, styles.underLine])}>
-                    <NavLink exact to='/trees' activeClassName="active">Список деревьев</NavLink>
-                    <NavLink exact to='/users' activeClassName="active">Список пользователей</NavLink>
-                    {/* <NavLink exact to='/aboutUs' activeclassname="active">О нас</NavLink> */}
+                <div className={styles.column}>
+                    <span className={styles.nameColumn}>Компания</span>
+                    {/* <NavLink className={styles.link} exact to='/aboutUs' activeClassName="active">О нас</NavLink> */}
+                    <NavLink className={styles.link} exact to='/saveTrees' activeClassName="active">Что мы делаем&nbsp;?</NavLink>
                 </div>
-                <div className={styles.social}>
-                    <img src={twitterIcon} alt="twitter" />
-                    <img src={youtubeIcon} alt="youtube" />
-                    <img src={pinterestIcon} alt="pinterest" />
+                {/* <div className={styles.column}>
+                    <span className={styles.nameColumn}>Помощь</span>
+                    <NavLink className={styles.link} exact to='/saveTrees' activeClassName="active">Политика конфиденциальности</NavLink>
+                </div> */}
+                <div className={styles.column}>
+                    <span className={styles.nameColumn}>Общие вопросы</span>
+                    <a href="mailto:parklandekb@gmail.com" className={styles.email}>parklandekb@gmail.com</a>
                 </div>
-                <p className={styles.privacyTerms}>© 2020 — 2021 Privacy-Terms</p>
-            </footer>
+            </footer >
         )
     }
 }

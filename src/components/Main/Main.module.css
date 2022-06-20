@@ -1,17 +1,24 @@
 .mainWrapper {
     flex: 1 0 auto;
-    margin-top: 60px;
-    height: calc(100vh - 80px);
+    margin-top: 110px;
+    height: fit-content;
+    background-color: var(--background-color);
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
     .mainWrapper {
         margin-top: 0;
     }
 }
 
-@media screen and (max-width: 600px) {
-    .mainWrapper {
-        margin-top: 0;
+@media screen and (min-width: 1024px) {
+    .fullMap {
+        height: 80vh;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .fullMap {
+        height: 70vh;
     }
 }

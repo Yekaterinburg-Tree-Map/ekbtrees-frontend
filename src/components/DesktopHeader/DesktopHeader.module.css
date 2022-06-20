@@ -1,23 +1,82 @@
+.switch {
+    position: relative;
+    width: 60px;
+    height: 34px;
+    margin-right: 5px;
+    margin-top: .5rem;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #cccccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 28px;
+    width: 28px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider{
+    background: #2196f3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(24px);
+    -ms-transform: translateX(24px);
+    transform: translateX(24px);
+}
+
+
 .logo h1 {
     color: #50802c;
     font-weight: 400;
     padding: 10px 0;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.logo {
+    color: #50802c;
 }
 
 .activeLink {
-    border-bottom: 3px solid #fb8f07;
-    color: #fb8f07;
+    border-bottom: 3px solid #aec400;
+    color: #aec400;
 }
 
 .desktopHeader {
+    background-color: var(--dark-green-black);
     display: none;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
 }
 
-.logo {
-    color: #50802c;
+.logoImage {
+    width: 100px;
+    margin: 10px;
 }
 
 .menu {
@@ -28,39 +87,47 @@
 .menu a {
     letter-spacing: 0.05vw;
     font-weight: bold;
-    color: rgb(0, 92, 92);
+    color: #ffff;
     margin: 0 10px;
     font-size: 12px;
     text-align: center;
+    text-transform: uppercase;
 }
 
 .menu a:hover {
-    color: #3e69b6;
+    color: #aec400;
 }
 
 .signLinks {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
 }
 
 .signLinks a {
     margin-left: 10px;
-    color: #3e69b6;
+    color: #ffff;
     padding: 10px 15px;
 }
 
+.signLinks :last-child {
+    border-radius: 4px;
+    background-color: #aec400;
+}
+
 .activeSignLinks {
-    background-color: #50802c;
+    background-color: var(--first-color);
     border: none;
     color: white !important;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
     .desktopHeader {
+        position: static;
         display: flex;
+        padding: 0 2% 0 5px;
     }
 
     .menu {
@@ -68,14 +135,14 @@
         width: unset;
         align-items: unset;
     }
-}
-@media screen and (min-width: 1024px) {
-    .desktopHeader {
-        padding: 0 10%;
-    }
 
     .menu a {
-        font-size: 14px;
+        font-size: 18px;
     }
 }
 
+@media screen and (min-width: 1024px) {
+    .desktopHeader img {
+        display: block;
+    }
+}

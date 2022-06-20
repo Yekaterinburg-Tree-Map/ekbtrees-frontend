@@ -11,6 +11,7 @@ export interface IRegistrationFormState {
     touchStart: any;
     error: boolean;
     errorMail: boolean;
+    success: boolean;
 }
 
 export interface IRegistrationFormInput {

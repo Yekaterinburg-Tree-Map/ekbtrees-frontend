@@ -1,3 +1,63 @@
+.hr {
+    border: none;
+    background-color: #aec400;
+    height: 2px;
+}
+
+.leftBlock {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.rightBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 40px;
+    min-width: 195px;
+}
+
+.row {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+}
+
+.rowName {
+    flex-grow: 1;
+}
+
+.link {
+    padding: 10px 0;
+    background-color: black;
+    color: #06C167 !important;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.link:hover,
+.link:focus,
+.link:active {
+    color: white !important;
+}
+
+.wrapper {
+    flex-grow: 1;
+}
+
+[class*="spinner"] {
+    margin-top: 30px;
+}
+
+
+[class^="image"] {
+    border: 2px solid white;
+    aspect-ratio: 1.15;
+}
+
 .form {
     margin: 20px 0;
 }
@@ -13,6 +73,10 @@
 }
 
 .close {
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 5px;
     cursor: pointer;
     background: none;
     font-size: 18px;
@@ -25,34 +89,19 @@
 }
 
 .block {
-    background-color: #F3F6FA;
+    display: flex;
+    background-color: #02390B;
+    color: white;
     border-radius: 10px;
-    padding: 15px 15px 20px 15px;
+    padding: 15px 0 20px 20px;
     z-index: 1000;
     margin: 0 15px;
-    width: 100%;
+    width: 65%;
     position: relative;
 }
 
 .fa-times:before {
     font-size: 18px;
-}
-
-.link {
-    padding: 10px 15px;
-    background-color: #50802C;
-    color: white !important;
-    font-size: 16px;
-    text-align: center;
-    margin-top: 20px;
-    width: 100%;
-    display: block;
-}
-
-.link:hover,
-.link:focus,
-.link:active {
-    background-color: #6bc22a;
 }
 
 .blockPrefix {
@@ -143,53 +192,24 @@
     font-size: 16px;
 }
 
- @media screen and (min-width: 550px) {
+@media screen and (max-width: 550px) {
+    .row {
+        font-size: 14px;
+    }
+
     .block {
-        width: 100%;
+        flex-direction: column;
+        padding: 25px;
+        z-index: 9999;
     }
 
-    .blockWrapper {
-        position: relative;
-        margin-top: 20px;
-    }
-
-    .blockWrapper:first-child {
+    .hr {
         margin-top: 0;
     }
 
-    .wrapperFlex {
-        margin-top: 20px;
-    }
-
-    .blockPrefix {
-        display: inline-block;
-        width: 30%;
-        margin: 0;
-    }
-
-    .blockValue,
-    .blockSelect {
-        position: absolute;
-        width: 68%;
-        top: 0;
-        right: 0;
-    }
-
-    .addButton,
-    .cancelButton {
-        width: 70%;
-    }
-
-    .geopositionWrapper {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 68%;
-        display: inline-block;
-    }
-
-    .geopositionItem {
-        width: 50%;
+    [class^="image"] {
+        height: 130px;
+        margin-bottom: 5px;
     }
 }
 
@@ -227,13 +247,6 @@
         flex-wrap: wrap;
     }
 
-    .block {
-        background-color: #fff;
-        max-width: 900px;
-        padding: 25px 30px 30px 30px;
-        width: 100%;
-    }
-
     .blockPrefix {
         color: #4b4b4b;
         max-width: 215px;
@@ -254,7 +267,8 @@
         margin-left: 2%;
     }
 
-    .blockSelect, .blockValue {
+    .blockSelect,
+    .blockValue {
         position: static;
         width: 77.5%;
     }
@@ -275,5 +289,12 @@
 
     .blockWrapper:first-child {
         margin-bottom: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .block {
+
+        width: 100%;
     }
 }

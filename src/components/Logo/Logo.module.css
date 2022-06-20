@@ -1,18 +1,33 @@
-.logo h1 {
-    font-weight: 400;
-    padding: 10px 0;
+.logo {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    margin: 10px 0;
+    font-size: 31px;
 }
 
-.logo .smallHeader {
-    font-family: "Merriweather", serif;
-    font-size: 20px;
-    display: block;
-    text-align: center;
+.logoImage{
+    height: 100px;
+    aspect-ratio: 1.5;
 }
 
-.logo .bigHeader {
-    font-family: "Merriweather", serif;
-    font-size: 40px;
-    line-height: 30px;
-    margin-bottom: 0;
+.firstPart {
+    color: #ffffff;
+    margin-left: 5px;
+}
+
+.secondPart {
+    color: #aec400;
+}
+
+@media screen and (max-width: 480px) {
+    .logo {
+        font-size: 30px;
+    }
+
+    .logoImage{
+        height: 90px;
+        width: 105px;
+    }
 }

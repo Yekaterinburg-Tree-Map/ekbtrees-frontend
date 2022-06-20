@@ -1,13 +1,13 @@
 import cn from 'classnames';
-import {divIcon, icon} from 'leaflet';
-import React, {useState, useEffect, useRef, useCallback, useLayoutEffect} from 'react';
-import {Circle} from 'react-leaflet';
+import { divIcon, icon, marker } from 'leaflet';
+import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from 'react';
+import { Circle } from 'react-leaflet';
 import markerIcon from './markerIcon';
-import {getCircleOptions, getCircleRadius} from "./MapHelpers";
-import {TreeForm} from "../MarkerForm/TreeForm";
-import {NewTreeMarker} from "../NewTreeMarker/NewTreeMarker";
-import {MapState} from "./MapState";
-import {useHistory} from "react-router-dom";
+import { getCircleOptions, getCircleRadius } from "./MapHelpers";
+import { TreeForm } from "../MarkerForm/TreeForm";
+import { NewTreeMarker } from "../NewTreeMarker/NewTreeMarker";
+import { MapState } from "./MapState";
+import { useHistory } from "react-router-dom";
 import {
     getTreeMapInfoUrl,
     getTreeDataUrl,
@@ -18,7 +18,7 @@ import MapButton from '../MapButton';
 import styles from "./GeojsonLayer.module.css";
 import ClusterMarker from '../ClusterMarker/ClusterMarker';
 import MarkerClusterGroup from "react-leaflet-markercluster/src/react-leaflet-markercluster";
-import {IJsonTree} from "../../common/types";
+import { IJsonTree } from "../../common/types";
 import {
     IGeolocationCoords,
     IGeojsonLayerProps,
@@ -29,7 +29,7 @@ import {
     IMapDataSeparateTrees,
     MapContainerCoords
 } from "./types";
-import {DefaultClusterColor, DefaultTreeColor, TreeSpeciesColors} from "./treeSpeciesColors";
+import { DefaultClusterColor, DefaultTreeColor, TreeSpeciesColors } from "./treeSpeciesColors";
 import "./GeojsonLayer.module.css";
 import MapButtonGeneral from "../MapAdditionalControls";
 import MapButtonContainer from "../MapAdditionalControls/MapButtonContainer";
@@ -40,7 +40,7 @@ const DG = require('2gis-maps');
 
 let lastLambda: any = null;
 let lastMarkerLayer: any = null;
-const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMarker, user}: IGeojsonLayerProps) => {
+const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMarker, user }: IGeojsonLayerProps) => {
     const [activeTreeId, setActiveTreeId] = useState<string | number | null>(null);
     const [activeTreeData, setActiveTreeData] = useState<IJsonTree | null>(null);
     const [mapData, setMapData] = useState<IMapDataSeparateTrees | IMapDataClustered | null>(null);
@@ -57,7 +57,7 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
     const watchPositionId = useRef<number | null>(null);
     const pointerMarkerRef = useRef<any>(null);
     const pointerMarkerPlaced = useRef<boolean>(false);
-    const treeData = useRef<{data: IJsonMapTree[]}>({data: []});
+    const treeData = useRef<{ data: IJsonMapTree[] }>({ data: [] });
     const history = useHistory();
 
     const markerLayer = DG.featureGroup();
@@ -69,7 +69,7 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
 
     const startWatchUserGeolocation = () => {
         watchPositionId.current = navigator.geolocation.watchPosition(updateUserGeolocation, () => {
-        }, {enableHighAccuracy: true});
+        }, { enableHighAccuracy: true });
         geometryLayer.addTo(map);
     }
 
@@ -83,11 +83,11 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
         if (userCircleRef.current == null) {
             // FIXME: The circle is quite large when accuracy is big
             // console.log(`> geolocation: ${latitude} ${longitude}`);
-            userCircleRef.current = new DG.circle([latitude, longitude], accuracy, {color: userCircleColor})
+            userCircleRef.current = new DG.circle([latitude, longitude], accuracy, { color: userCircleColor })
                 // .bindPopup("You are Here").openPopup()
                 .addTo(geometryLayer);
             userCircleMarkerRef.current = new DG.circleMarker([latitude, longitude],
-                {color: '#ffffff', fillColor: userCircleColor, fill: true, fillOpacity: 1})
+                { color: '#ffffff', fillColor: userCircleColor, fill: true, fillOpacity: 1 })
                 .bindPopup("You are Here").openPopup()
                 .addTo(geometryLayer);
             // console.log(`GeojsonLayer: setMapViewOnUser: `);
@@ -109,7 +109,7 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
             const position = [pointerMarker.lat, pointerMarker.lng];
             pointerMarkerRef.current = DG.marker(position, {
                 draggable: false,
-                icon: DG.icon({iconUrl: mapIcon, iconSize: [42, 58], iconAnchor: [21, 59]})
+                icon: DG.icon({ iconUrl: mapIcon, iconSize: [42, 58], iconAnchor: [21, 59] })
             });
         }
     }, []);
@@ -167,15 +167,15 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
                 }
                 // console.log(`Fetched ${jsonData.length} clusters`)
                 treeData.current.data = [];
-                setMapData({isClusterData: true, json: jsonData});
-                setUpTreeCircles(mapState, {isClusterData: true, json: jsonData}, handleTreeClick, treesLayer);
+                setMapData({ isClusterData: true, json: jsonData });
+                setUpTreeCircles(mapState, { isClusterData: true, json: jsonData }, handleTreeClick, treesLayer, map);
                 treesLayer.addTo(map);
                 // console.log("> loadData: data is loaded!");
                 waitingLoadData.current = false;
             })
             .catch(err => {
                 waitingLoadData.current = false;
-                alert("Возникла ошибка при загрузке деревьев");
+                // alert("Возникла ошибка при загрузке деревьев");
                 console.error(err);
             });
     };
@@ -188,18 +188,18 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
                     return;
                 }
                 // console.log(`Fetched ${jsonData.length} trees`)
-                setMapData({isClusterData: false, json: jsonData});
+                setMapData({ isClusterData: false, json: jsonData });
                 // console.log(map);
                 // const pointer = (setMarkerOnView && map) ? [map._lastCenter.lat, map._lastCenter.lng] as [number, number] : undefined;
                 treeData.current.data = jsonData;
-                setUpTreeCircles(mapState, {isClusterData: false, json: jsonData}, handleTreeClick, treesLayer);
+                setUpTreeCircles(mapState, { isClusterData: false, json: jsonData }, handleTreeClick, treesLayer, map);
                 treesLayer.on("click", handleLayerClick(treeData.current, 9, handleTreeClick));
                 treesLayer.addTo(map);
                 waitingLoadData.current = false;
             })
             .catch(err => {
                 waitingLoadData.current = false;
-                alert("Возникла ошибка при загрузке деревьев");
+                // alert("Возникла ошибка при загрузке деревьев");
                 console.error(err);
             });
     };
@@ -208,12 +208,12 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
 
     const getMapContainerLatLng = (): MapContainerCoords => {
         const mapContainerCoordinates = map.getContainer().getBoundingClientRect()
-        const {bottom, right, x, y} = mapContainerCoordinates;
+        const { bottom, right, x, y } = mapContainerCoordinates;
         const upperLeftCorner = map.containerPointToLatLng([y, x]);
         const bottomRightCorner = map.containerPointToLatLng([right, bottom]);
         return [
-            {lat: upperLeftCorner.lat + 0.02, lng: upperLeftCorner.lng - 0.02},
-            {lat: bottomRightCorner.lat - 0.02, lng: bottomRightCorner.lng + 0.02}
+            { lat: upperLeftCorner.lat + 0.02, lng: upperLeftCorner.lng - 0.02 },
+            { lat: bottomRightCorner.lat - 0.02, lng: bottomRightCorner.lng + 0.02 }
         ];
     };
 
@@ -226,8 +226,10 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
 
     // FIXME: What type of events should 2-gis have
     const handleClick = useCallback((event: any) => {
-        // console.log(event.latlng);
-        // console.log(`handleClick: ${mapState}`);
+        if (window.location.pathname !== "/map") {
+            return;
+        }
+
         if (mapState === MapState.addTreeSelected) {
             return;
         }
@@ -243,7 +245,7 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
         if (mapState === MapState.addTreeBegin) {
             setMapState(MapState.addTreeSelected)
             updateMarkerRef(event);
-            DG.marker(markerRef.current, {draggable: true})
+            DG.marker(markerRef.current, { draggable: true })
                 .addTo(markerLayer)
                 .on('drag', updateMarkerRef);
             markerLayer.addTo(map);
@@ -277,7 +279,7 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
     }, [map])
 
     useEffect(() => {
-        map && map.off({'click': lastLambda});
+        map && map.off({ 'click': lastLambda });
         lastLambda = handleClick;
         map && map.on('click', handleClick);
         map && map.on('moveend', handleZoomEndMoveEnd);
@@ -301,14 +303,14 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
         if (map === null || map === undefined) return;
         setActiveTreeData(null);
         activeTreeId &&
-        fetchData(getTreeDataUrl(activeTreeId))
-            .then((jsonData: IJsonTree) => {
-                setActiveTreeData(jsonData);
-            })
-            .catch(err => {
-                alert("Возникла ошибка при загрузке информации о дереве");
-                console.error(err);
-            })
+            fetchData(getTreeDataUrl(activeTreeId))
+                .then((jsonData: IJsonTree) => {
+                    setActiveTreeData(jsonData);
+                })
+                .catch(err => {
+                    // alert("Возникла ошибка при загрузке информации о дереве");
+                    console.error(err);
+                })
     }, [activeTreeId]);
 
     useEffect(() => {
@@ -316,7 +318,7 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
             if (markerRef.current === null) {
                 return;
             }
-            const {lat, lng} = markerRef.current;
+            const { lat, lng } = markerRef.current;
             history.push(`/addtree/${lat}/${lng}`);
         }
     })
@@ -357,22 +359,23 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
     }
 
     const renderButtons = () => user &&
+        window.location.pathname === "/map" &&
         <MapButtonContainer>
             {(mapState != MapState.default) && (
                 <MapButtonGeneral state={mapState} changeState={HandleAddTreeCancel}
-                                  getTitle={(s: number) => "Отмена"} isDisabled={(s: number) => s == MapState.default}
-                                  styleName={MapButtonStyles.mapButtonSecondary}/>
+                    getTitle={(s: number) => "Отмена"} isDisabled={(s: number) => s == MapState.default}
+                    styleName={MapButtonStyles.mapButtonSecondary} />
             )}
             <MapButtonGeneral state={mapState} changeState={HandleMapStateChange}
-                              getTitle={HandleMapStateButtonTitleChange}
-                              isDisabled={(s: number) => s == MapState.addTreeBegin}
-                              styleName={MapButtonStyles.mapButtonSuccess}/>
+                getTitle={HandleMapStateButtonTitleChange}
+                isDisabled={(s: number) => s == MapState.addTreeBegin}
+                styleName={MapButtonStyles.mapButtonSuccess} />
         </MapButtonContainer>
 
     return (
         <>
             <div className={stylesCN} onClick={handleClickTreeFormWrapper}>
-                {activeTreeData && <TreeForm activeTree={activeTreeData} onClose={handleClose}/>}
+                {activeTreeData && <TreeForm activeTree={activeTreeData} onClose={handleClose} />}
             </div>
             {!activeTreeData && renderButtons()}
         </>
@@ -380,10 +383,10 @@ const GeojsonLayer = ({map, mapState, setMapState, setMapViewOnUser, pointerMark
 }
 
 
-function setUpTreeCircles(state: number, data: IMapDataSeparateTrees | IMapDataClustered, handleTreeClick: any, layer: any) {
+function setUpTreeCircles(state: number, data: IMapDataSeparateTrees | IMapDataClustered, handleTreeClick: any, layer: any, map: any) {
     if (data.isClusterData) {
         data.json.forEach(item => {
-            const {latitude, longitude} = item.centre;
+            const { latitude, longitude } = item.centre;
             const size = 30;
             const clusterMarkerDivStyle = `
 				width: ${size}px;
@@ -402,11 +405,12 @@ function setUpTreeCircles(state: number, data: IMapDataSeparateTrees | IMapDataC
                 className: "circle-div-icon",
                 iconSize: [40, 40]
             });
-            DG.marker([latitude, longitude], {icon: markerIcon}).addTo(layer);
+            DG.marker([latitude, longitude], { icon: markerIcon })
+                .on("click", () => map.setView([latitude, longitude], 30 * 2)).addTo(layer);
         });
     } else {
         data.json.forEach(item => {
-            const {latitude, longitude} = item.geographicalPoint;
+            const { latitude, longitude } = item.geographicalPoint;
             let color: string = DefaultTreeColor;
             if (item.species) {
                 const species = item.species.title;
@@ -439,7 +443,10 @@ function setUpTreeCircles(state: number, data: IMapDataSeparateTrees | IMapDataC
 
 
 const handleLayerClick = (trees: { data: IJsonMapTree[] }, threshold: number, handleTreeClick: any) => (event: any) => {
-    // console.log(event);
+    if (window.location.pathname !== "/map") {
+        return;
+    }
+
     let nearsetTree: IJsonMapTree | null = null;
     let minDist: number = 1e9;
     trees.data.forEach(item => {
@@ -525,10 +532,10 @@ function GenerateCircleForTree(f: IJsonTree, key: number, onClick: any, title: s
         return null;
     }
 
-    const customProps = {title: title};
+    const customProps = { title: title };
     return (
         <Circle
-            eventHandlers={{click: onClick}}
+            eventHandlers={{ click: onClick }}
             key={key}
             center={[f.geographicalPoint.latitude, f.geographicalPoint.longitude]}
             pathOptions={getCircleOptions(f.species?.title ?? "")}
