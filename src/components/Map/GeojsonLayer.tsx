@@ -226,7 +226,6 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
 
     // FIXME: What type of events should 2-gis have
     const handleClick = useCallback((event: any) => {
-        console.log(window.location.pathname);
         if (window.location.pathname !== "/map") {
             return;
         }

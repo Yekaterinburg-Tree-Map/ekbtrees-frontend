@@ -68,8 +68,8 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
                 <div className={styles.treeTableItem}>
                     <label htmlFor={String(index)}>{species?.title}</label>
                 </div>
-                <div className={styles.treeTableItem}>{age}</div>
-                <div className={styles.treeTableItem}>{treeHeight}</div>
+                <div className={styles.treeTableItem}>{age ?? "—"}</div>
+                <div className={styles.treeTableItem}>{treeHeight ?? "—"}</div>
                 <div className={styles.treeTableItem}>
                     {formatDate(created ?? Date.now())}
                 </div>
@@ -92,8 +92,8 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
                 </div>
                 <div className={styles.treeTableItemWrapperMobile}>
                     <span className={styles.treeTableItemMobile}>{species?.title}</span>
-                    <span className={styles.treeTableItemMobile}>{age}</span>
-                    <span className={styles.treeTableItemMobile}>{treeHeight}</span>
+                    <span className={styles.treeTableItemMobile}>{age ?? "—"}</span>
+                    <span className={styles.treeTableItemMobile}>{treeHeight ?? "—"}</span>
                     <span className={styles.treeTableItemMobile}>
                         {formatDate(created ?? Date.now())}
                     </span>

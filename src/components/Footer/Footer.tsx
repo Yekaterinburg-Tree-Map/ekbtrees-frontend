@@ -15,9 +15,9 @@ export default class Footer extends Component<IFooterProps, IFooterState> {
                     <span>Copyrights EkbTrees</span>
                     <span className={styles.copyright}>All rights reserved.</span>
                     <div className={styles.images}>
-                        <a href="https://t.me/parklandekb"><img className={styles.image} src={telegramIcon} alt={"telegram"} /></a>
-                        <a href="https://vk.com/parklandekb"><img className={styles.image} src={vkIcon} alt={"vk"} /></a>
-                        <a href="https://parklandekb.ru"><img className={styles.image} src={websiteIcon} alt={"website"} /></a>
+                        <a href="https://t.me/parklandekb" target="_blank"><img className={styles.image} src={telegramIcon} alt={"telegram"} /></a>
+                        <a href="https://vk.com/parklandekb" target="_blank"><img className={styles.image} src={vkIcon} alt={"vk"} /></a>
+                        <a href="https://parklandekb.ru" target="_blank"><img className={styles.image} src={websiteIcon} alt={"website"} /></a>
                     </div>
 
                 </div>
@@ -26,10 +26,10 @@ export default class Footer extends Component<IFooterProps, IFooterState> {
                     {/* <NavLink className={styles.link} exact to='/aboutUs' activeClassName="active">О нас</NavLink> */}
                     <NavLink className={styles.link} exact to='/saveTrees' activeClassName="active">Что мы делаем&nbsp;?</NavLink>
                 </div>
-                <div className={styles.column}>
+                {/* <div className={styles.column}>
                     <span className={styles.nameColumn}>Помощь</span>
                     <NavLink className={styles.link} exact to='/saveTrees' activeClassName="active">Политика конфиденциальности</NavLink>
-                </div>
+                </div> */}
                 <div className={styles.column}>
                     <span className={styles.nameColumn}>Общие вопросы</span>
                     <a href="mailto:parklandekb@gmail.com" className={styles.email}>parklandekb@gmail.com</a>

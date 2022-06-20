@@ -314,7 +314,6 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
             }
             if (tree[treeKey]) {
                 if (Object.prototype.hasOwnProperty.call(tree[treeKey], 'values')) {
-                    debugger;
                     result.push(
                         <div key={index} className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
                             <Select
