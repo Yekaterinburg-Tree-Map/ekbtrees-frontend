@@ -18,7 +18,7 @@ export default class Home extends Component<IHomeProps> {
           {setMapViewPosition => (
             <mapViewPositionContext.Consumer>
               {mapViewPosition => (
-                <MapContain user={this.props.user} mapViewPosition={mapViewPosition} setMapViewPosition={setMapViewPosition} />
+                <MapContain disabled={true} user={this.props.user} mapViewPosition={mapViewPosition} setMapViewPosition={setMapViewPosition} />
               )}
             </mapViewPositionContext.Consumer>
           )}
@@ -38,7 +38,7 @@ export default class Home extends Component<IHomeProps> {
           </div>
         </div>
         <article className={styles.startWrapper}>
-          <span className={styles.startTitle}>Ежегодно Екатеринбург теряет сотни взрослых деревьев. Пора&nbsp;действовать!</span><br />
+          <span className={styles.startTitle}>Ежегодно Екатеринбург теряет сотни взрослых деревьев. Защитим их вместе!</span><br />
           <div className={styles.startTextWrapper}>
             <span className={styles.startText}>Городские деревья часто страдают при строительстве...</span>
             <a href="/saveTrees" className={styles.startLink}>читать дальше</a>
@@ -66,9 +66,11 @@ export default class Home extends Component<IHomeProps> {
   renderWhatWeDoSection() {
     return (
       <article className={styles.weDoBlock}>
-        <header className={styles.weDoHeader}>&mdash;&mdash;  Что мы делаем ?</header>
+        <header className={styles.weDoHeader}>&mdash;  Что мы делаем ?</header>
         <div className={styles.weDoInner}>
-          <p className={styles.weDoContent}>Мы заботимся о деревьях в нашем городе. Городские деревья часто страдают при строительстве. Карта деревьев Екатеринбурга - это инструмент для регистрации городских деревьев...</p>
+          <p className={styles.weDoContent}>Мы заботимся о деревьях в городе.
+            Пока парки и скверы - просто метры, за ними сложно ухаживать и легко застроить.
+            Когда озеленение - это деревья, то каждое дерево важно и ценно.</p>
           <img className={styles.weDoImage} src={tree} />
         </div>
       </article>

@@ -65,6 +65,7 @@ export interface IMapContainProps {
     styleName?: string;
     mapViewPosition?: IMapPosition;
     setMapViewPosition: (position: IMapPosition | undefined) => void;
+    disabled: boolean;
 }
 
 export interface IMapContainState { }

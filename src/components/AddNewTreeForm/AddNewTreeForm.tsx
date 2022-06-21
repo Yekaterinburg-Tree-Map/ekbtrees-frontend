@@ -505,7 +505,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                 </Modal>
                 <header className={styles.addFormHeader}>
                     <div className={styles.addFormHeaderSplit}> </div>
-                    <div>&mdash;&mdash; Карточка дерева</div>
+                    <div>&mdash; Карточка дерева</div>
                 </header>
                 <div className={styles.form}>
                     {this.renderMainInformation()}

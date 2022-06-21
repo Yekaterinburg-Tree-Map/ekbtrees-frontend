@@ -1,16 +1,16 @@
-import React, {useEffect, useRef} from "react";
-import {useState} from "react";
+import React, { useEffect, useRef } from "react";
+import { useState } from "react";
 import GeojsonLayer from "./GeojsonLayer";
-import {MapState} from "./MapState";
+import { MapState } from "./MapState";
 import "./Map.css";
-import {IMapContainProps} from "./types";
+import { IMapContainProps } from "./types";
 import mapIcon from "../../common/images/map_marker.png";
 
 const DG = require('2gis-maps');
 
 
 const MapContain = (props: IMapContainProps) => {
-	const {styleName, mapViewPosition, setMapViewPosition, user} = props;
+	const { styleName, mapViewPosition, setMapViewPosition, user, disabled } = props;
 
 	const defaultPosition = [56.8391040, 60.6082500]; // Yekaterinburg position
 	const defaultZoom = 14; // Yekaterinburg position
@@ -20,7 +20,7 @@ const MapContain = (props: IMapContainProps) => {
 	const setMapViewOnUser = useRef<boolean>(true);
 	const setMarkerOnView = useRef<boolean>(false);
 
-	let position = mapViewPosition ? [mapViewPosition.lat, mapViewPosition.lng]  : defaultPosition;
+	let position = mapViewPosition ? [mapViewPosition.lat, mapViewPosition.lng] : defaultPosition;
 	let zoom = mapViewPosition ? 30 : defaultZoom;
 	useEffect(() => {
 		setMapViewOnUser.current = mapViewPosition === undefined;
@@ -44,7 +44,9 @@ const MapContain = (props: IMapContainProps) => {
 	}, []);
 
 	return (
-		<div ref={elRef} className={props.className}>
+		
+		<div ref={elRef} className={props.className}
+			style={disabled || mapState === MapState.disabled ? { "pointerEvents": "none" } : { "pointerEvents": "all" }}>
 			<GeojsonLayer
 				map={map}
 				mapState={mapState}

@@ -195,7 +195,7 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
         return (
             <header className={styles.treeListHeader}>
                 <div className={styles.treeListHeaderSplit}> </div>
-                <div>&mdash;&mdash; Список деревьев</div>
+                <div>&mdash; Список деревьев</div>
             </header>
         );
     }
