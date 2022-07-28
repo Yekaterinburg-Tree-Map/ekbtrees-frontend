@@ -1,4 +1,3 @@
-import AboutUs from '../AboutUs';
 import AddNewTreeForm from '../AddNewTreeForm'
 import EditTreeForm from '../EditTreeForm';
 import TreeLists from '../TreeLists';
@@ -12,11 +11,12 @@ import React, {Component} from 'react';
 import RegistrationForm from '../Registation-form';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import styles from './Main.module.css';
-import Tree from "../pages/Tree";
+import Tree from "../Tree/Tree";
 import UserList from '../UserList';
 import {IMainProps, IMainState} from "./types";
 import {IMapPosition} from "../../common/types";
 import SaveTrees from '../SaveTrees';
+import {RouteComponentProps} from 'react-router-dom';
 
 export const setMapViewPositionContext = React.createContext<((viewPos: IMapPosition | undefined) => void)>(() => {});
 export const mapViewPositionContext = React.createContext<IMapPosition | undefined>(undefined);
@@ -24,48 +24,50 @@ export const mapViewPositionContext = React.createContext<IMapPosition | undefin
 export default class Main extends Component<IMainProps, IMainState> {
     constructor(props: IMainProps) {
         super(props);
+
         this.state = {};
     }
+
     setMapViewPosition = (viewPos: IMapPosition | undefined) => {
         this.setState({mapViewPosition: viewPos});
     }
 
-  renderRoutesWithAuth () {
-      const {user} = this.props;
+    renderAddNewTreeForm = (props: any) =>
+        <AddNewTreeForm {...props} setMapViewPosition={this.setMapViewPosition} user={this.props.user} />
 
-      return (
-          <Switch>
-              {/*<Route exact path='/addtree/:lat/:lng' component={AddNewTreeForm} />*/}
-              <Route exact path='/addtree/:lat/:lng'
-                     render={(props) => <AddNewTreeForm {...props} setMapViewPosition={this.setMapViewPosition}
-                                                        user={user}/>}/>
-              {/*<Route exact path='/trees/tree=:id/edit' component={EditTreeForm} />*/}
-              <Route exact path='/trees/tree=:id/edit' render={(props) => <EditTreeForm {...props} setMapViewPosition={this.setMapViewPosition} user={user}/>}/>
-              <Route exact path='/trees' component={TreeLists}/>
-              <Route exact path='/users' component={UserList}/>
-              <Route exact path='/profileSettings'
-                     render={(props) => <ProfileSettings {...props} updateUserByCookies={this.props.onCookie} user={user}/>}/>
-              <Redirect to='/'/>
-          </Switch>
-      );
-  }
+    renderEditTreeForm = (props: any) =>
+        <EditTreeForm {...props} setMapViewPosition={this.setMapViewPosition} user={this.props.user}/>
 
-  renderRoutesWithoutAuth () {
-      const {onCookie} = this.props;
+    renderProfileSettings = (props: any) =>
+        <ProfileSettings {...props} updateUserByCookies={this.props.onCookie} user={this.props.user}/>
 
-      return (
-          <>
-          <Route
-              path='/login'
-              render={props => <LoginForm {...props} handleCookie={onCookie}
-              />}
-          />
-          <Route exact path='/registration' component={RegistrationForm} />
-          </>
-      )
-  }
+    renderRoutesWithAuth () {
+        return (
+            <Switch>
+                {/*<Route exact path='/addtree/:lat/:lng' component={AddNewTreeForm} />*/}
+                <Route exact path='/addtree/:lat/:lng' render={this.renderAddNewTreeForm}/>
+                {/*<Route exact path='/trees/tree=:id/edit' component={EditTreeForm} />*/}
+                <Route exact path='/trees/tree=:id/edit' render={this.renderEditTreeForm}/>
+                <Route exact path='/trees' component={TreeLists}/>
+                <Route exact path='/users' component={UserList}/>
+                <Route exact path='/profileSettings' render={this.renderProfileSettings}/>
+                <Redirect to='/'/>
+            </Switch>
+        );
+    }
 
-  renderRoutes () {
+    renderRoutesWithoutAuth () {
+        const {onCookie} = this.props;
+
+        return (
+            <>
+                <Route path='/login' render={props => <LoginForm {...props} handleCookie={onCookie} />}/>
+                <Route exact path='/registration' component={RegistrationForm} />
+            </>
+        )
+    }
+
+    renderRoutes () {
       const {user} = this.props;
 
       if (user) {
@@ -73,38 +75,55 @@ export default class Main extends Component<IMainProps, IMainState> {
       }
 
       return this.renderRoutesWithoutAuth();
-  }
+    }
+
     // FIXME: What types should these properties have
     vkAuth2: any = () => {
         window.location.href = 'https://ekb-trees-help.ru/auth/oauth2/vk'
     };
 
-  render () {
-      const {user} = this.props;
+    renderHome = (props: RouteComponentProps) => <Home {...props} user={this.props.user}/>
 
-      return (
-          <setMapViewPositionContext.Provider value={this.setMapViewPosition}>
-              <mapViewPositionContext.Provider value={this.state.mapViewPosition}>
-                  <main className={styles.mainWrapper} data-theme={this.props.theme}>
-                      <Switch>
-                          <Route exact path='/' render={(props) => <Home {...props} user={user}/>}/>
+    renderMap = (props: any) => {
+        return (
+            <MapContain
+                {...props}
+                user={this.props.user}
+                mapViewPosition={this.state.mapViewPosition}
+                setMapViewPosition={this.setMapViewPosition}
+                className={styles.fullMap}
+                disabled={false}
+            />
+        );
+    };
 
-                          <Route exact path='/map'
-                                 render={(props) =>
-                                     <MapContain {...props} user={user} mapViewPosition={this.state.mapViewPosition}
-                                                 setMapViewPosition={this.setMapViewPosition} className={styles.fullMap} disabled={false}/>}/>
-                          <Route exact path='/trees/tree=:id' render={(props) => <Tree {...props} setMapViewPosition={this.setMapViewPosition} user={user}/>}/>
-                          <Route exact path='/passRecovery' component={PassRecovery}/>
-                          {/* <Route exact path='/aboutUs' component={AboutUs}/> */}
-                          <Route exact path='/saveTrees' component={SaveTrees}/>
-                          <Route path='/vk' component={this.vkAuth2}/>
-                          <Route exact path='/image/:id' component={ImageView}/>
-                          {this.renderRoutes()}
-                          <Redirect to='/'/>
-                      </Switch>
-                  </main>
-              </mapViewPositionContext.Provider>
-          </setMapViewPositionContext.Provider>
-      )
-  }
+    renderTree = (props: any) => (
+        <Tree
+            {...props}
+            setMapViewPosition={this.setMapViewPosition}
+            user={this.props.user}
+        />
+    );
+
+    render () {
+        return (
+            <setMapViewPositionContext.Provider value={this.setMapViewPosition}>
+                <mapViewPositionContext.Provider value={this.state.mapViewPosition}>
+                    <main className={styles.mainWrapper} data-theme={this.props.theme}>
+                        <Switch>
+                            <Route exact path='/' render={this.renderHome} />
+                            <Route exact path='/map' render={this.renderMap}/>
+                            <Route exact path='/trees/tree=:id' render={this.renderTree}/>
+                            <Route exact path='/passRecovery' component={PassRecovery}/>
+                            <Route exact path='/saveTrees' component={SaveTrees}/>
+                            <Route path='/vk' component={this.vkAuth2}/>
+                            <Route exact path='/image/:id' component={ImageView}/>
+                            {this.renderRoutes()}
+                            <Redirect to='/'/>
+                        </Switch>
+                    </main>
+                </mapViewPositionContext.Provider>
+            </setMapViewPositionContext.Provider>
+        )
+    }
 }

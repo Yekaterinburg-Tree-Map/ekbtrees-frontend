@@ -3,6 +3,10 @@ a {
   color: inherit;
 }
 
+a:hover {
+  color: #fff;
+}
+
 .active {
   border-bottom: 3px solid #fb8f07;
   color: #fb8f07;
@@ -30,7 +34,7 @@ a {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
   color: white;
-  padding: 20px 0px;
+  padding: 20px 0;
 }
 
 .welcome p {
@@ -40,7 +44,7 @@ a {
   width: 80%;
   display: block;
   margin: 0 auto;
-  padding: 10px 0px;
+  padding: 10px 0;
 }
 
 .links {

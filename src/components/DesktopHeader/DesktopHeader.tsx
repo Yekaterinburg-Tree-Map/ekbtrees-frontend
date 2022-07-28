@@ -5,8 +5,6 @@ import UserInfo from '../UserInfo';
 import { Logo } from "../Logo/Logo";
 import { IDesktopHeaderProps, IDesktopHeaderState } from "./types";
 
-
-
 export class DesktopHeader extends Component<IDesktopHeaderProps, IDesktopHeaderState> {
 	static defaultProps = {
 		onCookieRemove: null,

@@ -62,10 +62,10 @@ export class FileUpload extends Component<IFileUploadProps, IFileUploadState> {
 		const {files} = this.props;
 
 		return files.map((file: IFile) => {
-			return (							
+			return (
 				<img key={file.id} className={styles.image} src={file.uri} alt={file.title} onClick={this.ShowModal}/>
-			)			
-		});		
+			)
+		});
 	}
 	ShowModal: React.MouseEventHandler<HTMLImageElement> = (e) => {
 		this.setState({
@@ -79,7 +79,7 @@ export class FileUpload extends Component<IFileUploadProps, IFileUploadState> {
             modalOpen: false,
 			modalData: null
         })
-    }	
+    }
 	renderEditLinks () {
 		const {files} = this.props;
 
@@ -141,7 +141,7 @@ export class FileUpload extends Component<IFileUploadProps, IFileUploadState> {
 					showPreviews={true}
 					maxFileSize={5000000}
 					filesLimit={10}
-					dropzoneText="Перенесите сюда загружаемые картинки или кликникте в облась загрузки"
+					dropzoneText="Перенесите сюда загружаемые картинки или кликникте в область загрузки"
 					dialogTitle="Загрузить картинки"
 					cancelButtonText="Отмена"
 					submitButtonText="Загрузить"
@@ -171,7 +171,7 @@ export class FileUpload extends Component<IFileUploadProps, IFileUploadState> {
 					showPreviews={true}
 					maxFileSize={5000000}
 					filesLimit={10}
-					dropzoneText="Перенесите сюда загружаемые файлы или кликникте в облась загрузки"
+					dropzoneText="Перенесите сюда загружаемые файлы или кликникте в область загрузки"
 					dialogTitle="Загрузить файлы"
 					cancelButtonText="Отмена"
 					submitButtonText="Загрузить"

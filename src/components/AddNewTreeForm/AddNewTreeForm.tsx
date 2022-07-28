@@ -16,6 +16,7 @@ import {
     validateIsNotNegativeNumber, validateLessThan, validateIsSet, validateGreaterThan,
 } from "../../common/treeForm";
 import Modal from "../Modal";
+import PageHeader from "../PageHeader";
 
 
 export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAddNewTreeFormState> {
@@ -134,6 +135,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
 
     validateTree(tree: INewTree) {
         const errors: { [key: string]: string } = {};
+
         Object.keys(tree).forEach((key: string) => {
             const newTreeKey = key as keyof INewTree;
             const field = tree[newTreeKey];
@@ -145,7 +147,9 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                 }
             }
         });
+
         this.setState({ errors: errors });
+
         return Object.keys(errors).length === 0;
     }
 
@@ -161,7 +165,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
             const treeKey = key as keyof INewTree;
 
             if (Object.prototype.hasOwnProperty.call(tree[treeKey], 'value')) {
-                if (treeKey == 'fileIds') {
+                if (treeKey === 'fileIds') {
                     // should be in else branch
                     return;
                 }
@@ -221,7 +225,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
     }
 
     handleChange = (fieldName: keyof INewTree) => (event: React.ChangeEvent<{ name?: string | undefined, value: unknown }>) => {
-        if (fieldName == 'fileIds') {
+        if (fieldName === 'fileIds') {
             // TODO: find other way to filter this case
             return;
         }
@@ -429,7 +433,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
     }
 
     handleDeleteFile = (key: FileGroupType) => (id: string | number) => {
-        deleteFile(id).then((succ) => {
+        deleteFile(id).then(() => {
             this.setState({
                 ...this.state,
                 modalShow: false,
@@ -494,7 +498,6 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
         )
     }
 
-
     render() {
         const { successfullyAdded, modalHeadingMessage } = this.state;
         return (
@@ -503,10 +506,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     <p>{this.state.modalMessage}</p>
                     <button onClick={this.handleModalClose}>{successfullyAdded ? "ОК" : "Попробовать снова"}</button>
                 </Modal>
-                <header className={styles.addFormHeader}>
-                    <div className={styles.addFormHeaderSplit}> </div>
-                    <div>&mdash; Карточка дерева</div>
-                </header>
+                <PageHeader title={'Карточка дерева'} />
                 <div className={styles.form}>
                     {this.renderMainInformation()}
                     {this.renderImages()}

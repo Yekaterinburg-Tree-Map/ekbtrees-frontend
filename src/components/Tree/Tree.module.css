@@ -1,35 +1,28 @@
 .container {
     max-width: 1500px;
     width: 90%;
-    margin: 15px auto;
-    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    margin-bottom: 25px;
+    border-left: 38px solid #02390B;
 }
 
-.treeHeader {
-    margin-bottom: 50px;
-    padding-top: 25px;
-    display: flex;
-    align-items: center;
-    font-size: 35px;
-    font-weight: bold;
-    color: rgba(2, 57, 11, 1);
-}
-
-.treeHeaderSplit {
-    clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
-    height: 100px;
-    background-color: rgba(2, 57, 11, 1);
-    width: 30%;
+@media screen and (max-width: 640px) {
+    .container {
+        border-left-width: 15px;
+    }
 }
 
 .wrapper {
     background: #fff;
     margin-bottom: 10px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+    padding: 15px 0;
 }
 
 .title {
     font-size: 24px;
     margin-left: 20px;
+    margin-bottom: 35px;
 }
 
 .editLinkWrapper {
@@ -70,7 +63,6 @@
     margin: 0 20px;
     column-gap: 15px;
     row-gap: 15px;
-    padding-bottom: 20px;
 }
 
 .row {
@@ -86,12 +78,6 @@
     flex-grow: 1;
 }
 
-@media screen and (max-width: 600px) {
-    .treeHeader {
-        font-size: 23px;
-    }
-}
-
 @media screen and (max-width: 1024px) {
     .editLinkWrapper {
         padding: 15px 5px;
@@ -99,7 +85,7 @@
 
     .tbody {
         flex-direction: column;
-        margin: 0px 10px;
+        margin: 0 20px;
     }
 
     .row {
@@ -107,7 +93,7 @@
     }
 
     .title {
-        margin-left: 10px;
+        margin-left: 20px;
     }
 
 }

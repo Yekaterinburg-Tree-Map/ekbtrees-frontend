@@ -10,7 +10,7 @@ export default class UserMenu extends Component<IUserMenuProps, IUserMenuState> 
         return (
             <div className={styles.userNavBar}>
                 <NavLink exact to='/trees' activeClassName={styles.active}><i className={cn([styles.faUser, "fas", "fa-user"])} />Мои деревья</NavLink>
-                <NavLink exact to='/profileSettings'  activeClassName={styles.active}><i className={cn([styles.faUser, "fas", "fa-user"])} />Настройки</NavLink>
+                <NavLink exact to='/profileSettings' activeClassName={styles.active}><i className={cn([styles.faUser, "fas", "fa-user"])} />Настройки</NavLink>
             </div>
         )
     }

@@ -4,11 +4,11 @@
 }
 
 .startTextWrapper {
-  display: flex;
+
 }
 
 .wrapper {
-  z-index: 10000;
+  z-index: 1000;
   width: 473px;
   flex-shrink: 0;
   position: relative;
@@ -26,17 +26,16 @@
   color: white;
   font-size: 20px;
   border-radius: 10px;
-  height: 368px;
-  width: 473px;
+  width: 480px;
   z-index: 2;
   flex-shrink: 0;
   position: absolute;
-  bottom: 40px;
-  left: 20px;
+  bottom: 15px;
+  left: 50px;
 }
 
 .popupText {
-  text-align: justify;
+  text-align: center;
   display: inline-block;
   margin: 0 30px 30px 30px;
 }
@@ -51,8 +50,9 @@
 }
 
 .startWrapper {
-  margin-left: 50px;
-  padding-bottom: 10px;
+  margin-left: 100px;
+  padding: 15px 0;
+  margin-right: 50px;
 }
 
 .startTitle,
@@ -62,14 +62,15 @@
 }
 
 .startTitle {
-
   font-weight: 700;
   font-size: 40px;
+  line-height: 46px;
+  margin-bottom: 10px;
 }
 
 .startText {
   font-size: 21px;
-  flex-grow: 1;
+  margin-right: 10px;
 }
 
 .startLink {
@@ -77,6 +78,10 @@
   text-underline-position: under;
   font-size: 21px;
   margin-right: 15px;
+}
+
+.startLink:hover {
+  color: #aec400;
 }
 
 .weDoBlock {
@@ -103,11 +108,11 @@
 
 .weDoContent {
   padding: 50px;
+  margin: 0;
 }
 
 .weDoImage {
-  width: 45%;
-  aspect-ratio: 1.7;
+  width: 400px;
 }
 
 .login,
@@ -144,11 +149,9 @@
 }
 
 .voluntaryWrapper {
-  padding: 75px 0;
+  padding: 75px 50px 75px 75px;
   display: flex;
   flex-direction: column;
-  padding-left: 100px;
-  padding-right: 150px;
   color: var(--black-white-text);
 }
 
@@ -161,8 +164,8 @@
 }
 
 .voluntaryImage {
-  height: 50%;
-  width: 40%;
+  height: 400px;
+  width: 400px;
   border-radius: 50%;
   margin: 50px 0 50px 50px;
 }
@@ -183,6 +186,8 @@
 
   .startWrapper {
     text-align: center;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   .popup {
@@ -236,18 +241,18 @@
   }
 
   .startWrapper {
-    padding: 0;
     text-align: left;
     margin-left: 14px;
     top: 24.5px;
   }
 
   .voluntaryImage {
-    width: 70%;
+    /*width: 70%;*/
   }
 
   .startTitle {
     font-size: 22px;
+    line-height: 28px;
   }
 
   .startLink {
@@ -263,7 +268,9 @@
     z-index: 3;
     top: 24.5px;
   }
+}
 
+@media screen and (max-width: 1024px) {
   .weDoImage {
     aspect-ratio: 1;
     width: 100%;
@@ -283,5 +290,15 @@
 
   .weDoContent {
     padding: 10px;
+  }
+}
+
+.map {
+  height: calc(100vh - 300px);
+}
+
+@media screen and (min-width: 1024px) {
+  .map {
+    height: calc(100vh - 276px)
   }
 }

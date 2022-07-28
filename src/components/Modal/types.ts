@@ -1,5 +1,3 @@
-
-
 export interface IModalProps {
     show: boolean;
     onClose: () => void;
@@ -7,6 +5,3 @@ export interface IModalProps {
     modalHeadingMessage?: string;
 }
 
-export interface IModalState {
-
-}

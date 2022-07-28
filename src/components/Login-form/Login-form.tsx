@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import base64 from 'base-64';
 import utf8 from 'utf8';
 import styles from './Login-form.module.css';
 import AuthForm from '../AuthForm';
-import googleIcon from '../../img/googleSignUp.png';
 import vkIcon from '../../img/vkSignUp.png';
 import { ILogingFormUser } from "../../common/types";
 import { ILoginFormProps, ILoginFormState } from "./types";
@@ -29,7 +28,7 @@ export default class LoginForm extends Component<ILoginFormProps, ILoginFormStat
     handleTouchEnd: React.TouchEventHandler<HTMLElement> = (e) => {
         // let difference = e.changedTouches[0].clientX - this.state.touchStart;
         let difference = e.changedTouches[0].clientX - (this.state.touchStart ?? 0);
-        var width = window.innerWidth;
+        const width = window.innerWidth;
         if (-difference > width / 2) {
             this.pushSingUp();
         }
@@ -70,7 +69,7 @@ export default class LoginForm extends Component<ILoginFormProps, ILoginFormStat
             .then(async response => {
                 if (response.status === 200) {
                     this.setState({ error: false }, handleCookie);
-                    window.location.href = '/';
+                    // window.location.href = '/';
                 } else {
                     this.setState({ error: true });
                 }
@@ -106,7 +105,7 @@ export default class LoginForm extends Component<ILoginFormProps, ILoginFormStat
             <div className={styles.flexSocial}>
                 <div className={styles.social}>
                     {/* <NavLink to="/vk"><img src={googleIcon} alt="google-link" /></NavLink> */}
-                    <NavLink to="/vk"><img src={vkIcon} alt="vk-link" /></NavLink>
+                    <Link to="/vk"><img src={vkIcon} alt="vk-link" /></Link>
                 </div>
             </div>
         );
@@ -125,7 +124,7 @@ export default class LoginForm extends Component<ILoginFormProps, ILoginFormStat
         return (
             <>
                 <p className={styles.loginHelp}>
-                    <NavLink className={styles.restore} exact to='/passRecovery'>Забыли пароль?</NavLink>
+                    <Link className={styles.restore} to='/passRecovery'>Забыли пароль?</Link>
                 </p>
                 <p className={styles.loginMessage}>или войдите с</p>
             </>

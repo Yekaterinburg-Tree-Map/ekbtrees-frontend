@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import styles from './Tree.module.css'
 import modalStyles from "../Modal/Modal.module.css";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Spinner from "../Spinner";
 import { getUrlParamValueByKey } from "../../helpers/url";
 import { getTree, getFilesByTree, deleteTree, deleteFiles } from "../EditTreeForm/actions";
 import { formatDate } from '../../helpers/date';
 import FileUpload from "../FileUpload";
 import { ITreeModelConverted, IJsonTree, IFile } from "../../common/types";
-import { ITreeProps, ITreeState } from "./types";
+import { ITreeProps, ITreeState, LocationState } from "./types";
 import Modal from "../Modal/Modal";
 import { isNumber } from "../../common/treeForm";
+import {RouteComponentProps} from 'react-router-dom';
+import {StaticContext} from "react-router";
+import PageHeader from "../PageHeader";
 
 
-export class Tree extends Component<ITreeProps, ITreeState> {
+export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticContext, LocationState>, ITreeState> {
 	static defaultProps = {
 		user: null
 	}
@@ -24,7 +27,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 	private canEdit: boolean = false;
 	private operationInProgress: boolean = false;
 
-	constructor(props: ITreeProps) {
+	constructor(props: ITreeProps & RouteComponentProps<{}, StaticContext, LocationState>) {
 		super(props);
 
 		this.state = {
@@ -74,7 +77,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 				value: created ? formatDate(created) : null
 			},
 			conditionAssessment: {
-				title: 'Визуальная оценка состония',
+				title: 'Визуальная оценка состояния',
 				value: conditionAssessment
 			},
 			diameterOfCrown: {
@@ -120,47 +123,64 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 	componentDidMount() {
 		this.treeId = getUrlParamValueByKey('tree');
 
-		if (this.treeId) {
-			getTree(this.treeId)
-				.then((tree: IJsonTree) => {
-					this.fileIds = tree.fileIds ?? [];
-					this.canDelete = this.checkCanDelete(tree);
-					this.canEdit = this.checkCanEdit(tree);
-					this.setState({
-						tree: this.convertTree(tree),
-						loading: false
-					}, () => {
-						getFilesByTree(tree.fileIds ?? [])
-							.then(files => {
-								const images = files.filter((file: IFile) => file.mimeType.startsWith('image'));
-								const filesWithoutImages = files.filter((file: IFile) => !file.mimeType.startsWith('image'));
+		const {location} = this.props;
 
-								this.setState({
-									files: filesWithoutImages,
-									images,
-									loadingFiles: false
-								})
-							})
-							.catch(error => {
-								console.error(error, 'Ошибка при загрузке файлов!');
-								this.setState({
-									loadingFiles: false
-								})
-							})
-					})
-				})
-				.catch(error => {
-					console.error(error, 'Ошибка!')
-					if (this.props.user === null) {
-						// TODO: redirect to login
-						this.props.history.push('/login');
-					}
-					this.setState({
-						loading: false,
-						loadingFiles: false
-					})
-				})
+		if (location.state && location.state.prevPosition) {
+			const {latitude, longitude} = location.state.prevPosition;
+
+			this.trySetMaoViewPosition(latitude, longitude);
 		}
+
+		if (this.treeId) {
+			this.getTree(this.treeId);
+		}
+	}
+
+	getTree = (treeId: string) => {
+		getTree(treeId)
+			.then((tree: IJsonTree) => {
+				this.fileIds = tree.fileIds ?? [];
+				this.canDelete = this.checkCanDelete(tree);
+				this.canEdit = this.checkCanEdit(tree);
+
+				this.setState({
+					tree: this.convertTree(tree),
+					loading: false
+				}, () => {
+					this.getFilesByTree(tree)
+				})
+			})
+			.catch(error => {
+				console.error(error, 'Ошибка!')
+				if (this.props.user === null) {
+					// TODO: redirect to login
+					this.props.history.push('/login');
+				}
+				this.setState({
+					loading: false,
+					loadingFiles: false
+				})
+			})
+	}
+
+	getFilesByTree = (tree: IJsonTree) => {
+		getFilesByTree(tree.fileIds ?? [])
+			.then(files => {
+				const images = files.filter((file: IFile) => file.mimeType.startsWith('image'));
+				const filesWithoutImages = files.filter((file: IFile) => !file.mimeType.startsWith('image'));
+
+				this.setState({
+					files: filesWithoutImages,
+					images,
+					loadingFiles: false
+				})
+			})
+			.catch(error => {
+				console.error(error, 'Ошибка при загрузке файлов!');
+				this.setState({
+					loadingFiles: false
+				})
+			})
 	}
 
 	checkCanDelete(tree: IJsonTree) {
@@ -177,16 +197,12 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 
 	closeModal = () => this.setState({ modalShow: false });
 
-	trySetMaoViewPosition = () => {
-		if (this.state.tree) {
-			const lat = this.state.tree.latitude.value;
-			const lng = this.state.tree.longitude.value;
+	trySetMaoViewPosition = (lat: string | number | boolean| null, lng: string | number | boolean| null) => {
+		if (lat && lng) {
+			const latNum = isNumber(lat) ? lat : parseFloat(lat.toString());
+			const lngNum = isNumber(lng) ? lng : parseFloat(lng.toString());
 
-			if (lat && lng) {
-				const latNum = isNumber(lat) ? lat : parseFloat(lat.toString());
-				const lngNum = isNumber(lng) ? lng : parseFloat(lng.toString());
-				this.props.setMapViewPosition({ lat: latNum, lng: lngNum });
-			}
+			this.props.setMapViewPosition({ lat: latNum, lng: lngNum });
 		}
 	}
 
@@ -200,8 +216,13 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 				}
 				deleteTree(this.treeId).then(succ => {
 					if (succ) {
-						// alert("tree is deleted");
-						this.trySetMaoViewPosition();
+						if (this.state.tree) {
+							const lat = this.state.tree.latitude.value;
+							const lng = this.state.tree.longitude.value;
+
+							this.trySetMaoViewPosition(lat, lng);
+						}
+
 						this.setState({ modalShow: false });
 						// this.props.history.goBack();
 						this.props.history.push("/map");
@@ -209,7 +230,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 						alert("error while deleting the tree");
 						// this.setState({modalShow: true, modalMessage: "Ошибка при удалении дерева"});
 					}
-				}).catch(err => {
+				}).catch(() => {
 					alert("error while deleting the tree");
 				});
 			});
@@ -230,12 +251,19 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 
 	renderEditLink() {
 		const { tree } = this.state;
-		return (
-			<div className={styles.editLinkWrapper}>
-				{this.canDelete && <span className={styles.removeLink} onClick={this.confirmDeleteCurrentTree}>Удалить</span>}
-				{this.canEdit && <NavLink to={`/trees/tree=${tree?.id}/edit`} className={styles.editLink}>Редактировать</NavLink>}
-			</div>
-		)
+
+		if (this.canDelete || this.canEdit) {
+			return (
+				<div className={styles.editLinkWrapper}>
+					{this.canDelete &&
+						<span className={styles.removeLink} onClick={this.confirmDeleteCurrentTree}>Удалить</span>}
+					{this.canEdit &&
+						<Link to={`/trees/tree=${tree?.id}/edit`} className={styles.editLink}>Редактировать</Link>}
+				</div>
+			)
+		}
+
+		return null;
 	}
 
 	renderRows() {
@@ -275,11 +303,8 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 	}
 
 	renderDetails() {
-		const { user } = this.props;
-
 		return (
 			<div className={styles.wrapper}>
-				{user ? this.renderEditLink() : null}
 				<h3 className={styles.title}>Основная информация</h3>
 				{this.renderTable()}
 			</div>
@@ -348,11 +373,9 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 				<Modal show={this.state.modalShow} onClose={this.closeModal} modalHeadingMessage={"Подтвердите"} danger={true}>
 					{this.renderModalContent()}
 				</Modal>
-				<header className={styles.treeHeader}>
-					<div className={styles.treeHeaderSplit}> </div>
-					<div>&mdash; Карточка дерева</div>
-				</header>
+				<PageHeader title={'Карточка дерева'} />
 				<div className={styles.container}>
+					{this.props.user ? this.renderEditLink() : null}
 					{this.renderDetails()}
 					{this.renderImages()}
 					{this.renderFiles()}

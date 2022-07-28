@@ -2,11 +2,18 @@
     height: 40px;
     position: absolute;
     z-index: 999;
-    right: 0px;
-    bottom: 0px;
+    right: 0;
+    bottom: 0;
     display: flex;
     align-items: center;
-    margin: 2em;
+    margin: 50px;
+}
+
+@media screen and (max-width: 640px) {
+    .mapButtonContainer {
+        left: 0;
+        justify-content: center
+    }
 }
 
 .mapButtonSecondary {
@@ -46,10 +53,4 @@
 
 .mapButtonSuccess:disabled{
     background-color: #b9c5b0;
-}
-
-@media (max-width: 500px) {
-    .mapButtonContainer {
-        margin: 6em;
-    }
 }

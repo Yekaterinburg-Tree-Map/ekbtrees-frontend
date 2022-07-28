@@ -1,19 +1,16 @@
 import styles from "./TreeForm.module.css";
 import React, { useState, useEffect } from "react";
-import cn from "classnames";
 import { MapState } from "../Map/MapState";
-
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ITreeFormProps } from "./types";
 import treeImage from '../../img/defaultTree.png';
 import { getFilesByTree } from "../EditTreeForm/actions";
-import { IFile } from "../../common/types";
-import FileUpload from "../FileUpload";
+import {IFile} from "../../common/types";
 import Spinner from "../Spinner";
 
-export const TreeForm = ({ activeTree, onClose, changeState }: ITreeFormProps) => {
+export const TreeForm = ({ activeTree, onClose, changeState, user }: ITreeFormProps) => {
     const [loading, setLoading] = useState<Boolean>(true);
-    
+
     useEffect(() => {
         changeState(MapState.disabled);
         const myImage: HTMLImageElement | null = document.querySelector(".imageTreeBlock");
@@ -28,12 +25,15 @@ export const TreeForm = ({ activeTree, onClose, changeState }: ITreeFormProps) =
                 await fetch(file.uri)
                     .then(response => response.blob())
                     .then(imageBlob => {
-                        const urlImage: string = URL.createObjectURL(imageBlob);
-                        myImage!.src = urlImage;
+                        myImage!.src = URL.createObjectURL(imageBlob);
                     });
                 setLoading(false);
             });
     }, [])
+
+    const pathTo = user && user.role === 'superuser'
+        ? `admin/trees/tree=${activeTree?.id}`
+        : `trees/tree=${activeTree?.id}`
 
     return (
         <figure className={styles.block}>
@@ -70,7 +70,15 @@ export const TreeForm = ({ activeTree, onClose, changeState }: ITreeFormProps) =
                 <div className={styles.wrapper}>
                     <img className="imageTreeBlock" height="170px" style={{ display: loading ? "none" : "block" }} />
                 </div>
-                <NavLink to={`trees/tree=${activeTree?.id}`} className={styles.link} >Узнать подробнее</NavLink>
+                <Link
+                    to={{
+                        pathname: pathTo,
+                        state: {prevPosition: activeTree.geographicalPoint}
+                    }}
+                    className={styles.link}
+                >
+                    Узнать подробнее
+                </Link>
             </div>
         </figure>
     )

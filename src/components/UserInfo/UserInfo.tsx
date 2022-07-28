@@ -5,6 +5,7 @@ import UserMenu from '../UserMenu';
 import cn from 'classnames';
 import { closest } from '../../helpers/dom';
 import { IUserInfoProps, IUserInfoState } from "./types";
+import { Link } from 'react-router-dom';
 
 
 const DOCUMENT_ELEMENT = window.document.documentElement;
@@ -74,21 +75,6 @@ export default class UserInfo extends Component<IUserInfoProps, IUserInfoState> 
         this.button = ref;
     }
 
-    renderToggleButton() {
-        const classNameCN = cn({
-            [styles.faChevronDown]: true,
-            'fa': true,
-            [styles.faChevronDownActive]: this.state.openMenu
-        })
-
-
-        return (
-            <button className={styles.userBtn} onClick={this.handleClick} ref={this.refButton}>
-                <i className={classNameCN} aria-hidden="true" />
-            </button>
-        )
-    }
-
     render() {
         return (
             <div className={styles.container}>
@@ -98,12 +84,11 @@ export default class UserInfo extends Component<IUserInfoProps, IUserInfoState> 
                             <span className={styles.userName}>{`${this.props.user?.firstName}\xA0${this.props.user?.lastName}`}</span>
                             <span className={styles.userRole}>{this.props.user?.role}</span>
                         </div>
-                        <a href="profileSettings">
+                        <Link to="/profileSettings">
                             <img src={Man} className={styles.userIcon} alt="profile-icon" />
-                        </a>
+                        </Link>
                     </div>
                     <div className={styles.userControls}>
-                        {/*<i className={cn([styles.faBell, "fa"])} aria-hidden="true" />*/}
                         <i className={cn([styles.faSignOut, "fa"])} aria-hidden="true" onClick={this.props.onCookieRemove} />
                     </div>
                 </div>

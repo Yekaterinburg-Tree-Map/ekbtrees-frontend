@@ -11,14 +11,6 @@
     }
 }
 
-@media screen and (min-width: 1024px) {
-    .fullMap {
-        height: 80vh;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .fullMap {
-        height: 70vh;
-    }
+.fullMap {
+    height: calc(100vh - 200px);
 }

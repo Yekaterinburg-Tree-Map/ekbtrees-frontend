@@ -1,11 +1,12 @@
-import {IFile, IMapPosition, ITreeModelConverted, IUser} from "../../common/types";
-import * as H from "history";
+import {IFile, IGeographicalPoint, IMapPosition, ITreeModelConverted, IUser} from "../../common/types";
 
+export interface LocationState {
+    prevPosition: IGeographicalPoint
+}
 
 export interface ITreeProps {
-    user: IUser | null;
     setMapViewPosition: (position: IMapPosition) => void;
-    history: H.History;
+    user: IUser | null;
 }
 
 export interface ITreeState {

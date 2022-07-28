@@ -12,5 +12,3 @@ export const getClusterMapInfoUrl = (container: {lng: number, lat: number}[]): s
     baseUrl + `trees-cluster/get-in-region?x1=${container[0].lat}&y1=${container[0].lng}&x2=${container[1].lat}&y2=${container[1].lng}`;
 
 export const getTreeDataUrl = (treeId: string | number): string => baseUrl + `tree/get/${treeId}`;
-
-export const getTreeAddUrl = () => baseUrl + "tree/save";
