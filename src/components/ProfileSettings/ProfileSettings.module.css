@@ -1,23 +1,27 @@
 .profileHeading {
     text-align: center;
-    padding: 20px 0px;
+    padding: 20px 0;
 }
-.profileForm{
+
+.profileForm {
     display: flex;
     flex-direction: column;
-    box-shadow: 0px 0px 15px -5px rgb(34 60 80 / 57%);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
     margin: 10px;
-    padding: 10px;
+    padding: 20px;
     background-color: white;
+
 }
-.profileInput{
+
+.profileInput {
     height: 35px;
     border: 1px solid grey;
-    padding: 0px 10px;
+    padding: 0 10px;
     min-width: 60%;
     resize: none;
     line-height: 45px;
 }
+
 .flex-column{
     flex-direction: column;
 }
@@ -35,7 +39,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 0px;
+    padding: 5px 0;
 }
 .profileFlex span{
     flex-basis: 10%;
@@ -73,7 +77,7 @@
     }
     .profileForm{
         border-radius: 5px;
-        margin: 0px 10%;
+        margin: 0 10%;
     }
     .profileInput{
         flex-grow: 1;

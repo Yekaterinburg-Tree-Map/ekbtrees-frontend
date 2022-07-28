@@ -2,13 +2,3 @@
 .leaflet-container .leaflet-control-scal {
     display: none;
 }
-
-.leaflet-container {
-    height: calc(100vh - 60px);
-}
-
-@media screen and (min-width: 1024px) {
-    .leaflet-container {
-        height: 650px;
-    }
-}

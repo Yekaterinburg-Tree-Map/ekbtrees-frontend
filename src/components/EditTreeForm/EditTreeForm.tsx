@@ -15,7 +15,6 @@ import Spinner from "../Spinner/Spinner";
 import FileUpload from "../FileUpload";
 import TextField from '../TextField';
 import Select from '../Select';
-import {resolveAny} from "dns";
 import {
     IEditedTree,
     IFile,
@@ -24,8 +23,12 @@ import {
 } from "../../common/types";
 import { IEditTreeFormProps, IEditTreeFormState } from "./types";
 import {
-    conditionAssessmentOptions, treePlantingTypeOptions, treeStatusOptions,
-    validateIsNotNegativeNumber, validateLessThan, validateIsSet, validateGreaterThan
+    conditionAssessmentOptions,
+    treePlantingTypeOptions,
+    treeStatusOptions,
+    validateIsNotNegativeNumber,
+    validateLessThan,
+    validateGreaterThan
 } from "../../common/treeForm";
 import Modal from "../Modal";
 
@@ -70,9 +73,9 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
             id
         } = tree;
 
-        const conditionAssessmentId = conditionAssessmentOptions.find(op => op.title == conditionAssessment)?.id ?? '';
-        const treeStatusOptionId = treeStatusOptions.find(op => op.title == status)?.id ?? '';
-        const treePlantingTypeId = treePlantingTypeOptions.find(op => op.title == treePlantingType)?.id ?? '';
+        const conditionAssessmentId = conditionAssessmentOptions.find(op => op.title === conditionAssessment)?.id ?? '';
+        const treeStatusOptionId = treeStatusOptions.find(op => op.title === status)?.id ?? '';
+        const treePlantingTypeId = treePlantingTypeOptions.find(op => op.title === treePlantingType)?.id ?? '';
 
         return {
             age: {
@@ -82,7 +85,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
                 validate: validateIsNotNegativeNumber,
             },
             conditionAssessment: {
-                title: 'Визуальная оценка состония',
+                title: 'Визуальная оценка состояния',
                 value: conditionAssessmentId,
                 values: conditionAssessmentOptions,
                 loading: false
@@ -463,7 +466,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
     }
 
     handleDeleteFile = (key: string) => (id: string | number) => {
-        deleteFile(id).then(succ => {
+        deleteFile(id).then(() => {
             this.setState({
                 [key]: this.getFilesAfterDelete(id, key),
                 tree: {

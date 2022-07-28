@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './Footer.module.css';
 import telegramIcon from '../../img/telegram.png';
 import vkIcon from '../../img/vk.png'
@@ -24,7 +24,7 @@ export default class Footer extends Component<IFooterProps, IFooterState> {
                 <div className={styles.column}>
                     <span className={styles.nameColumn}>Компания</span>
                     {/* <NavLink className={styles.link} exact to='/aboutUs' activeClassName="active">О нас</NavLink> */}
-                    <NavLink className={styles.link} exact to='/saveTrees' activeClassName="active">Что мы делаем&nbsp;?</NavLink>
+                    <Link className={styles.link} to='/saveTrees'>Что мы делаем&nbsp;?</Link>
                 </div>
                 {/* <div className={styles.column}>
                     <span className={styles.nameColumn}>Помощь</span>

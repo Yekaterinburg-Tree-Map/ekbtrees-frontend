@@ -6,13 +6,13 @@ import {IModalImgProps, IModalImgState} from "./types";
 
 export default class ModalImg extends Component<IModalImgProps, IModalImgState> {
     render(){
-        return ( 
+        return (
                 <Modal show={this.props.modalOpen} onHide={this.props.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Фото</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <img className="treeModal" src={this.props.modalData} alt="Tree"></img>
+                        <img className="treeModal" src={this.props.modalData} alt="Tree" />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.props.handleClose}>

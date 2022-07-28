@@ -35,20 +35,22 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
                 {
                     activeClassName: styles.active,
                     exact: true,
-                    onClick: this.props.onCookieRemove,
-                    title: 'Выйти',
-                    to: '/',
+                    onClick: this.props.onClick,
+                    title: 'Настройки',
+                    to: '/profileSettings',
                     className: styles.visibleMenuLink
-                })
+                }
+            );
         } else {
-            authLinks.push({
-                activeClassName: styles.active,
-                exact: true,
-                onClick: this.props.onClick,
-                title: 'Войти',
-                to: '/login',
-                className: styles.visibleMenuLink
-            },
+            authLinks.push(
+                {
+                    activeClassName: styles.active,
+                    exact: true,
+                    onClick: this.props.onClick,
+                    title: 'Войти',
+                    to: '/login',
+                    className: styles.visibleMenuLink
+                },
                 {
                     activeClassName: styles.active,
                     exact: true,
@@ -61,7 +63,7 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
 
         links = links.concat(authLinks);
 
-        return links.map(link => {
+        const items = links.map(link => {
             return (
                 <NavLink
                     key={link.title}
@@ -76,6 +78,14 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
                 </NavLink>
             );
         })
+
+        if (user) {
+            items.push(
+                <div className={styles.visibleMenuLink} onClick={this.props.onCookieRemove}>Выйти</div>
+            )
+        }
+
+        return items;
     }
 
     render() {

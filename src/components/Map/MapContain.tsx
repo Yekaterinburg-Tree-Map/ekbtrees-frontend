@@ -1,16 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, {CSSProperties, useEffect, useRef} from "react";
 import { useState } from "react";
 import GeojsonLayer from "./GeojsonLayer";
 import { MapState } from "./MapState";
 import "./Map.css";
 import { IMapContainProps } from "./types";
-import mapIcon from "../../common/images/map_marker.png";
 
 const DG = require('2gis-maps');
 
 
 const MapContain = (props: IMapContainProps) => {
-	const { styleName, mapViewPosition, setMapViewPosition, user, disabled } = props;
+	const { mapViewPosition, setMapViewPosition, user, disabled } = props;
 
 	const defaultPosition = [56.8391040, 60.6082500]; // Yekaterinburg position
 	const defaultZoom = 14; // Yekaterinburg position
@@ -20,8 +19,14 @@ const MapContain = (props: IMapContainProps) => {
 	const setMapViewOnUser = useRef<boolean>(true);
 	const setMarkerOnView = useRef<boolean>(false);
 
-	let position = mapViewPosition ? [mapViewPosition.lat, mapViewPosition.lng] : defaultPosition;
-	let zoom = mapViewPosition ? 30 : defaultZoom;
+	let position = defaultPosition;
+	let zoom = defaultZoom
+
+	if (mapViewPosition) {
+		position = [mapViewPosition.lat, mapViewPosition.lng] ;
+		zoom = 30;
+	}
+
 	useEffect(() => {
 		setMapViewOnUser.current = mapViewPosition === undefined;
 
@@ -31,6 +36,7 @@ const MapContain = (props: IMapContainProps) => {
 		}
 		// console.log(`New setMarkerOnView: ${setMarkerOnView.current}`);
 		let innerMap = map;
+
 		if (!innerMap) {
 			innerMap = DG.map(elRef.current, {
 				'center': position,
@@ -40,13 +46,20 @@ const MapContain = (props: IMapContainProps) => {
 		} else {
 			innerMap.setView(position, zoom);
 		}
+
 		setMapViewPosition(undefined);
 	}, []);
 
+	const style: CSSProperties = (disabled || mapState === MapState.disabled)
+		? { "pointerEvents": "none" }
+		: { "pointerEvents": "all" };
+
 	return (
-		
-		<div ref={elRef} className={props.className}
-			style={disabled || mapState === MapState.disabled ? { "pointerEvents": "none" } : { "pointerEvents": "all" }}>
+		<div
+			ref={elRef}
+			className={props.className}
+			style={style}
+		>
 			<GeojsonLayer
 				map={map}
 				mapState={mapState}

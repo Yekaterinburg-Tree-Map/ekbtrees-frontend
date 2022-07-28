@@ -45,40 +45,23 @@
     outline: none;
 }
 
-.faChevronDown,
-.faBell,
 .faSignOut {
     color: lightgrey;
-    font-size: 20px;
+    font-size: 32px;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 16px;
 }
 
-.faChevronDown:hover,
-.faBell:hover,
 .faSignOut:hover {
-    color: #54ABFDFF;
+    color: #aec400;
 }
 
 .faChevronDownActive {
     color: rgb(84, 171, 253);
 }
 
-.faBell:before {
-    content: "\f0f3";
-}
-
 .faSignOut:before {
     content: "\f08b";
-}
-
-.faChevronDown {
-    background: none;
-    border: 0;
-}
-
-.faChevronDown:before {
-    content: "\f078";
 }
 
 .userControls {

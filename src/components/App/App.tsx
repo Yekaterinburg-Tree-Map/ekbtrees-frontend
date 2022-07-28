@@ -41,7 +41,7 @@ class App extends Component<IAppProps & RouteComponentProps, IAppState> {
     removeCookie = () => {
         RequestService.postData('/auth/logout', null).then(() => {
             this.clearUserAndRedirect();
-        }).catch(err => {
+        }).catch(() => {
             console.log("error while logout");
             this.clearUserAndRedirect();
         });
@@ -53,7 +53,8 @@ class App extends Component<IAppProps & RouteComponentProps, IAppState> {
         if (cookieAccess) {
             const decodedCookie: ICookieAccess = jwt_decode(cookieAccess);
             const { id, email, firstName, lastName, roles } = decodedCookie;
-            let user: IUser = {
+
+            const user: IUser = {
                 id: id,
                 email: email,
                 firstName: firstName,

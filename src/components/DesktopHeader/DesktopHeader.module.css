@@ -89,7 +89,7 @@ input:checked + .slider:before {
     font-weight: bold;
     color: #ffff;
     margin: 0 10px;
-    font-size: 12px;
+    font-size: 22px;
     text-align: center;
     text-transform: uppercase;
 }
@@ -127,17 +127,13 @@ input:checked + .slider:before {
     .desktopHeader {
         position: static;
         display: flex;
-        padding: 0 2% 0 5px;
+        padding: 0 50px;
     }
 
     .menu {
         margin: 0;
         width: unset;
         align-items: unset;
-    }
-
-    .menu a {
-        font-size: 18px;
     }
 }
 

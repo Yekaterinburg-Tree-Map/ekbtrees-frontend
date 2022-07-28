@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './Registration-form.module.css';
 import FormHeader from '../AuthForm';
 import vkIcon from '../../img/vkSignUp.png';
-import googleIcon from '../../img/googleSignUp.png';
 import { IRegistrationFormInput, IRegistrationFormProps, IRegistrationFormState } from "./types";
 
 
@@ -23,7 +22,8 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
 
     handleTouchEnd: React.TouchEventHandler<HTMLElement> = (e) => {
         let difference = e.changedTouches[0].clientX - this.state.touchStart;
-        var width = window.innerWidth;
+        const width = window.innerWidth;
+
         if (difference > width / 2) {
             this.pushLogin();
         }
@@ -117,7 +117,7 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
                         <p className={styles.loginMessage}>или зарегистрируйтесь с</p>
                         <div className={styles.flexSocial}>
                             <div className={styles.social}>
-                                <NavLink to="/vk"><img src={vkIcon} alt="vk-link" /></NavLink>
+                                <Link to="/vk"><img src={vkIcon} alt="vk-link" /></Link>
                                 {/* <NavLink to="/vk"><img src={googleIcon} alt="google-link" /></NavLink> */}
                             </div>
                         </div>
@@ -126,8 +126,7 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
                     <aside className={styles.registrationAside}>
                         <h2 className={styles.title}>Привет, Друг!</h2>
                         <p>Введите данные, чтобы продолжить</p>
-                        <NavLink className={styles.linkLogin} exact to='/login'
-                            activeClassName="active">Авторизоваться</NavLink>
+                        <Link className={styles.linkLogin} to='/login'>Авторизоваться</Link>
                     </aside>
                 </section>
             </>

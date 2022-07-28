@@ -1,10 +1,8 @@
 import React from 'react';
 import { IModalProps } from "./types";
 import styles from './Modal.module.css';
-import warning from "../../img/warning.svg";
 
 const Modal: React.FC<IModalProps> = (props) => {
-
     return (
         <React.Fragment>
             <div className={`${styles.modalWrap} ${props.show ? styles.visible : ""}`}>

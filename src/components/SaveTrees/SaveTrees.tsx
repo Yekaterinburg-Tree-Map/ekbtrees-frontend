@@ -2,24 +2,16 @@ import React, { Component } from 'react';
 import './SaveTrees.css';
 import { ISaveTreesProps, ISaveTreesState } from "./types";
 import image from "../../img/saveTrees.png";
-
+import PageHeader from "../PageHeader";
 
 export default class SaveTrees extends Component<ISaveTreesProps, ISaveTreesState> {
-  renderHeader() {
-    return (
-      <header className="header">
-        <div className="header__split"> </div>
-        <div>&mdash; Защитим деревья вместе</div>
-      </header>
-    )
-  }
   renderMain() {
     return (
       <article className="main">
         <h2 className="main__title">Ежегодно Екатеринбург теряет сотни взрослых деревьев. Защитим их вместе!</h2>
         <img className="main__image" src={image} />
         <p className="main__text">Городские деревья часто страдают при строительстве, неправильной обрезке и&nbsp;некомпетентном уходе. Многие из&nbsp;них подолгу болеют и&nbsp;умирают. Из-за отсутствия комплексного подхода, никто не&nbsp;занимается их&nbsp;восстановлением и&nbsp;высадкой новых деревьев.
-          Многие застройщики не&nbsp;осознают ценность уличных деревьев и&nbsp;кустарников. Большинство компаний экономит на&nbsp;озеленени, в&nbsp;результате чего качество среды снижается. Лишь малая часть из&nbsp;них беспокоится об&nbsp;окружающей среде, высаживают крупномеры вдоль фасадов, проводят грамотную обрезку деревьев.
+          Многие застройщики не&nbsp;осознают ценность уличных деревьев и&nbsp;кустарников. Большинство компаний экономит на&nbsp;озеленении, в&nbsp;результате чего качество среды снижается. Лишь малая часть из&nbsp;них беспокоится об&nbsp;окружающей среде, высаживают крупномеры вдоль фасадов, проводят грамотную обрезку деревьев.
         </p>
         <p className="main__text">
           Данный проект представляет из&nbsp;себя карту, на&nbsp;которую нанесены и&nbsp;продолжают наносится деревья, находящиеся на&nbsp;территории Екатеринбурга. Эта карта даст волонтёрам возможность контроля за&nbsp;недобросовестными исполнителями. А&nbsp;также поможет ответственным подрядчикам снизить потери при помощи актуальных данных.
@@ -34,7 +26,7 @@ export default class SaveTrees extends Component<ISaveTreesProps, ISaveTreesStat
   render() {
     return (
       <section className="save-trees">
-        {this.renderHeader()}
+          <PageHeader title={'Защитим деревья вместе'} />
         {this.renderMain()}
       </section>
     )

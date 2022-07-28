@@ -107,6 +107,7 @@ export default class RequestService {
 	static refreshToken (): Promise<any> {
 		const token = cookies.get('AccessToken');
 		const decoded_token: any = token ? decode(token) : null;
+
 		if(decoded_token && decoded_token.exp - Math.round(Date.now() / 1000) < 10) {
 			return fetch("/auth/newTokens", {
 				method: 'POST',

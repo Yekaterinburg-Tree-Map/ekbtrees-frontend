@@ -36,14 +36,7 @@ export const Select = (props: ISelectProps) => {
             </MenuItem>;
         }
 
-        const menuItems = values.map(value => {
-            return (
-                <MenuItem value={value.id} key={value.id}>
-                    {value.title}
-                </MenuItem>
-            );
-        });
-        return menuItems;
+        return values.map(value => <MenuItem value={value.id} key={value.id}>{value.title}</MenuItem>);
     }
 
     return (

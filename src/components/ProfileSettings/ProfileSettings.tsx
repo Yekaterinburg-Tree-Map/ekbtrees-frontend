@@ -6,6 +6,7 @@ import {getUser, updateUser, updateUserPassword} from "./actions";
 import Modal from "../Modal";
 import modalStyles from "../Modal/Modal.module.css";
 import RequestService from "../../helpers/requests";
+import PageHeader from "../PageHeader";
 
 
 export default class ProfileSettings extends Component<IProfileSettingsProps, IProfileSettingsState> {
@@ -65,11 +66,11 @@ export default class ProfileSettings extends Component<IProfileSettingsProps, IP
         if (newPassword) {
             // console.log("just about to send password!");
             // return;
-            updateUserPassword(newPassword).then(succ => {
+            updateUserPassword(newPassword).then(() => {
                 // console.log(`updateUserPassword: ${succ}`);
                 this.operationInProgress = false;
                 this.closeModal();
-            }).catch(err => {
+            }).catch(() => {
                 console.log("Error while submitting new password");
             });
         } else {
@@ -102,9 +103,9 @@ export default class ProfileSettings extends Component<IProfileSettingsProps, IP
         // console.log(this.state.userInfo);
         if (this.props.user) {
             // console.log("submitting user profile...");
-            updateUser(this.props.user.id, this.state.userInfo).then(succ => {
+            updateUser(this.props.user.id, this.state.userInfo).then(() => {
                 // console.log(`updated: ${succ}`);
-                RequestService.refreshTokenForce().then(succ => {
+                RequestService.refreshTokenForce().then(() => {
                     // console.log("refreshed cookies");
                     this.props.updateUserByCookies();
                 });
@@ -120,7 +121,7 @@ export default class ProfileSettings extends Component<IProfileSettingsProps, IP
                 <Modal show={this.state.modalShow} onClose={this.closeModal}>
                     {this.renderModalContent()}
                 </Modal>
-                <h4 className={styles.profileHeading}>Редактирование профиля</h4>
+                <PageHeader title={'Профиль'} />
                 <form className={styles.profileForm}
                       onSubmit={this.handleSubmit as React.FormEventHandler<HTMLFormElement>}>
                     <label className={cn([styles.profileFlex, styles.flexColumn])}>

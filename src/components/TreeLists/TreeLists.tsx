@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './TreeLists.module.css';
 import cn from "classnames";
 import { formatDate } from '../../helpers/date';
@@ -12,6 +12,7 @@ import {
     ITreeListsStateLocale
 } from "./types";
 import defaultTreeImage from '../../common/images/default_treelists_tree_img.png';
+import PageHeader from "../PageHeader";
 
 
 const locale: ITreeListsStateLocale = {
@@ -61,7 +62,7 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
     getTree = (tree: IJsonTreeWithImage, index: string | number) => {
         const { age, created, id, image, species, treeHeight } = tree;
         return (id &&
-            <NavLink to={getTreeLink(id)} className={styles.treeTableItemWrapper} key={id}>
+            <Link to={getTreeLink(id)} className={styles.treeTableItemWrapper} key={id}>
                 <div className={cn([styles.treeTableItem, styles.treeTableItemImg])}>
                     <img src={image || defaultTreeImage} alt='tree' className={styles.tableImg} />
                 </div>
@@ -73,14 +74,14 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
                 <div className={styles.treeTableItem}>
                     {formatDate(created ?? Date.now())}
                 </div>
-            </NavLink>
+            </Link>
         )
     }
 
-    getTreeMobile = (tree: IJsonTreeWithImage, index: string | number) => {
+    getTreeMobile = (tree: IJsonTreeWithImage) => {
         const { age, created, id, image, species, treeHeight } = tree;
         return (id &&
-            <NavLink to={getTreeLink(id)} className={styles.treeTableRowMobile} key={id}>
+            <Link to={getTreeLink(id)} className={styles.treeTableRowMobile} key={id}>
                 <div className={cn([styles.treeTableItemMobile, styles.treeTableItemImgMobile])}>
                     <img src={image || defaultTreeImage} alt='tree' className={styles.tableImgMobile} />
                 </div>
@@ -98,7 +99,7 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
                         {formatDate(created ?? Date.now())}
                     </span>
                 </div>
-            </NavLink>
+            </Link>
         )
     }
 
@@ -190,16 +191,6 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
         )
     }
 
-
-    renderHeader() {
-        return (
-            <header className={styles.treeListHeader}>
-                <div className={styles.treeListHeaderSplit}> </div>
-                <div>&mdash; Список деревьев</div>
-            </header>
-        );
-    }
-
     renderBody() {
         const { loading } = this.state;
 
@@ -223,7 +214,7 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
     render() {
         return (
             <>
-                {this.renderHeader()}
+                <PageHeader title={'Список деревьев'} />
                 {this.renderBody()}
             </>
         );
