@@ -320,10 +320,10 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 
 		if (files.length) {
 			return (
-				<>
+				<div className={styles.wrapper}>
 					<h3 className={styles.title}>Файлы</h3>
 					<FileUpload mode="read" files={files} />
-				</>
+				</div>
 			)
 		}
 
@@ -339,14 +339,14 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 
 		if (images.length) {
 			return (
-				<>
+				<div className={styles.wrapper}>
 					<h3 className={styles.title}>Картинки</h3>
 					<FileUpload
 						mode="read"
 						type="image"
 						files={images}
 					/>
-				</>
+				</div>
 			)
 		}
 
