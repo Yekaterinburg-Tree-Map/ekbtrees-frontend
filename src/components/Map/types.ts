@@ -7,6 +7,7 @@ export interface ILatLng {
 }
 
 export interface IJsonMapTree {
+    approvedByModerator: boolean;
     id: number;
     geographicalPoint: IGeographicalPoint;
     diameterOfCrown: number;

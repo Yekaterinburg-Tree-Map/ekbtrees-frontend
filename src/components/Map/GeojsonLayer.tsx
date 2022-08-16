@@ -413,18 +413,18 @@ function setUpTreeCircles(
             const { latitude, longitude } = item.centre;
             const size = 30;
             const clusterMarkerDivStyle = `
-				width: ${size}px;
-				height: ${size}px;
-				margin: 5px;
-				border-radius: 20px;
-				background-color:rgba(110,204,57,0.6);
-				text-align: center;
-    			font-size: 12px;
-			`;
+                width: ${size}px;
+                height: ${size}px;
+                margin: 5px;
+                border-radius: 20px;
+                background-color:rgba(110,204,57,0.6);
+                text-align: center;
+                    font-size: 12px;
+            `;
 
             const clusterMarkerSpanStyle = `
-				line-height: 30px;
-			`;
+                line-height: 30px;
+            `;
 
             const markerIcon = divIcon({
                 html: `<div style="${clusterMarkerDivStyle}"><span style="${clusterMarkerSpanStyle}">${item.count}</span></div>`,
@@ -458,8 +458,13 @@ function setUpTreeCircles(
             circleRadius = circleRadius < minCircleRadius ? minCircleRadius : circleRadius;
 
             const treeCircle = DG.circle([latitude, longitude], {
-                radius: circleRadius, color: color, fillColor: color,
-                fill: true, fillOpacity: 1, weight: 0, opacity: 1.0
+                radius: circleRadius,
+                color: "red",
+                fillColor: color,
+                fill: true,
+                fillOpacity: 1,
+                weight: item.approvedByModerator ? 0 : 1,
+                opacity: 1.0
             }).addTo(layer);
 
             const touchCircleRadius = 9;
@@ -468,8 +473,12 @@ function setUpTreeCircles(
                 treeCircle.on('click', (e: any) => handleTreeClick(e, item));
             } else {
                 DG.circle([latitude, longitude], {
-                    radius: touchCircleRadius, fillColor: "red",
-                    fill: true, weight: 0, fillOpacity: 0, opacity: 0
+                    radius: touchCircleRadius,
+                    fillColor: "red",
+                    fill: true,
+                    weight: 0,
+                    fillOpacity: 0,
+                    opacity: 0
                 }).addTo(layer)
                 // .on('click', (e: any) => handleTreeClick(e, item));
             }
