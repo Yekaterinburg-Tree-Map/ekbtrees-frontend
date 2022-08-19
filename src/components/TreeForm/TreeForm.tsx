@@ -32,7 +32,7 @@ export const TreeForm = ({ activeTree, onClose, changeState, user }: ITreeFormPr
     }, [])
 
     const pathTo = user && user.role === 'superuser'
-        ? `admin/trees/tree=${activeTree?.id}`
+        ? `admin/trees/${activeTree?.id}`
         : `trees/tree=${activeTree?.id}`
 
     return (
