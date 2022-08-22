@@ -1,11 +1,12 @@
 import cn from 'classnames';
 import React, { Component } from 'react';
-import { addTree, deleteFile, uploadFiles } from "./actions";
+import {addTree} from "../../api/tree";
 import FileUpload from "../FileUpload";
 import TextField from '../TextField';
 import Select from '../Select';
 import styles from "./AddNewTreeForm.module.css";
-import { getFilesByIds, getTypesOfTrees } from "../EditTreeForm/actions";
+import {getFilesByIds, deleteFile, uploadFiles} from "../../api/files";
+import {getTypesOfTrees} from "../../api/treeTypes";
 import {
     ResourceAction, INewTree, ITreePropertyValue,
     FileGroupType, IPostJsonTree, IGeographicalPoint, IFile

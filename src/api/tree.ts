@@ -1,9 +1,28 @@
 import RequestService from "../helpers/requests";
-import {IJsonTree, IJsonTreeWithImage} from "../common/types";
+import {baseUrl} from '../constants/urls';
+import {IPostJsonTree, IJsonTree} from "../common/types";
 
-export const getMyTrees: () => Promise<IJsonTreeWithImage[]> = async () => {
-	let data = await RequestService.getData('https://ekb-trees-help.ru/api/tree/get', {
+
+export const getTree = (id: string | number): Promise<IJsonTree> => {
+	return RequestService.getData(`${baseUrl}tree/get/${id}`);
+}
+
+export const deleteTree = (id: string | number): Promise<any> => {
+	return RequestService.deleteData(`${baseUrl}tree/delete/${id}`);
+}
+
+export const editTree = (body: IJsonTree | IPostJsonTree) => {
+	return RequestService.putData(`${baseUrl}tree/${body.id}`, JSON.stringify(body), {
 		'Content-Type': 'application/json'
-	});
-	return data;
+	})
+}
+
+export const addTree = (body: {geographicalPoint: {latitude: number | null, longitude: number | null}}) => {
+	return RequestService.postData(`${baseUrl}tree`, JSON.stringify(body), {
+		'Content-Type': 'application/json'
+	})
+}
+
+export const approveTree = (id: string | number) => {
+    return RequestService.postData(`${baseUrl}tree/approve/${id}`, null);
 }

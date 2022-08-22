@@ -1,6 +1,7 @@
 import AddNewTreeForm from '../AddNewTreeForm'
 import EditTreeForm from '../EditTreeForm';
-import TreeLists from '../TreeLists';
+import TreeListPage from '../TreeListPage';
+import AllTreeListPage from '../AllTreeListPage';
 import LoginForm from '../Login-form';
 import Home from '../Home';
 import ImageView from '../ImageView';
@@ -12,9 +13,9 @@ import RegistrationForm from '../Registation-form';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import styles from './Main.module.css';
 import Tree from "../Tree/Tree";
-import UserList from '../UserList';
+import UserListPage from '../UserListPage';
 import {IMainProps, IMainState} from "./types";
-import {IMapPosition} from "../../common/types";
+import {IMapPosition, IUser} from "../../common/types";
 import SaveTrees from '../SaveTrees';
 import {RouteComponentProps} from 'react-router-dom';
 
@@ -41,15 +42,16 @@ export default class Main extends Component<IMainProps, IMainState> {
     renderProfileSettings = (props: any) =>
         <ProfileSettings {...props} updateUserByCookies={this.props.onCookie} user={this.props.user}/>
 
-    renderRoutesWithAuth () {
+    renderRoutesWithAuth (user: IUser) {
         return (
             <Switch>
                 {/*<Route exact path='/addtree/:lat/:lng' component={AddNewTreeForm} />*/}
                 <Route exact path='/addtree/:lat/:lng' render={this.renderAddNewTreeForm}/>
                 {/*<Route exact path='/trees/tree=:id/edit' component={EditTreeForm} />*/}
                 <Route exact path='/trees/tree=:id/edit' render={this.renderEditTreeForm}/>
-                <Route exact path='/trees' component={TreeLists}/>
-                <Route exact path='/users' component={UserList}/>
+                <Route exact path='/trees' component={TreeListPage}/>
+                {user.role === 'superuser' && <Route exact path='/allTrees/:page?' component={AllTreeListPage}/>}
+                {user.role === 'superuser' && <Route exact path='/users' component={UserListPage}/>}
                 <Route exact path='/profileSettings' render={this.renderProfileSettings}/>
                 <Redirect to='/'/>
             </Switch>
@@ -71,7 +73,7 @@ export default class Main extends Component<IMainProps, IMainState> {
       const {user} = this.props;
 
       if (user) {
-          return this.renderRoutesWithAuth();
+          return this.renderRoutesWithAuth(user);
       }
 
       return this.renderRoutesWithoutAuth();

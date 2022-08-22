@@ -1,6 +1,6 @@
-import RequestService from "../../helpers/requests";
-import {baseUrl} from '../ApiDataLoadHelper/DataLoadHelper'
-import {IUserInfo} from "./types";
+import RequestService from "../helpers/requests";
+import {baseUrl} from '../constants/urls'
+import {IUserInfo} from "../common/types";
 
 export const getUser = (userId: string | number): Promise<IUserInfo> => {
     return RequestService.getData(`${baseUrl}user/${userId}`);
@@ -8,14 +8,18 @@ export const getUser = (userId: string | number): Promise<IUserInfo> => {
 
 export const updateUser = (userId: number | string, userInfo: IUserInfo): Promise<boolean> => {
     const headers = {["Content-Type"]: "application/json; charset=utf8"};
+
     return RequestService.putData(`${baseUrl}user/${userId}`, JSON.stringify(userInfo), headers);
 }
 
 export const updateUserPassword = (newPassword: string): Promise<boolean> => {
     return Promise.resolve(true); // TODO: Remove when method works
+
     const data = {
         newPassword: newPassword
     };
+
     const headers = {["Content-Type"]: "application/json; charset=utf8"};
+
     return RequestService.putData(`${baseUrl}user/updatePassword`, JSON.stringify(data), headers);
 }

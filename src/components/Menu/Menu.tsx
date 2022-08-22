@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Menu.module.css';
 import { IMenuProps, IMenuState, IMenuLink } from "./types";
+import {PAGES} from '../../constants/pages'
 
 
 export default class Menu extends Component<IMenuProps, IMenuState> {
@@ -13,7 +14,7 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
                 activeClassName: styles.active,
                 exact: true,
                 onClick: this.props.onClick,
-                title: 'Карта',
+                title: PAGES.map,
                 to: '/map',
                 className: styles.visibleMenuLink,
             }
@@ -28,7 +29,7 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
                     activeClassName: styles.active,
                     exact: true,
                     onClick: this.props.onClick,
-                    title: 'Список деревьев',
+                    title: PAGES.myTrees,
                     to: '/trees',
                     className: styles.visibleMenuLink
                 },
@@ -36,7 +37,23 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
                     activeClassName: styles.active,
                     exact: true,
                     onClick: this.props.onClick,
-                    title: 'Настройки',
+                    title: PAGES.allTrees,
+                    to: '/allTrees',
+                    className: styles.visibleMenuLink
+                },
+                {
+                    activeClassName: styles.active,
+                    exact: true,
+                    onClick: this.props.onClick,
+                    title: PAGES.users,
+                    to: '/users',
+                    className: styles.visibleMenuLink
+                },
+                {
+                    activeClassName: styles.active,
+                    exact: true,
+                    onClick: this.props.onClick,
+                    title: PAGES.profile,
                     to: '/profileSettings',
                     className: styles.visibleMenuLink
                 }
@@ -47,7 +64,7 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
                     activeClassName: styles.active,
                     exact: true,
                     onClick: this.props.onClick,
-                    title: 'Войти',
+                    title: PAGES.login,
                     to: '/login',
                     className: styles.visibleMenuLink
                 },
@@ -55,7 +72,7 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
                     activeClassName: styles.active,
                     exact: true,
                     onClick: this.props.onClick,
-                    title: 'Регистрация',
+                    title: PAGES.registration,
                     to: '/registration',
                     className: styles.visibleMenuLink
                 })

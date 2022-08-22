@@ -27,34 +27,54 @@
 
 .editLinkWrapper {
     width: 100%;
-    text-align: right;
+    display: flex;
     margin-bottom: 20px;
     border-bottom: 1px solid #e1e1e1;
-    padding: 15px 25px;
+    padding: 15px 38px;
     background: #02390B;
+    justify-content: space-between;
+}
+
+.editLinks {
+    display: flex;
+}
+
+@media (max-width: 640px) {
+  .editLinkWrapper {
+    padding: 15px;
+  }
 }
 
 .editLink,
 .removeLink {
-    border-radius: 10px;
     font-size: 18px;
     cursor: pointer;
     color: white;
     padding: 10px 20px;
+    line-height: 18px;
 }
 
 .editLink {
     background-color: #aec400;
+    margin-right: 20px;
 }
 
 .removeLink {
-    margin-right: 10px;
     background-color: #c40000;
+}
+
+@media (max-width: 640px) {
+  .editLink,
+  .removeLink {
+    font-size: 15px;
+    padding: 10px 10px;
+    line-height: 15px;
+  }
 }
 
 .editLink:hover,
 .removeLink:hover {
-    color: black;
+    opacity: 0.8;
 }
 
 .tbody {
@@ -79,10 +99,6 @@
 }
 
 @media screen and (max-width: 1024px) {
-    .editLinkWrapper {
-        padding: 15px 5px;
-    }
-
     .tbody {
         flex-direction: column;
         margin: 0 20px;

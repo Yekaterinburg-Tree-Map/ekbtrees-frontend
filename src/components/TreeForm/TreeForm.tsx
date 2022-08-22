@@ -4,7 +4,7 @@ import { MapState } from "../Map/MapState";
 import { Link } from "react-router-dom";
 import { ITreeFormProps } from "./types";
 import treeImage from '../../img/defaultTree.png';
-import { getFilesByTree } from "../EditTreeForm/actions";
+import { getFilesByTree } from "../../api/files";
 import {IFile} from "../../common/types";
 import Spinner from "../Spinner";
 
@@ -30,10 +30,6 @@ export const TreeForm = ({ activeTree, onClose, changeState, user }: ITreeFormPr
                 setLoading(false);
             });
     }, [])
-
-    const pathTo = user && user.role === 'superuser'
-        ? `admin/trees/${activeTree?.id}`
-        : `trees/tree=${activeTree?.id}`
 
     return (
         <figure className={styles.block}>
@@ -72,7 +68,7 @@ export const TreeForm = ({ activeTree, onClose, changeState, user }: ITreeFormPr
                 </div>
                 <Link
                     to={{
-                        pathname: pathTo,
+                        pathname: `trees/tree=${activeTree?.id}`,
                         state: {prevPosition: activeTree.geographicalPoint}
                     }}
                     className={styles.link}

@@ -2,15 +2,14 @@ import cn from "classnames";
 import React, {ChangeEvent, Component} from 'react';
 import styles from './EditTreeForm.module.css';
 import {getUrlParamValueByKey} from '../../helpers/url';
+import {editTree, getTree} from "../../api/tree";
 import {
-    editTree,
     getFilesByTree,
-    getTree,
     getFilesByIds,
-    getTypesOfTrees,
     uploadFilesByTree,
     deleteFile
-} from "./actions";
+} from "../../api/files";
+import {getTypesOfTrees} from "../../api/treeTypes";
 import Spinner from "../Spinner/Spinner";
 import FileUpload from "../FileUpload";
 import TextField from '../TextField';
@@ -217,12 +216,16 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
 
     convertIEditedTreeToIJsonTree(tree: IEditedTree) {
         const data: IJsonTree = {};
+
         Object.keys(tree).forEach(key => {
             if (key === "editable" || key === "deletable") return;
+
             const jsonTreeKey = key as keyof IJsonTree;
+
             if (jsonTreeKey === "fileIds" && tree[jsonTreeKey] === null) {
                 tree[jsonTreeKey] = [];
             }
+
             if (tree[jsonTreeKey as keyof IEditedTree] && Object.prototype.hasOwnProperty.call(tree[jsonTreeKey as keyof IEditedTree], 'value')) {
                 //@ts-ignore: must be protected by a condition from above
                 const rawVal = tree[jsonTreeKey].value;
@@ -248,6 +251,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
                 data[jsonTreeKey] = tree[jsonTreeKey];
             }
         });
+
         return data;
     }
 

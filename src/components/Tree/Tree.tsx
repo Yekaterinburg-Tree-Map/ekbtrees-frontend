@@ -3,9 +3,10 @@ import styles from './Tree.module.css'
 import modalStyles from "../Modal/Modal.module.css";
 import { Link } from "react-router-dom";
 import Spinner from "../Spinner";
-import { getUrlParamValueByKey } from "../../helpers/url";
-import { getTree, getFilesByTree, deleteTree, deleteFiles } from "../EditTreeForm/actions";
-import { formatDate } from '../../helpers/date';
+import {getUrlParamValueByKey} from "../../helpers/url";
+import {approveTree, getTree, deleteTree} from "../../api/tree";
+import {getFilesByTree, deleteFiles} from "../../api/files";
+import {formatDate} from '../../helpers/date';
 import FileUpload from "../FileUpload";
 import { ITreeModelConverted, IJsonTree, IFile } from "../../common/types";
 import { ITreeProps, ITreeState, LocationState } from "./types";
@@ -26,6 +27,7 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 	private canDelete: boolean = false;
 	private canEdit: boolean = false;
 	private operationInProgress: boolean = false;
+	private canApprove: boolean = false;
 
 	constructor(props: ITreeProps & RouteComponentProps<{}, StaticContext, LocationState>) {
 		super(props);
@@ -36,8 +38,9 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 			files: [],
 			images: [],
 			loadingFiles: true,
-			modalShow: false,
-			successfullyDeleted: false,
+			showModal: false,
+			modalTitle: '',
+			handleClick: undefined
 		}
 	}
 
@@ -136,12 +139,17 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 		}
 	}
 
-	getTree = (treeId: string) => {
+	getTree = (treeId: string | number) => {
+	  const {user} = this.props;
+
 		getTree(treeId)
 			.then((tree: IJsonTree) => {
 				this.fileIds = tree.fileIds ?? [];
 				this.canDelete = this.checkCanDelete(tree);
 				this.canEdit = this.checkCanEdit(tree);
+				this.canApprove = user?.role === 'superuser' && !tree.approvedByModerator;
+
+				console.info(user, tree)
 
 				this.setState({
 					tree: this.convertTree(tree),
@@ -151,11 +159,13 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 				})
 			})
 			.catch(error => {
-				console.error(error, 'Ошибка!')
+				console.error(error, 'Ошибка!');
+
 				if (this.props.user === null) {
 					// TODO: redirect to login
 					this.props.history.push('/login');
 				}
+
 				this.setState({
 					loading: false,
 					loadingFiles: false
@@ -192,10 +202,22 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 	}
 
 	confirmDeleteCurrentTree = () => {
-		this.setState({ modalShow: true });
+		this.setState({
+		    showModal: true,
+		    modalTitle: 'Вы уверены, что хотите удалить это дерево?',
+		    handleClick: this.deleteCurrentTree
+		});
 	}
 
-	closeModal = () => this.setState({ modalShow: false });
+	confirmApproveCurrentTree = () => {
+	    this.setState({
+            showModal: true,
+            modalTitle: 'Подтвердить дерево?',
+            handleClick: this.approveCurrentTree
+	    });
+	}
+
+	closeModal = () => this.setState({showModal: false});
 
 	trySetMaoViewPosition = (lat: string | number | boolean| null, lng: string | number | boolean| null) => {
 		if (lat && lng) {
@@ -209,40 +231,66 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 	deleteCurrentTree = () => {
 		if (this.treeId && this.canDelete && !this.operationInProgress) {
 			this.operationInProgress = true;
-			deleteFiles(this.fileIds).then(deletedAllFiles => {
-				if (!deletedAllFiles.every(v => v) || !this.treeId) {
-					alert("error while deleting all files");
-					return;
-				}
-				deleteTree(this.treeId).then(succ => {
-					if (succ) {
-						if (this.state.tree) {
-							const lat = this.state.tree.latitude.value;
-							const lng = this.state.tree.longitude.value;
 
-							this.trySetMaoViewPosition(lat, lng);
-						}
+			deleteFiles(this.fileIds)
+			    .then(deletedAllFiles => {
+                    if (!deletedAllFiles.every(v => v) || !this.treeId) {
+                        console.error("error while deleting all files");
+                        return;
+                    }
 
-						this.setState({ modalShow: false });
-						// this.props.history.goBack();
-						this.props.history.push("/map");
-					} else {
-						alert("error while deleting the tree");
-						// this.setState({modalShow: true, modalMessage: "Ошибка при удалении дерева"});
-					}
-				}).catch(() => {
-					alert("error while deleting the tree");
+                    return deleteTree(this.treeId)
+                })
+                .then(succ => {
+                    if (succ) {
+                        if (this.state.tree) {
+                            const lat = this.state.tree.latitude.value;
+                            const lng = this.state.tree.longitude.value;
+
+                            this.trySetMaoViewPosition(lat, lng);
+                        }
+
+                        this.operationInProgress = false;
+                        this.setState({showModal: false});
+                        this.props.history.go(-1);
+                    } else {
+                        console.error("error while deleting the tree");
+                    }
+				})
+				.catch(() => {
+					console.error("error while deleting the tree");
 				});
-			});
-		}
-	}
+        }
+    }
+
+    approveCurrentTree = () => {
+        if (this.treeId && this.canApprove && !this.operationInProgress) {
+            this.operationInProgress = true;
+
+            approveTree(this.treeId)
+                .then(succ => {
+                    if (succ) {
+                        this.operationInProgress = false;
+                        this.setState({showModal: false});
+
+                        if (this.treeId) {
+                            this.getTree(this.treeId);
+                        }
+                    } else {
+                        console.error("error while approving the tree");
+                    }
+                }).catch(() => {
+                    console.error("error while deleting the tree");
+                });
+        }
+    }
 
 	renderModalContent() {
 		return (
 			<React.Fragment>
-				<p>Вы уверены, что хотите удалить это дерево?</p>
+				<p>{this.state.modalTitle}</p>
 				<div className={modalStyles.buttonContainer}>
-					<button className={modalStyles.danger} onClick={this.deleteCurrentTree}>Да, удалить</button>
+					<button className={modalStyles.danger} onClick={this.state.handleClick}>Да</button>
 					<button className={modalStyles.success} onClick={this.closeModal}>Нет</button>
 				</div>
 			</React.Fragment>
@@ -250,15 +298,23 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 	}
 
 	renderEditLink() {
-		const { tree } = this.state;
+		const {tree} = this.state;
+		const {user} = this.props;
 
-		if (this.canDelete || this.canEdit) {
+		if (this.canDelete || this.canEdit || this.canApprove) {
 			return (
 				<div className={styles.editLinkWrapper}>
+                    <div className={styles.editLinks}>
+                        {this.canEdit &&
+                            <Link to={`/trees/tree=${tree?.id}/edit`} className={styles.editLink}>Редактировать</Link>
+                        }
+                        {this.canApprove &&
+                            <div className={styles.editLink} onClick={this.confirmApproveCurrentTree}>Подтвердить</div>
+                        }
+                    </div>
 					{this.canDelete &&
-						<span className={styles.removeLink} onClick={this.confirmDeleteCurrentTree}>Удалить</span>}
-					{this.canEdit &&
-						<Link to={`/trees/tree=${tree?.id}/edit`} className={styles.editLink}>Редактировать</Link>}
+						<div className={styles.removeLink} onClick={this.confirmDeleteCurrentTree}>Удалить</div>
+					}
 				</div>
 			)
 		}
@@ -370,7 +426,7 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 
 		return (
 			<React.Fragment>
-				<Modal show={this.state.modalShow} onClose={this.closeModal} modalHeadingMessage={"Подтвердите"} danger={true}>
+				<Modal show={this.state.showModal} onClose={this.closeModal} modalHeadingMessage={"Подтвердите"} danger={true}>
 					{this.renderModalContent()}
 				</Modal>
 				<PageHeader title={'Карточка дерева'} />

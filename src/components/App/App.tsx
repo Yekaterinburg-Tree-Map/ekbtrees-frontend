@@ -17,15 +17,16 @@ class App extends Component<IAppProps & RouteComponentProps, IAppState> {
         super(props);
 
         this.state = {
-            user: null,
+            user: this.getUser(),
             theme: "light",
         }
     }
 
     componentDidMount() {
         cookies.addChangeListener(this.handleCookie);
-        this.handleCookie();
+
         const theme = localStorage.getItem("theme");
+
         if (theme) {
             this.setState({ theme: theme });
         }
@@ -35,6 +36,7 @@ class App extends Component<IAppProps & RouteComponentProps, IAppState> {
         this.setState({
             user: null
         });
+
         this.props.history.push("/");
     }
 
@@ -47,25 +49,31 @@ class App extends Component<IAppProps & RouteComponentProps, IAppState> {
         });
     }
 
-    handleCookie = () => {
+    getUser = (): IUser | null => {
         const cookieAccess = cookies.get('AccessToken');
 
         if (cookieAccess) {
             const decodedCookie: ICookieAccess = jwt_decode(cookieAccess);
             const { id, email, firstName, lastName, roles } = decodedCookie;
 
-            const user: IUser = {
+            return {
                 id: id,
                 email: email,
                 firstName: firstName,
                 lastName: lastName,
-                role: roles[0]
+                role: 'superuser' //roles[0]
             };
 
-            this.setState({
-                user: user
-            })
+            console.info(roles)
         }
+
+        return null;
+    }
+
+    handleCookie = () => {
+        this.setState({
+            user: this.getUser()
+        })
     }
 
     switchTheme = () => {

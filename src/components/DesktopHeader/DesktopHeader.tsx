@@ -4,6 +4,7 @@ import styles from './DesktopHeader.module.css';
 import UserInfo from '../UserInfo';
 import { Logo } from "../Logo/Logo";
 import { IDesktopHeaderProps, IDesktopHeaderState } from "./types";
+import {PAGES} from '../../constants/pages'
 
 export class DesktopHeader extends Component<IDesktopHeaderProps, IDesktopHeaderState> {
 	static defaultProps = {
@@ -16,7 +17,17 @@ export class DesktopHeader extends Component<IDesktopHeaderProps, IDesktopHeader
 
 		if (user) {
 			return (
-				<NavLink exact to='/trees' activeClassName={styles.activeLink}>Список деревьев</NavLink>
+        <>
+          {user.role !== 'superuser' &&
+            <NavLink exact to='/trees' activeClassName={styles.activeLink}>{PAGES.myTrees}</NavLink>
+          }
+          {user.role === 'superuser' &&
+            <NavLink exact to='/users' activeClassName={styles.activeLink}>{PAGES.users}</NavLink>
+          }
+          {user.role === 'superuser' &&
+            <NavLink exact to='/allTrees' activeClassName={styles.activeLink}>{PAGES.allTrees}</NavLink>
+          }
+        </>
 			)
 		}
 	}

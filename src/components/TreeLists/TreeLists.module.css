@@ -8,18 +8,16 @@
     display: flex;
     border: 1px solid black;
     padding: 0 9px;
-    background: rgba(212, 229, 215, 0.5);
 }
 
 .treeTableRowMobile:hover {
     cursor: pointer;
-    background-color: #fff;
-    box-shadow: 0 0 15px -5px rgb(34 60 80 / 57%);
+    background-color: #d9dbe1;
 }
 
 .treeTableMobile {
     display: none;
-    margin: 0 33px;
+    margin: 0 15px;
     font-family: "Poppins", sans-serif;
 }
 
@@ -32,8 +30,6 @@
 }
 
 .treeTableItemWrapperHeadingMobile {
-    color: rgba(2, 57, 11, 1);
-
     flex-grow: 1;
     margin-left: 16px;
 }
@@ -84,13 +80,6 @@ a:hover {
     border-radius: 5px;
     margin-bottom: 25px;
     max-width: 300px;
-    background: rgba(212, 229, 215, 0.5);
-    box-shadow: 0 0 10px -5px rgb(34 60 80 / 57%);
-}
-
-.treeTableItemWrapper:hover {
-    transform: scale(1.01);
-    transition: 1s;
 }
 
 .treeTableItem {
@@ -183,8 +172,7 @@ a:hover {
 
 .treeTableItemWrapper:hover {
     cursor: pointer;
-    background-color: #fff;
-    box-shadow: 0 0 15px -5px rgb(34 60 80 / 57%);
+    background-color: #d9dbe1;
 }
 
 .treeTablePrefix {
@@ -201,7 +189,6 @@ a:hover {
     font-weight: bold;
     padding: 20px;
     vertical-align: middle;
-    color: rgba(2, 57, 11, 1);
     border: 1px solid black;
 }
 
@@ -211,7 +198,7 @@ a:hover {
     padding: 5px 20px;
     color: black;
     vertical-align: middle;
-    font-size: 25px;
+    font-size: 18px;
 }
 
 .treeTableItemImg {
@@ -250,4 +237,8 @@ a:hover {
     .treeTable {
         display: none;
     }
+}
+
+.container {
+    margin-bottom: 40px;
 }

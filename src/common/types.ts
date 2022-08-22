@@ -143,6 +143,7 @@ export interface IJsonTree {
     fileIds?: number[];
     editable?: boolean;
     deletable?: boolean;
+    approvedByModerator?: boolean
 }
 
 
@@ -176,4 +177,11 @@ export interface IMapPosition {
     lat: number;
     lng: number;
     marker?: boolean;
+}
+
+export interface IUserInfo {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
 }

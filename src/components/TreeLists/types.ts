@@ -1,7 +1,6 @@
 import * as H from "history";
 import {IJsonTreeWithImage, IUser} from "../../common/types";
 
-
 export interface ITreeListsTreeTable {
     age: string;
     creationDate: string;
@@ -15,13 +14,8 @@ export interface ITreeListsStateLocale {
 }
 
 export interface ITreeListsProps {
-    user: IUser | null;
-    history: H.History;
+    trees: IJsonTreeWithImage[];
 }
 
 export interface ITreeListsState {
-    currentPage: number;
-    treeCountPerPage: number;
-    trees: IJsonTreeWithImage[];
-    loading: boolean;
 }

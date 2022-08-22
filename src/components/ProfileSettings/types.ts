@@ -1,11 +1,4 @@
-import {ITreeProperty, IUser} from "../../common/types";
-
-export interface IUserInfo {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-}
+import {ITreeProperty, IUser, IUserInfo} from "../../common/types";
 
 // Maybe it would be better to use TextField instead of inputs
 export interface IEditUserInfo {
