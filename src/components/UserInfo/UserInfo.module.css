@@ -17,6 +17,7 @@
 
 .userName,
 .userRole {
+
     display: block;
     color: white;
 }
@@ -28,7 +29,7 @@
 .userRole {
     font-size: 12px;
     text-transform: lowercase;
-    line-height: 1.5;
+    line-height: 12px;
 }
 
 .userIcon {

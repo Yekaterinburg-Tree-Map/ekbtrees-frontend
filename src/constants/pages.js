@@ -1,6 +1,6 @@
 
 export const PAGES = {
-  allTrees: 'Все деревья',
+  allTrees: 'Деревья',
   myTrees: 'Мои деревья',
   users: 'Пользователи',
   map: 'Карта',

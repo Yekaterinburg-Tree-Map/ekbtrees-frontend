@@ -147,9 +147,7 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 				this.fileIds = tree.fileIds ?? [];
 				this.canDelete = this.checkCanDelete(tree);
 				this.canEdit = this.checkCanEdit(tree);
-				this.canApprove = user?.role === 'superuser' && !tree.approvedByModerator;
-
-				console.info(user, tree)
+				this.canApprove = Boolean(user?.roles.includes('superuser')) && !tree.approvedByModerator;
 
 				this.setState({
 					tree: this.convertTree(tree),

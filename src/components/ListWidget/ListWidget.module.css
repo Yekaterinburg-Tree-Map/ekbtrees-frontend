@@ -16,6 +16,15 @@
   color: #fff;
 }
 
+.nextPage:not(.disabled):hover,
+.prevPage:not(.disabled):hover {
+    opacity: 0.8;
+}
+
 .disabled {
   opacity: 0.7;
+}
+
+.spinner {
+    margin: 40px auto;
 }

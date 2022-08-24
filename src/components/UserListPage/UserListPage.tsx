@@ -5,29 +5,22 @@ import ListWidget from '../ListWidget';
 import {RouteComponentProps} from 'react-router-dom';
 import {StaticContext} from "react-router";
 import {getUsers} from '../../api/users';
+import UserList from '../UserList';
 
 interface LocationState {
     search: Object
 }
 
 export default class UserListPage extends Component<RouteComponentProps<{}, StaticContext, LocationState>> {
-    initPage: number;
-
-    constructor(props: RouteComponentProps<{}, StaticContext, LocationState>) {
-        super(props);
-
-        this.initPage = Number(new URLSearchParams(this.props.location.search).get('page') || 1) - 1
-    }
-
     render() {
         return (
             <>
-                <PageHeader title={PAGES.allTrees} />
+                <PageHeader title={PAGES.users} />
                 <ListWidget
                     getObjects={getUsers}
-                    initPage={this.initPage}
+                    search={this.props.location.search}
                     history={this.props.history}
-                    renderTable={trees => null}
+                    renderTable={users => <UserList users={users} />}
                 />
             </>
         )

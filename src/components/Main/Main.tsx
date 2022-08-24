@@ -50,8 +50,8 @@ export default class Main extends Component<IMainProps, IMainState> {
                 {/*<Route exact path='/trees/tree=:id/edit' component={EditTreeForm} />*/}
                 <Route exact path='/trees/tree=:id/edit' render={this.renderEditTreeForm}/>
                 <Route exact path='/trees' component={TreeListPage}/>
-                {user.role === 'superuser' && <Route exact path='/allTrees/:page?' component={AllTreeListPage}/>}
-                {user.role === 'superuser' && <Route exact path='/users' component={UserListPage}/>}
+                {user.roles.includes('superuser') && <Route exact path='/allTrees/:page?' component={AllTreeListPage}/>}
+                {user.roles.includes('superuser') && <Route exact path='/users' component={UserListPage}/>}
                 <Route exact path='/profileSettings' render={this.renderProfileSettings}/>
                 <Redirect to='/'/>
             </Switch>

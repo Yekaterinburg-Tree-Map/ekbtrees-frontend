@@ -7,12 +7,17 @@
 .treeTableRowMobile {
     display: flex;
     border: 1px solid black;
-    padding: 0 9px;
+    padding: 10px;
+    color: #000;
 }
 
 .treeTableRowMobile:hover {
-    cursor: pointer;
+    color: #000;
     background-color: #d9dbe1;
+}
+
+.treeTableRowMobile + .treeTableRowMobile {
+    border-top: 0;
 }
 
 .treeTableMobile {
@@ -34,34 +39,9 @@
     margin-left: 16px;
 }
 
-.treeTableItemWrapperMobile {
-    color: rgba(151, 159, 160, 1);
-    ;
-}
-
-
-
-
-
-
-
 
 a:hover {
     text-decoration: none;
-}
-
-.buttonNavigation {
-    margin: 10px;
-    background: inherit;
-    font-size: 20px;
-    color: grey;
-    cursor: pointer;
-    border: 0;
-}
-
-.activeNavigationButton {
-    color: black;
-    border-bottom: 2px solid #AEC400;
 }
 
 .treeTableHeader {
@@ -97,26 +77,6 @@ a:hover {
 .treeTableItemImg {
     width: 100%;
     text-align: center;
-}
-
-.treTableEditButton {
-    border: 0;
-    max-width: 300px;
-    width: 100%;
-    border-radius: 15px;
-    height: 40px;
-    color: #FB8F07;
-    margin-top: 10px;
-}
-
-.treTableEditButton:focus,
-.treTableEditButton:active {
-    color: #fff;
-    background: #FB8F07;
-}
-
-.faPencil {
-    display: none;
 }
 
 .tableImg {
@@ -208,25 +168,6 @@ a:hover {
 .tableImg {
     max-height: 70px;
     max-width: 70px;
-}
-
-.treeTablePencil {
-    position: static;
-    width: auto;
-}
-
-.treTableEditButton {
-    display: none;
-}
-
-.faPencil {
-    display: inline-block;
-    font-size: 23px;
-    color: rgb(97, 96, 96);
-}
-
-.faPencil:hover {
-    color: #181818;
 }
 
 @media screen and (max-width: 600px) {

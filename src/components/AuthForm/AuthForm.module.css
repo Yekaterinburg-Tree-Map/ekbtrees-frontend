@@ -1,12 +1,3 @@
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-a:hover {
-  color: #fff;
-}
-
 .active {
   border-bottom: 3px solid #fb8f07;
   color: #fb8f07;

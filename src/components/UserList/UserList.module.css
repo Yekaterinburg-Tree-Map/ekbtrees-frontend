@@ -1,0 +1,108 @@
+.TableRowMobile {
+    display: flex;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.TableRowMobile:hover {
+    background-color: #d9dbe1;
+}
+
+.TableRowMobile + .TableRowMobile {
+    border-top: 0;
+}
+
+.TableMobile {
+    display: none;
+    margin: 0 15px;
+    font-family: "Poppins", sans-serif;
+}
+
+.TableItemWrapperHeadingMobile,
+.TableItemWrapperMobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 13px;
+}
+
+.TableItemWrapperHeadingMobile {
+    width: 40%;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+
+.TableHeader {
+    display: table-row;
+    border: 1px black solid;
+}
+
+.TableBody {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    display: table-row-group;
+}
+
+.TableItemWrapper {
+    width: 100%;
+    border-radius: 5px;
+    max-width: 300px;
+    max-width: 195px;
+    flex-basis: 195px;
+    padding-bottom: 70px;
+    position: relative;
+    display: table-row;
+    height: 70px;
+}
+
+.TableItemWrapper:hover {
+    background-color: #d9dbe1;
+}
+
+.TableItem {
+    margin-bottom: 5px;
+    word-break: break-word;
+    word-wrap: break-word;
+    display: table-cell;
+    text-align: center;
+    padding: 5px 20px;
+    color: black;
+    vertical-align: middle;
+    font-size: 18px;
+}
+
+.Table {
+    max-width: 1500px;
+    width: 95%;
+    display: table;
+    margin: 0 auto;
+    padding: 0 15px;
+    border-collapse: collapse;
+}
+
+.TableHeaderItem {
+    display: table-cell;
+    text-align: center;
+    font-weight: bold;
+    padding: 20px;
+    vertical-align: middle;
+    border: 1px solid black;
+}
+
+@media screen and (max-width: 600px) {
+    .TableMobile {
+        display: block
+    }
+
+    .Table {
+        display: none;
+    }
+}
+
+.container {
+    margin-bottom: 40px;
+}

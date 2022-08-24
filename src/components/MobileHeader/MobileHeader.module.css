@@ -58,10 +58,14 @@ input:checked + .slider:before {
     font-size: 22px;
     letter-spacing: 0.05vw;
     font-weight: bold;
-    color: #ffff;
+    color: #fff;
     margin: 0 10px;
     text-align: center;
     text-transform: uppercase;
+}
+
+.mapLink:hover {
+    color: #aec400;
 }
 
 .links {

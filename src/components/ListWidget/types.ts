@@ -8,7 +8,7 @@ export interface LocationState {
 
 export interface IListsProps<T> {
     history: H.History;
-    initPage: number;
+    search: string;
     getObjects: (page: number, size: number) => Promise<T[]>
     renderTable: (objects: T[]) => ReactNode
 }

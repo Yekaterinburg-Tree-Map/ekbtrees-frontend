@@ -18,13 +18,13 @@ export class DesktopHeader extends Component<IDesktopHeaderProps, IDesktopHeader
 		if (user) {
 			return (
         <>
-          {user.role !== 'superuser' &&
+          {!user.roles.includes('superuser') &&
             <NavLink exact to='/trees' activeClassName={styles.activeLink}>{PAGES.myTrees}</NavLink>
           }
-          {user.role === 'superuser' &&
+          {user.roles.includes('superuser') &&
             <NavLink exact to='/users' activeClassName={styles.activeLink}>{PAGES.users}</NavLink>
           }
-          {user.role === 'superuser' &&
+          {user.roles.includes('superuser') &&
             <NavLink exact to='/allTrees' activeClassName={styles.activeLink}>{PAGES.allTrees}</NavLink>
           }
         </>

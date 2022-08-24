@@ -8,8 +8,10 @@ export default class ListWidget<T> extends Component<IListsProps<T>, IListsState
     constructor(props: IListsProps<T>) {
         super(props);
 
+        const initPage = Number(new URLSearchParams(this.props.search).get('page') || 1) - 1
+
         this.state = {
-            currentPage: this.props.initPage,
+            currentPage: initPage,
             objects: [],
             loading: true,
             existNextPage: false
@@ -67,7 +69,11 @@ export default class ListWidget<T> extends Component<IListsProps<T>, IListsState
         return (
             <>
                 {this.props.renderTable(this.state.objects)}
-                {loading && <Spinner />}
+                {loading &&
+                    <div className={styles.spinner}>
+                        <Spinner />
+                    </div>
+                }
             </>
         );
     }

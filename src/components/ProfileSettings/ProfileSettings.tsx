@@ -169,7 +169,7 @@ export default class ProfileSettings extends Component<IProfileSettingsProps, IP
                     <div className={styles.profileGroup}>
                         <label className={styles.profileFlex}>
                             <span>Роль</span>
-                            <input name="role" type="text" className={styles.profileInput} defaultValue={user?.role}
+                            <input name="roles" type="text" className={styles.profileInput} defaultValue={user?.roles.join(', ')}
                                    disabled/>
                         </label>
                         <label className={styles.profileFlex}>

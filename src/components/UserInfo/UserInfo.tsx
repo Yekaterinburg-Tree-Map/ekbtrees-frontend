@@ -81,8 +81,10 @@ export default class UserInfo extends Component<IUserInfoProps, IUserInfoState> 
                 <div className={styles.userContainer}>
                     <div className={styles.user}>
                         <div>
-                            <span className={styles.userName}>{`${this.props.user?.firstName}\xA0${this.props.user?.lastName}`}</span>
-                            <span className={styles.userRole}>{this.props.user?.role}</span>
+                            <div className={styles.userName}>{`${this.props.user?.firstName}\xA0${this.props.user?.lastName}`}</div>
+                            <div className={styles.userRole}>
+                                {this.props.user?.roles.join(', ')}
+                            </div>
                         </div>
                         <Link to="/profileSettings">
                             <img src={Man} className={styles.userIcon} alt="profile-icon" />

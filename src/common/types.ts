@@ -16,7 +16,16 @@ export interface IUser {
     email: string;
     firstName: string;
     lastName: string;
-    role: string;
+    roles: Array<string>;
+}
+
+export interface IUser2 {
+    id: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    phone: string;
+    roles: Array<string>;
 }
 
 export interface ICookieAccess {

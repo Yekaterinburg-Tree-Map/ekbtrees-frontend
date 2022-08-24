@@ -61,10 +61,8 @@ class App extends Component<IAppProps & RouteComponentProps, IAppState> {
                 email: email,
                 firstName: firstName,
                 lastName: lastName,
-                role: 'superuser' //roles[0]
+                roles: roles
             };
-
-            console.info(roles)
         }
 
         return null;
