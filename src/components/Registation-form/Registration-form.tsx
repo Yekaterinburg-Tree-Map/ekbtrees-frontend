@@ -101,8 +101,6 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
                     <form name="registration" method="post" className={styles.registrationForm}
                         onSubmit={this.checkPasswords}>
                         <h2 className={styles.title}>Регистрация</h2>
-                        <input type="text" placeholder="Имя" name="firstName" id="userFirstName" required />
-                        <input type="text" placeholder="Фамилия" name="lastName" id="userLastName" required />
                         <input type="email" placeholder="Введите почту" name="email" id="userEmail" required />
                         <input type="password" placeholder="Придумайте пароль" name="psw" id="userPassword" required />
                         <input type="password" placeholder="Подтвердите пароль" name="psw2" id="userConfirmPassword"

@@ -27,12 +27,10 @@
     position: relative;
     display: block;
     width: 50%;
-    height: 500px;
-    width: 1000px;
+    width: 60vw;
     min-height: 150px;
-    min-width: 300px;
+    min-width: 340px;
     margin: 20px auto;
-    border-radius: 10px;
     padding: 0;
     background-color: #fff;
     align-self: center;
@@ -48,30 +46,27 @@
     transition: opacity 125ms 250ms ease, transform 175ms 250ms ease;
 }
 
-.heading,
-.modalContent {
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .heading {
+    height: 60px;
     justify-content: flex-end;
 }
 
 .modalContent {
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: space-evenly;
+    padding: 20px
 }
 
 .modalContent button {
-    border-radius: 6px;
     padding: 10px 20px;
     background-color: black;
     color: white;
     font-size: 40px;
     font-weight: 700;
-    min-width: 275px;
+    min-width: 170px;
 }
 
 .modalContent p {
@@ -100,17 +95,13 @@
     background-color: #F14336;
 }
 
-@media screen and (max-width:1024px) {
-    .modal {
-        width: 80%;
+@media screen and (max-width:1000px) {
+    .modalContent {
+        padding: 10px;
     }
 
-    .modalHeadingMessage {
-        font-size: 35px;
-    }
-    .modalContent p{
+    .modalContent p {
         font-size: 18px;
-        text-align: center;
     }
 
     .modalContent button {
@@ -118,5 +109,9 @@
         color: white;
         font-size: 30px;
         min-width: auto;
+    }
+
+    .heading {
+        height: 40px;
     }
 }

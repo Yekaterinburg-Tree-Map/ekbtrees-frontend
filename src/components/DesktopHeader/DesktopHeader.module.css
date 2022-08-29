@@ -81,7 +81,8 @@ input:checked + .slider:before {
 
 .menu {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center
 }
 
 .menu a {

@@ -17,17 +17,17 @@ export class DesktopHeader extends Component<IDesktopHeaderProps, IDesktopHeader
 
 		if (user) {
 			return (
-        <>
-          {!user.roles.includes('superuser') &&
-            <NavLink exact to='/trees' activeClassName={styles.activeLink}>{PAGES.myTrees}</NavLink>
-          }
-          {user.roles.includes('superuser') &&
-            <NavLink exact to='/users' activeClassName={styles.activeLink}>{PAGES.users}</NavLink>
-          }
-          {user.roles.includes('superuser') &&
-            <NavLink exact to='/allTrees' activeClassName={styles.activeLink}>{PAGES.allTrees}</NavLink>
-          }
-        </>
+                <>
+                    <NavLink exact to='/trees' activeClassName={styles.activeLink}>{PAGES.myTrees}</NavLink>
+                    <div>
+                        {(user.roles.includes('superuser') || user.roles.includes('moderator')) &&
+                            <NavLink exact to='/allTrees' activeClassName={styles.activeLink}>{PAGES.allTrees}</NavLink>
+                        }
+                        {user.roles.includes('superuser') &&
+                            <NavLink exact to='/users' activeClassName={styles.activeLink}>{PAGES.users}</NavLink>
+                        }
+                    </div>
+                </>
 			)
 		}
 	}

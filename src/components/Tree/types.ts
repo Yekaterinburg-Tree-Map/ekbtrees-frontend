@@ -17,5 +17,6 @@ export interface ITreeState {
     loadingFiles: boolean;
     showModal: boolean;
     modalTitle: string;
+    isDangerModal: boolean;
     handleClick: undefined | (() => void);
 }

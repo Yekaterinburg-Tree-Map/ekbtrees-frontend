@@ -15,6 +15,7 @@ import { isNumber } from "../../common/treeForm";
 import {RouteComponentProps} from 'react-router-dom';
 import {StaticContext} from "react-router";
 import PageHeader from "../PageHeader";
+import {PAGES} from '../../constants/pages';
 
 
 export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticContext, LocationState>, ITreeState> {
@@ -28,6 +29,7 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 	private canEdit: boolean = false;
 	private operationInProgress: boolean = false;
 	private canApprove: boolean = false;
+	private approved: boolean = false;
 
 	constructor(props: ITreeProps & RouteComponentProps<{}, StaticContext, LocationState>) {
 		super(props);
@@ -40,7 +42,8 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 			loadingFiles: true,
 			showModal: false,
 			modalTitle: '',
-			handleClick: undefined
+			handleClick: undefined,
+			isDangerModal: false
 		}
 	}
 
@@ -140,14 +143,22 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 	}
 
 	getTree = (treeId: string | number) => {
-	  const {user} = this.props;
+	    const {user} = this.props;
+	    const isModerator = Boolean(user?.roles.includes('superuser') || user?.roles.includes('moderator'));
 
 		getTree(treeId)
 			.then((tree: IJsonTree) => {
 				this.fileIds = tree.fileIds ?? [];
 				this.canDelete = this.checkCanDelete(tree);
 				this.canEdit = this.checkCanEdit(tree);
-				this.canApprove = Boolean(user?.roles.includes('superuser')) && !tree.approvedByModerator;
+
+				if (tree.approvedByModerator) {
+				    const isAuthor = Boolean(user?.id === tree.authorId);
+
+                    this.approved = isModerator || isAuthor;
+				} else {
+				    this.canApprove = isModerator
+				}
 
 				this.setState({
 					tree: this.convertTree(tree),
@@ -203,15 +214,17 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 		this.setState({
 		    showModal: true,
 		    modalTitle: 'Вы уверены, что хотите удалить это дерево?',
-		    handleClick: this.deleteCurrentTree
+		    handleClick: this.deleteCurrentTree,
+		    isDangerModal: true
 		});
 	}
 
 	confirmApproveCurrentTree = () => {
 	    this.setState({
             showModal: true,
-            modalTitle: 'Подтвердить дерево?',
-            handleClick: this.approveCurrentTree
+            modalTitle: 'Подтвердить информацию о дереве?',
+            handleClick: this.approveCurrentTree,
+            isDangerModal: false
 	    });
 	}
 
@@ -299,20 +312,23 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 		const {tree} = this.state;
 		const {user} = this.props;
 
-		if (this.canDelete || this.canEdit || this.canApprove) {
+		if (this.canDelete || this.canEdit || this.canApprove || this.approved) {
 			return (
 				<div className={styles.editLinkWrapper}>
+				    {this.approved &&
+				        <div className={styles.approved}>Дерево подтверждено</div>
+				    }
+                    {this.canApprove &&
+                        <div className={styles.approveButton} onClick={this.confirmApproveCurrentTree}>Подтвердить</div>
+                    }
                     <div className={styles.editLinks}>
                         {this.canEdit &&
                             <Link to={`/trees/tree=${tree?.id}/edit`} className={styles.editLink}>Редактировать</Link>
                         }
-                        {this.canApprove &&
-                            <div className={styles.editLink} onClick={this.confirmApproveCurrentTree}>Подтвердить</div>
+                        {this.canDelete &&
+                            <div className={styles.removeLink} onClick={this.confirmDeleteCurrentTree}>Удалить</div>
                         }
-                    </div>
-					{this.canDelete &&
-						<div className={styles.removeLink} onClick={this.confirmDeleteCurrentTree}>Удалить</div>
-					}
+					</div>
 				</div>
 			)
 		}
@@ -424,10 +440,10 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 
 		return (
 			<React.Fragment>
-				<Modal show={this.state.showModal} onClose={this.closeModal} modalHeadingMessage={"Подтвердите"} danger={true}>
+				<Modal show={this.state.showModal} onClose={this.closeModal} danger={this.state.isDangerModal}>
 					{this.renderModalContent()}
 				</Modal>
-				<PageHeader title={'Карточка дерева'} />
+				<PageHeader title={PAGES.tree} />
 				<div className={styles.container}>
 					{this.props.user ? this.renderEditLink() : null}
 					{this.renderDetails()}

@@ -1,10 +1,11 @@
 
 export const PAGES = {
-  allTrees: 'Деревья',
+  allTrees: 'Все деревья',
   myTrees: 'Мои деревья',
   users: 'Пользователи',
   map: 'Карта',
   profile: 'Настройки профиля',
   login: 'Войти',
-  registration: 'Регистрация'
+  registration: 'Регистрация',
+  tree: 'Карточка дерева'
 }

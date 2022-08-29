@@ -9,7 +9,7 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
     renderLinks() {
         const { user } = this.props;
         const availWidth = window.screen.availWidth;
-        let links: IMenuLink[] = availWidth <= 580 ? [
+        const links: IMenuLink[] = [
             {
                 activeClassName: styles.active,
                 exact: true,
@@ -18,13 +18,10 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
                 to: '/map',
                 className: styles.visibleMenuLink,
             }
-        ] : [];
-
-
-        const authLinks: IMenuLink[] = [];
+        ];
 
         if (user) {
-            authLinks.push(
+            links.push(
                 {
                     activeClassName: styles.active,
                     exact: true,
@@ -32,23 +29,36 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
                     title: PAGES.myTrees,
                     to: '/trees',
                     className: styles.visibleMenuLink
-                },
-                {
-                    activeClassName: styles.active,
-                    exact: true,
-                    onClick: this.props.onClick,
-                    title: PAGES.allTrees,
-                    to: '/allTrees',
-                    className: styles.visibleMenuLink
-                },
-                {
-                    activeClassName: styles.active,
-                    exact: true,
-                    onClick: this.props.onClick,
-                    title: PAGES.users,
-                    to: '/users',
-                    className: styles.visibleMenuLink
-                },
+                }
+            );
+
+            if (user.roles.includes('superuser') || user.roles.includes('moderator')) {
+                links.push(
+                    {
+                        activeClassName: styles.active,
+                        exact: true,
+                        onClick: this.props.onClick,
+                        title: PAGES.allTrees,
+                        to: '/allTrees',
+                        className: styles.visibleMenuLink
+                    }
+                );
+            }
+
+            if (user.roles.includes('superuser')) {
+                links.push(
+                    {
+                        activeClassName: styles.active,
+                        exact: true,
+                        onClick: this.props.onClick,
+                        title: PAGES.users,
+                        to: '/users',
+                        className: styles.visibleMenuLink
+                    }
+                );
+            }
+
+            links.push(
                 {
                     activeClassName: styles.active,
                     exact: true,
@@ -59,7 +69,7 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
                 }
             );
         } else {
-            authLinks.push(
+            links.push(
                 {
                     activeClassName: styles.active,
                     exact: true,
@@ -77,8 +87,6 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
                     className: styles.visibleMenuLink
                 })
         }
-
-        links = links.concat(authLinks);
 
         const items = links.map(link => {
             return (
