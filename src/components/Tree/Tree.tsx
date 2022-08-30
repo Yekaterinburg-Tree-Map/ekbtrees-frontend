@@ -279,17 +279,13 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
             this.operationInProgress = true;
 
             approveTree(this.treeId)
-                .then(succ => {
-                    if (succ) {
-                        this.operationInProgress = false;
-                        this.setState({showModal: false});
+                .then(() => {
+					this.operationInProgress = false;
+					this.setState({showModal: false});
 
-                        if (this.treeId) {
-                            this.getTree(this.treeId);
-                        }
-                    } else {
-                        console.error("error while approving the tree");
-                    }
+					if (this.treeId) {
+						this.getTree(this.treeId);
+					}
                 }).catch(() => {
                     console.error("error while deleting the tree");
                 });
@@ -310,7 +306,6 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 
 	renderEditLink() {
 		const {tree} = this.state;
-		const {user} = this.props;
 
 		if (this.canDelete || this.canEdit || this.canApprove || this.approved) {
 			return (

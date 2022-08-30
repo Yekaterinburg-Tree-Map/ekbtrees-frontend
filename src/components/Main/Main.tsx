@@ -43,32 +43,35 @@ export default class Main extends Component<IMainProps, IMainState> {
         <ProfileSettings {...props} updateUserByCookies={this.props.onCookie} user={this.props.user}/>
 
     renderRoutesWithAuth (user: IUser) {
-        return (
-            <Switch>
-                {/*<Route exact path='/addtree/:lat/:lng' component={AddNewTreeForm} />*/}
-                <Route exact path='/addtree/:lat/:lng' render={this.renderAddNewTreeForm}/>
-                {/*<Route exact path='/trees/tree=:id/edit' component={EditTreeForm} />*/}
-                <Route exact path='/trees/tree=:id/edit' render={this.renderEditTreeForm}/>
-                <Route exact path='/trees' component={TreeListPage}/>
-                {(user.roles.includes('superuser') || user.roles.includes('moderator')) &&
-                    <Route exact path='/allTrees/:page?' component={AllTreeListPage}/>
-                }
-                {user.roles.includes('superuser') && <Route exact path='/users' component={UserListPage}/>}
-                <Route exact path='/profileSettings' render={this.renderProfileSettings}/>
-                <Redirect to='/'/>
-            </Switch>
+        const routes = [
+            <Route exact path='/addtree/:lat/:lng' render={this.renderAddNewTreeForm}/>,
+            <Route exact path='/trees/tree=:id/edit' render={this.renderEditTreeForm}/>,
+            <Route exact path='/trees' component={TreeListPage}/>
+        ];
+
+        if (user.roles.includes('superuser') || user.roles.includes('moderator')) {
+            routes.push(<Route exact path='/allTrees/:page?' component={AllTreeListPage}/>);
+        }
+
+        if (user.roles.includes('superuser')) {
+            routes.push(<Route exact path='/users' component={UserListPage}/>);
+        }
+
+        routes.push(
+            <Route exact path='/profileSettings' render={this.renderProfileSettings}/>,
+            <Redirect to='/'/>
         );
+
+        return routes;
     }
 
     renderRoutesWithoutAuth () {
         const {onCookie} = this.props;
 
-        return (
-            <>
-                <Route path='/login' render={props => <LoginForm {...props} handleCookie={onCookie} />}/>
-                <Route exact path='/registration' component={RegistrationForm} />
-            </>
-        )
+        return [
+            <Route path='/login' render={props => <LoginForm {...props} handleCookie={onCookie} />}/>,
+            <Route exact path='/registration' component={RegistrationForm} />
+        ]
     }
 
     renderRoutes () {
