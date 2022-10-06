@@ -238,10 +238,10 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
                     data["speciesId"] = parseInt(tree[jsonTreeKey].value);
                 } else if (jsonTreeKey === "status") {
                     //@ts-ignore: must be protected by a condition from above
-                    data[jsonTreeKey] = treeStatusOptions.find(op => op.id == tree[jsonTreeKey].value)?.title ;
+                    data[jsonTreeKey] = treeStatusOptions.find(op => op.id === tree[jsonTreeKey].value)?.title ;
                 } else if (jsonTreeKey === "treePlantingType") {
                     //@ts-ignore: must be protected by a condition from above
-                    data[jsonTreeKey] = treePlantingTypeOptions.find(op => op.id == tree[jsonTreeKey].value)?.title ;
+                    data[jsonTreeKey] = treePlantingTypeOptions.find(op => op.id === tree[jsonTreeKey].value)?.title ;
                 } else {
                     const val = parseInt(rawVal, 10);
                     data[jsonTreeKey] = isNaN(val) ? rawVal : val;
@@ -540,7 +540,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
             <div className={styles.form}>
                 {this.renderMainInformation()}
                 {this.renderImages()}
-                {this.renderFiles()}
+                {/*{this.renderFiles()}*/}
                 {this.renderErrors()}
                 {this.renderButtons()}
             </div>

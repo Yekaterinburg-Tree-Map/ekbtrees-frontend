@@ -1,18 +1,23 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import styles from './Registration-form.module.css';
 import FormHeader from '../AuthForm';
 import vkIcon from '../../img/vkSignUp.png';
-import { IRegistrationFormInput, IRegistrationFormProps, IRegistrationFormState } from "./types";
+import {IRegistrationFormInput, IRegistrationFormProps, IRegistrationFormState} from "./types";
 
 
-export default class RegistrationForm extends Component<IRegistrationFormProps, IRegistrationFormState> {
-    state: IRegistrationFormState = {
+export default class RegistrationForm extends Component<IRegistrationFormProps, any> {
+    state: any = {
         touchStart: null,
         error: false,
         errorMail: false,
         success: false,
+
+        email: null,
+        password: null,
+        secPassword: null,
     }
+
 
     handleTouch: React.TouchEventHandler<HTMLElement> = (e) => {
         this.setState({
@@ -35,17 +40,16 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
 
     checkPasswords: React.FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
-        if (e.currentTarget.psw.value === e.currentTarget.psw2.value) {
+
+        if (this.state.password === this.state.secPassword) {
             const input: IRegistrationFormInput = {
-                firstName: e.currentTarget.firstName.value,
-                lastName: e.currentTarget.lastName.value,
-                email: e.currentTarget.email.value,
-                password: e.currentTarget.psw.value
+                firstName: "Волонтер",
+                lastName: "Волонтер",
+                email: this.state.email,
+                password: this.state.password
             };
             this.register(input)
-        }
-
-        else {
+        } else {
             this.setState({
                 error: true
             })
@@ -68,9 +72,12 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
 
     renderSuccess() {
         if (this.state.success) {
-            window.setTimeout(() => { window.location.href = "/login" }, 5000);
+            window.setTimeout(() => {
+                window.location.href = "/login"
+            }, 5000);
             return (
-                <p className={styles.regSuccess}>Пользователь зарегистрирован. Вы будете перенаправлены на страницу входа</p>
+                <p className={styles.regSuccess}>Пользователь зарегистрирован. Вы будете перенаправлены на страницу
+                    входа</p>
             )
         }
     }
@@ -84,27 +91,29 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
             body: JSON.stringify(input)
         })
         if (response.ok) {
-            this.setState({ errorMail: false })
-            this.setState({ success: true });
+            this.setState({errorMail: false})
+            this.setState({success: true});
         } else {
-            this.setState({ errorMail: true });
-            this.setState({ success: false });
+            this.setState({errorMail: true});
+            this.setState({success: false});
         }
     }
 
     render() {
         return (
             <>
-                <FormHeader />
+                <FormHeader/>
                 <section className={styles.registrationContainer} onTouchStart={this.handleTouch}
-                    onTouchEnd={this.handleTouchEnd}>
+                         onTouchEnd={this.handleTouchEnd}>
                     <form name="registration" method="post" className={styles.registrationForm}
-                        onSubmit={this.checkPasswords}>
+                          onSubmit={this.checkPasswords}>
                         <h2 className={styles.title}>Регистрация</h2>
-                        <input type="email" placeholder="Введите почту" name="email" id="userEmail" required />
-                        <input type="password" placeholder="Придумайте пароль" name="psw" id="userPassword" required />
+                        <input type="email" placeholder="Введите почту" name="email" id="userEmail"
+                               onChange={e => this.setState({email: e.target.value})} required/>
+                        <input type="password" placeholder="Придумайте пароль" name="psw" id="userPassword"
+                               onChange={e => this.setState({password: e.target.value})} required/>
                         <input type="password" placeholder="Подтвердите пароль" name="psw2" id="userConfirmPassword"
-                            required />
+                               onChange={e => this.setState({secPassword: e.target.value})} required/>
 
                         <div className={styles.loginMessage}>
                             {this.renderError()}
@@ -115,7 +124,7 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
                         <p className={styles.loginMessage}>или зарегистрируйтесь с</p>
                         <div className={styles.flexSocial}>
                             <div className={styles.social}>
-                                <Link to="/vk"><img src={vkIcon} alt="vk-link" /></Link>
+                                <Link to="/vk"><img src={vkIcon} alt="vk-link"/></Link>
                                 {/* <NavLink to="/vk"><img src={googleIcon} alt="google-link" /></NavLink> */}
                             </div>
                         </div>
