@@ -511,7 +511,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                 <div className={styles.form}>
                     {this.renderMainInformation()}
                     {this.renderImages()}
-                    {this.renderFiles()}
+                    {/*{this.renderFiles()}*/}
                     {this.renderErrors()}
                     {this.renderButtons()}
                 </div>
