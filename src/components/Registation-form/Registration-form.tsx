@@ -43,8 +43,8 @@ export default class RegistrationForm extends Component<IRegistrationFormProps, 
 
         if (this.state.password === this.state.secPassword) {
             const input: IRegistrationFormInput = {
-                firstName: "Волонтер",
-                lastName: "Волонтер",
+                firstName: "",
+                lastName: "",
                 email: this.state.email,
                 password: this.state.password
             };
