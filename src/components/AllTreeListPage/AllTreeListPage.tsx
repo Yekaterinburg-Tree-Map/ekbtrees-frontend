@@ -7,18 +7,21 @@ import {RouteComponentProps} from 'react-router-dom';
 import {StaticContext} from "react-router";
 import ListWidget from '../ListWidget'
 import TreeLists from '../TreeLists';
+import styles from './AllTreeListsPage.module.css';
 
 export default class AllTreeListsPage extends Component<RouteComponentProps<{}, StaticContext, LocationState>, {}> {
     render() {
         return (
             <>
                 <PageHeader title={PAGES.allTrees} />
-                <ListWidget
-                    getObjects={getAllTrees}
-                    search={this.props.location.search}
-                    history={this.props.history}
-                    renderTable={trees => <TreeLists trees={trees} />}
-                />
+                <div className={styles.container}>
+                    <ListWidget
+                        getObjects={getAllTrees}
+                        search={this.props.location.search}
+                        history={this.props.history}
+                        renderTable={trees => <TreeLists trees={trees} />}
+                    />
+                </div>
             </>
         );
     }

@@ -23,7 +23,7 @@ const locale: ITreeListsStateLocale = {
 }
 
 const getTreeLink = (treeId: string | number) => {
-    return `/trees/tree=${treeId}`
+    return `/trees/${treeId}`
 }
 
 export default class TreeLists extends Component<ITreeListsProps, ITreeListsState> {

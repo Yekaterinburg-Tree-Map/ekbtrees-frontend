@@ -7,5 +7,6 @@ export const PAGES = {
   profile: 'Настройки профиля',
   login: 'Войти',
   registration: 'Регистрация',
-  tree: 'Карточка дерева'
+  tree: 'Карточка дерева',
+  user: 'Карточка пользователя'
 }

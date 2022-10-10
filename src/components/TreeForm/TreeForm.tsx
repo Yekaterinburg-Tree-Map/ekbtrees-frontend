@@ -68,7 +68,7 @@ export const TreeForm = ({ activeTree, onClose, changeState, user }: ITreeFormPr
                 </div>
                 <Link
                     to={{
-                        pathname: `trees/tree=${activeTree?.id}`,
+                        pathname: `trees/${activeTree?.id}`,
                         state: {prevPosition: activeTree.geographicalPoint}
                     }}
                     className={styles.link}

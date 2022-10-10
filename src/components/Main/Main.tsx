@@ -18,6 +18,7 @@ import {IMainProps, IMainState} from "./types";
 import {IMapPosition, IUser} from "../../common/types";
 import SaveTrees from '../SaveTrees';
 import {RouteComponentProps} from 'react-router-dom';
+import UserPage from '../UserPage'
 
 export const setMapViewPositionContext = React.createContext<((viewPos: IMapPosition | undefined) => void)>(() => {});
 export const mapViewPositionContext = React.createContext<IMapPosition | undefined>(undefined);
@@ -45,7 +46,7 @@ export default class Main extends Component<IMainProps, IMainState> {
     renderRoutesWithAuth (user: IUser) {
         const routes = [
             <Route exact path='/addtree/:lat/:lng' render={this.renderAddNewTreeForm}/>,
-            <Route exact path='/trees/tree=:id/edit' render={this.renderEditTreeForm}/>,
+            <Route exact path='/trees/:id/edit' render={this.renderEditTreeForm}/>,
             <Route exact path='/trees' component={TreeListPage}/>
         ];
 
@@ -55,6 +56,7 @@ export default class Main extends Component<IMainProps, IMainState> {
 
         if (user.roles.includes('superuser')) {
             routes.push(<Route exact path='/users' component={UserListPage}/>);
+            routes.push(<Route exact path='/users/:id' component={UserPage}/>)
         }
 
         routes.push(
@@ -120,7 +122,7 @@ export default class Main extends Component<IMainProps, IMainState> {
                         <Switch>
                             <Route exact path='/' render={this.renderHome} />
                             <Route exact path='/map' render={this.renderMap}/>
-                            <Route exact path='/trees/tree=:id' render={this.renderTree}/>
+                            <Route exact path='/trees/:id' render={this.renderTree}/>
                             <Route exact path='/passRecovery' component={PassRecovery}/>
                             <Route exact path='/saveTrees' component={SaveTrees}/>
                             <Route path='/vk' component={this.vkAuth2}/>

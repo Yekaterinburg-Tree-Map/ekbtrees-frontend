@@ -2,7 +2,7 @@ import React, {ChangeEvent, Component, Fragment} from 'react';
 import styles from './ProfileSettings.module.css';
 import cn from "classnames";
 import {IProfileSettingsProps, IProfileSettingsState} from "./types";
-import {IUserInfo} from "../../common/types";
+import {IUserInfo} from "./types";
 import {getUser, updateUser, updateUserPassword} from "../../api/user";
 import Modal from "../Modal";
 import modalStyles from "../Modal/Modal.module.css";

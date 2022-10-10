@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './UserList.module.css';
-import cn from "classnames";
-import { formatDate } from '../../helpers/date';
-import { IUser2 } from "../../common/types";
+import { IRestUser } from "../../common/types";
 import {
     ITreeListsProps,
     ITreeListsState,
@@ -19,22 +17,22 @@ const locale: ITreeListsTreeTable = {
 }
 
 export default class UserList extends Component<ITreeListsProps, ITreeListsState> {
-    getUser = (user: IUser2, index: string | number) => {
+    getUser = (user: IRestUser) => {
         const { id, firstName, lastName, email, phone } = user;
 
         return (
-            <div className={styles.TableItemWrapper} key={id}>
+            <Link to={`/users/${id}`} className={styles.TableItemWrapper} key={id}>
                 <div className={styles.TableItem}>{lastName}</div>
                 <div className={styles.TableItem}>{firstName}</div>
                 <div className={styles.TableItem}>{email}</div>
                 <div className={styles.TableItem}>{phone}</div>
-            </div>
+            </Link>
         )
     }
 
-    getUserMobile = (user: IUser2) => {
+    getUserMobile = (user: IRestUser) => {
         return (
-            <div className={styles.TableRowMobile} key={user.id}>
+            <Link to={`/users/user=${user.id}`} className={styles.TableRowMobile} key={user.id}>
                 <div className={styles.TableItemWrapperHeadingMobile}>
                     <span>{locale.lastName}</span>
                     <span>{locale.firstName}</span>
@@ -47,7 +45,7 @@ export default class UserList extends Component<ITreeListsProps, ITreeListsState
                     <span className={styles.TableItemMobile}>{user.email || '-'}</span>
                     <span className={styles.TableItemMobile}>{user.phone || '-'}</span>
                 </div>
-            </div>
+            </Link>
         )
     }
 

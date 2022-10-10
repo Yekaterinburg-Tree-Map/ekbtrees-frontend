@@ -273,8 +273,6 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
         // console.log(data);
         editTree(data)
             .then(_ => {
-                // alert('Дерево успешно изменено!');
-                // this.props.history.push(`/trees/tree=${tree.id}`);
                 const lat = data.geographicalPoint?.latitude;
                 const lng = data.geographicalPoint?.longitude;
                 if (lat && lng) {
@@ -283,7 +281,6 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
                 this.props.history.push(`/map`);
             })
             .catch(error => {
-                // alert('Ошибка при изменении дерева');
                 this.setState({modalShow: true, modalMessage: "Ошибка при изменении дерева"});
                 console.error('Ошибка при изменении дерева', error);
             });

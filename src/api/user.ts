@@ -1,13 +1,13 @@
 import RequestService from "../helpers/requests";
 import {baseUrl} from '../constants/urls'
-import {IUserInfo} from "../common/types";
+import {IRestUser} from "../common/types";
 
-export const getUser = (userId: string | number): Promise<IUserInfo> => {
+export const getUser = (userId: string | number): Promise<IRestUser> => {
     return RequestService.getData(`${baseUrl}user/${userId}`);
 }
 
-export const updateUser = (userId: number | string, userInfo: IUserInfo): Promise<boolean> => {
-    const headers = {["Content-Type"]: "application/json; charset=utf8"};
+export const updateUser = (userId: number | string, userInfo: Partial<IRestUser>): Promise<boolean> => {
+    const headers = {"Content-Type": "application/json; charset=utf8"};
 
     return RequestService.putData(`${baseUrl}user/${userId}`, JSON.stringify(userInfo), headers);
 }
