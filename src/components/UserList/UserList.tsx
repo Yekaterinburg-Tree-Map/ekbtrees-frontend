@@ -32,7 +32,7 @@ export default class UserList extends Component<ITreeListsProps, ITreeListsState
 
     getUserMobile = (user: IRestUser) => {
         return (
-            <Link to={`/users/user=${user.id}`} className={styles.TableRowMobile} key={user.id}>
+            <Link to={`/users/${user.id}`} className={styles.TableRowMobile} key={user.id}>
                 <div className={styles.TableItemWrapperHeadingMobile}>
                     <span>{locale.lastName}</span>
                     <span>{locale.firstName}</span>
