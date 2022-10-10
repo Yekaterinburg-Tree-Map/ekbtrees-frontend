@@ -1,7 +1,6 @@
 import cn from "classnames";
 import React, {ChangeEvent, Component} from 'react';
 import styles from './EditTreeForm.module.css';
-import {getUrlParamValueByKey} from '../../helpers/url';
 import {editTree, getTree} from "../../api/tree";
 import {
     getFilesByTree,
@@ -20,7 +19,7 @@ import {
     IJsonTree,
     ITreePropertyValue,
 } from "../../common/types";
-import { IEditTreeFormProps, IEditTreeFormState } from "./types";
+import {IEditTreeFormProps, IEditTreeFormState} from "./types";
 import {
     conditionAssessmentOptions,
     treePlantingTypeOptions,
@@ -30,12 +29,16 @@ import {
     validateGreaterThan
 } from "../../common/treeForm";
 import Modal from "../Modal";
+import {RouteComponentProps} from 'react-router-dom';
+import {StaticContext} from "react-router";
+import PageHeader from "../PageHeader";
+import {PAGES} from '../../constants/pages';
 
 
-export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormState> {
-    public treeUuid: string;
+export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentProps<{id: string}, StaticContext, {}>, IEditTreeFormState> {
+    public treeId: string;
 
-    constructor(props: IEditTreeFormProps) {
+    constructor(props: IEditTreeFormProps & RouteComponentProps<{id: string}, StaticContext, {}>) {
         super(props);
         // console.log(" > EditTreeForm: constructor ");
         // console.log(props);
@@ -52,7 +55,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
             errors: {}
         }
 
-        this.treeUuid = getUrlParamValueByKey('tree');
+        this.treeId = this.props.match.params.id;
     }
 
     convertTree (tree: IJsonTree) : IEditedTree {
@@ -153,8 +156,8 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
     }
 
     componentDidMount() {
-        if (this.treeUuid) {
-            getTree(this.treeUuid)
+        if (this.treeId) {
+            getTree(this.treeId)
                 .then((tree: IJsonTree) => {
                     this.setState({
                         tree: this.convertTree(tree),
@@ -408,6 +411,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
     renderMainInformation () {
         return (
             <div className={styles.block}>
+                <p className={styles.mainTitle}>Основная информация</p>
                 <div className={styles.wrapperFlex}>
                     {this.renderItems()}
                 </div>
@@ -419,7 +423,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
         const camelCaseKey = keyStr.charAt(0).toUpperCase() + keyStr.slice(1);
         const key = keyStr as keyof IEditTreeFormState;
 
-        uploadFilesByTree(this.treeUuid, files)
+        uploadFilesByTree(this.treeId, files)
             .then(fileIds => {
                 const newFileIds = (this.state.tree?.fileIds ?? []).concat(fileIds);
                 getFilesByIds(fileIds)
@@ -513,8 +517,8 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
         }
 
         return (
-            <>
-                <h3 className={styles.title}> Картинки </h3>
+            <div className={styles.imagesWrapper}>
+                <h3 className={styles.title}>Картинки</h3>
                 <FileUpload
                     files={images}
                     onDelete={this.handleDeleteFile('images')}
@@ -522,17 +526,11 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
                     type="image"
                     uploading={uploadingImages}
                 />
-            </>
+            </div>
         )
     }
 
     renderContent () {
-        const {loading} = this.state;
-
-        if (loading) {
-            return <Spinner />
-        }
-
         return (
             <div className={styles.form}>
                 {this.renderMainInformation()}
@@ -553,16 +551,28 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
         )
     }
 
-
     render() {
+        const {loading} = this.state;
+
+        if (loading) {
+            return <Spinner />
+        }
+
+        if (!this.state.tree) {
+			return (
+				<div className={styles.container}>
+					<h3 className={styles.title}>Дерево не найдено</h3>
+				</div>
+			)
+		}
+
         return (
             <React.Fragment>
                 <Modal show={this.state.modalShow} onClose={this.handleModalClose}>
                     <p>{this.state.modalMessage}</p>
                 </Modal>
-                <div className={styles.formContainer}>
-                    {this.renderContent()}
-                </div>
+                <PageHeader title={PAGES.editTree} />
+                {this.renderContent()}
             </React.Fragment>
         );
     }

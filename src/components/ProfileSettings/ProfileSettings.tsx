@@ -8,6 +8,7 @@ import Modal from "../Modal";
 import modalStyles from "../Modal/Modal.module.css";
 import RequestService from "../../helpers/requests";
 import PageHeader from "../PageHeader";
+import {PAGES} from '../../constants/pages';
 
 export default class ProfileSettings extends Component<IProfileSettingsProps, IProfileSettingsState> {
     public aboutUsLayoutAttrs = {cols: "25", rows: "10"};
@@ -121,7 +122,7 @@ export default class ProfileSettings extends Component<IProfileSettingsProps, IP
                 <Modal show={this.state.modalShow} onClose={this.closeModal}>
                     {this.renderModalContent()}
                 </Modal>
-                <PageHeader title={'Профиль'} />
+                <PageHeader title={PAGES.profile} />
                 <form className={styles.profileForm}
                       onSubmit={this.handleSubmit as React.FormEventHandler<HTMLFormElement>}>
                     <label className={cn([styles.profileFlex, styles.flexColumn])}>

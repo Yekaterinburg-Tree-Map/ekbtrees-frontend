@@ -18,6 +18,7 @@ import {
 } from "../../common/treeForm";
 import Modal from "../Modal";
 import PageHeader from "../PageHeader";
+import {PAGES} from '../../constants/pages';
 
 
 export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAddNewTreeFormState> {
@@ -507,7 +508,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     <p>{this.state.modalMessage}</p>
                     <button onClick={this.handleModalClose}>{successfullyAdded ? "ОК" : "Попробовать снова"}</button>
                 </Modal>
-                <PageHeader title={'Карточка дерева'} />
+                <PageHeader title={PAGES.addTree} />
                 <div className={styles.form}>
                     {this.renderMainInformation()}
                     {this.renderImages()}

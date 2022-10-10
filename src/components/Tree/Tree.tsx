@@ -427,7 +427,7 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{id: string
 		if (!this.state.tree) {
 			return (
 				<div className={styles.container}>
-					<h3 className={styles.title}> Дерево не найдено </h3>
+					<h3 className={styles.title}>Дерево не найдено</h3>
 				</div>
 			)
 		}

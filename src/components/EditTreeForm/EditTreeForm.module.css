@@ -1,9 +1,6 @@
 .form {
-    margin: 75px 0 20px 0;
-}
-
-.formContainer {
-    padding: 0 15px;
+    margin: 75px auto 20px auto;
+    width: 90%;
 }
 
 .blockWrapper {
@@ -118,6 +115,44 @@
     display: block;
 }
 
+.block {
+    background-color: #fff;
+    padding: 15px 15px 20px 15px;
+    margin-bottom: 15px;
+    border-left: 38px solid #02390B;
+}
+
+.block,
+.filesWrapper,
+.imagesWrapper {
+    box-shadow: 0 0 15px -5px rgb(34 60 80 / 57%);
+}
+
+.filesWrapper,
+.imagesWrapper {
+    border-left: 38px solid #02390B;
+}
+
+@media screen and (max-width: 640px) {
+    .block,
+    .imagesWrapper,
+    .filesWrapper {
+        border-left-width: 15px;
+    }
+}
+
+.mainTitle {
+    font-size: 24px;
+    color: #02390B;
+    font-weight: 600;
+}
+
+.title {
+    font-size: 24px;
+    margin: 30px 0 0 30px;
+    display: inline-block;
+}
+
 @media screen and (min-width: 550px) {
     .blockWrapper {
         position: relative;
@@ -176,8 +211,7 @@
     }
 
     .form {
-        max-width: 1150px;
-        width: 100%;
+        width: 90%;
         margin: 20px auto 20px auto;
     }
 
@@ -189,7 +223,6 @@
     }
 
     .block {
-        background-color: #fff;
         padding: 25px 30px 30px 30px;
     }
 
@@ -227,5 +260,10 @@
 
     .blockWrapper {
         display: flex;
+    }
+
+    .filesWrapper,
+    .imagesWrapper {
+        margin-top: 42px;
     }
 }
