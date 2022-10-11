@@ -9,7 +9,7 @@ import MapContain from '../Map';
 import PassRecovery from '../PassRecovery';
 import ProfileSettings from '../ProfileSettings';
 import React, {Component} from 'react';
-import RegistrationForm from '../Registation-form';
+import {RegistrationForm} from '../Registation-form';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import styles from './Main.module.css';
 import Tree from "../Tree/Tree";
