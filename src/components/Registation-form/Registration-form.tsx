@@ -50,7 +50,8 @@ export function RegistrationForm({user, history}: IRegistrationFormProps) {
 
     } else {
       setError({error: true, isMailExist: true})
-
+    }
+  }
 
 
   return (
@@ -69,10 +70,10 @@ export function RegistrationForm({user, history}: IRegistrationFormProps) {
                  required/>
           <input type="email" placeholder="Введите почту"
                  onChange={e => setRegistrationData({...registrationData, email: e.target.value})} required/>
-          <input type="new-password" placeholder="Придумайте пароль"
+          <input type="password" placeholder="Придумайте пароль"
                  onChange={e => setRegistrationData({...registrationData, password: e.target.value})}
                  required/>
-          <input type="new=password" placeholder="Подтвердите пароль"
+          <input type="password" placeholder="Подтвердите пароль"
                  onChange={e => setSecondPassword(e.target.value)}
                  required/>
 
