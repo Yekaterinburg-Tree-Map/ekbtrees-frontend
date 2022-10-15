@@ -4,6 +4,8 @@ import cn from 'classnames';
 import Spinner from "../Spinner/Spinner";
 import {IListsProps, IListsState} from "./types";
 
+const OBJECT_COUNT_PER_PAGE = 10;
+
 export default class ListWidget<T> extends Component<IListsProps<T>, IListsState<T>> {
     constructor(props: IListsProps<T>) {
         super(props);
@@ -23,10 +25,10 @@ export default class ListWidget<T> extends Component<IListsProps<T>, IListsState
     }
 
     getObjects = () => {
-        this.props.getObjects(this.state.currentPage, 11)
+        this.props.getObjects(this.state.currentPage, OBJECT_COUNT_PER_PAGE + 1)
             .then(data => {
-                const objects = data.slice(0, 10);
-                const existNextPage = data.length === 11;
+                const objects = data.slice(0, OBJECT_COUNT_PER_PAGE);
+                const existNextPage = data.length === OBJECT_COUNT_PER_PAGE + 1;
 
                 this.setState({ objects, loading: false, existNextPage })
             })
@@ -36,29 +38,35 @@ export default class ListWidget<T> extends Component<IListsProps<T>, IListsState
             })
     }
 
-    handleToPrevPage: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    handleToPrevPage: React.MouseEventHandler<HTMLButtonElement> = () => {
         this.setState(state => ({
             currentPage: state.currentPage - 1,
             loading: true,
             objects: []
         }), () => {
+            const params = new URLSearchParams(this.props.search);
+            
             if (this.state.currentPage === 0) {
-                this.props.history.push({search: ''});
+                params.delete('page');
             } else {
-                this.props.history.push({search: `?page=${this.state.currentPage + 1}`});
+                params.set('page', `${this.state.currentPage + 1}`);
             }
+
+            this.props.history.push({search: params.toString()}); 
 
             this.getObjects();
         });
     }
 
-    handleToNextPage: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    handleToNextPage: React.MouseEventHandler<HTMLButtonElement> = () => {
         this.setState(state => ({
             currentPage: state.currentPage + 1,
             loading: true,
             objects: []
         }), () => {
-            this.props.history.push({search: `?page=${this.state.currentPage + 1}`});
+            const params = new URLSearchParams(this.props.search);
+            params.set('page', `${this.state.currentPage + 1}`);
+            this.props.history.push({search: params.toString()});
             this.getObjects();
         });
     }

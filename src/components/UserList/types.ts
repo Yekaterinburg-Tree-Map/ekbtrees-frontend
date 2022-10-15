@@ -1,5 +1,4 @@
-import * as H from "history";
-import {IJsonTreeWithImage, IUser2} from "../../common/types";
+import {IRestUser} from "../../common/types";
 
 export interface ITreeListsTreeTable {
     firstName: string;
@@ -11,7 +10,7 @@ export interface ITreeListsTreeTable {
 
 
 export interface ITreeListsProps {
-    users: IUser2[];
+    users: IRestUser[];
 }
 
 export interface ITreeListsState {

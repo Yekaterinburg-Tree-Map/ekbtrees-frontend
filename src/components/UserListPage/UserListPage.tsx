@@ -6,6 +6,7 @@ import {RouteComponentProps} from 'react-router-dom';
 import {StaticContext} from "react-router";
 import {getUsers} from '../../api/users';
 import UserList from '../UserList';
+import styles from './UserListPage.module.css';
 
 interface LocationState {
     search: Object
@@ -16,12 +17,14 @@ export default class UserListPage extends Component<RouteComponentProps<{}, Stat
         return (
             <>
                 <PageHeader title={PAGES.users} />
-                <ListWidget
-                    getObjects={getUsers}
-                    search={this.props.location.search}
-                    history={this.props.history}
-                    renderTable={users => <UserList users={users} />}
-                />
+                <div className={styles.container}>
+                    <ListWidget
+                        getObjects={getUsers}
+                        search={this.props.location.search}
+                        history={this.props.history}
+                        renderTable={users => <UserList users={users} />}
+                    />
+                </div>
             </>
         )
     }

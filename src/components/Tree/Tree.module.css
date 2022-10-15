@@ -93,7 +93,7 @@
     flex-wrap: wrap;
     margin: 0 20px;
     column-gap: 15px;
-    row-gap: 15px;
+    row-gap: 6px;
 }
 
 .row {
@@ -107,6 +107,7 @@
 
 .col:nth-child(1) {
     flex-grow: 1;
+    font-weight: 600;
 }
 
 .approved {

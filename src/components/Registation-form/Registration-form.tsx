@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-
 import FormHeader from '../AuthForm';
 import vkIcon from '../../img/vkSignUp.png';
 
@@ -34,6 +33,7 @@ export function RegistrationForm({user, history}: IRegistrationFormProps) {
     if (registrationData.password !== secondPassword) {
       setError({error: true, isMailExist: false});
       return;
+
     }
 
     const response =
@@ -51,8 +51,7 @@ export function RegistrationForm({user, history}: IRegistrationFormProps) {
     } else {
       setError({error: true, isMailExist: true})
 
-    }
-  };
+
 
   return (
     <>
@@ -76,6 +75,7 @@ export function RegistrationForm({user, history}: IRegistrationFormProps) {
           <input type="new=password" placeholder="Подтвердите пароль"
                  onChange={e => setSecondPassword(e.target.value)}
                  required/>
+
 
           <div className={styles.loginMessage}>
             {error.error && errorContent()}

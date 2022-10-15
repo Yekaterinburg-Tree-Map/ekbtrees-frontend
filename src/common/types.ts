@@ -19,7 +19,7 @@ export interface IUser {
     roles: Array<string>;
 }
 
-export interface IUser2 {
+export interface IRestUser {
     id: string;
     email: string;
     firstName: string;
@@ -186,11 +186,4 @@ export interface IMapPosition {
     lat: number;
     lng: number;
     marker?: boolean;
-}
-
-export interface IUserInfo {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
 }

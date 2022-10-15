@@ -22,7 +22,6 @@
 
 .treeTableMobile {
     display: none;
-    margin: 0 15px;
     font-family: "Poppins", sans-serif;
 }
 
@@ -109,12 +108,9 @@ a:hover {
 }
 
 .treeTable {
-    max-width: 1500px;
-    width: 95%;
     display: table;
-    margin: 0 auto;
-    padding: 0 15px;
     border-collapse: collapse;
+    width: 100%;
 }
 
 .treeTableHeader {

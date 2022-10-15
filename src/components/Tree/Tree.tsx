@@ -3,7 +3,6 @@ import styles from './Tree.module.css'
 import modalStyles from "../Modal/Modal.module.css";
 import { Link } from "react-router-dom";
 import Spinner from "../Spinner";
-import {getUrlParamValueByKey} from "../../helpers/url";
 import {approveTree, getTree, deleteTree} from "../../api/tree";
 import {getFilesByTree, deleteFiles} from "../../api/files";
 import {formatDate} from '../../helpers/date';
@@ -18,7 +17,7 @@ import PageHeader from "../PageHeader";
 import {PAGES} from '../../constants/pages';
 
 
-export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticContext, LocationState>, ITreeState> {
+export class Tree extends Component<ITreeProps & RouteComponentProps<{id: string}, StaticContext, LocationState>, ITreeState> {
 	static defaultProps = {
 		user: null
 	}
@@ -31,7 +30,7 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 	private canApprove: boolean = false;
 	private approved: boolean = false;
 
-	constructor(props: ITreeProps & RouteComponentProps<{}, StaticContext, LocationState>) {
+	constructor(props: ITreeProps & RouteComponentProps<{id: string}, StaticContext, LocationState>) {
 		super(props);
 
 		this.state = {
@@ -127,7 +126,7 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 	}
 
 	componentDidMount() {
-		this.treeId = getUrlParamValueByKey('tree');
+		this.treeId = this.props.match.params.id;
 
 		const {location} = this.props;
 
@@ -318,7 +317,7 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
                     }
                     <div className={styles.editLinks}>
                         {this.canEdit &&
-                            <Link to={`/trees/tree=${tree?.id}/edit`} className={styles.editLink}>Редактировать</Link>
+                            <Link to={`/trees/${tree?.id}/edit`} className={styles.editLink}>Редактировать</Link>
                         }
                         {this.canDelete &&
                             <div className={styles.removeLink} onClick={this.confirmDeleteCurrentTree}>Удалить</div>
@@ -428,7 +427,7 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{}, StaticC
 		if (!this.state.tree) {
 			return (
 				<div className={styles.container}>
-					<h3 className={styles.title}> Дерево не найдено </h3>
+					<h3 className={styles.title}>Дерево не найдено</h3>
 				</div>
 			)
 		}
