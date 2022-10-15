@@ -30,7 +30,7 @@ export function validateIsNotNegativeNumber(value: string | number | undefined) 
     if (value === undefined || value === "") {
         return null;
     }
-    return (parseInt(value + "", 10) < 0) ? "Значение должно быть неотрицательным" : null;
+    return (parseFloat(value as string) <= 0) ? "Значение должно быть положительным" : null;
 }
 
 export function validateGreaterThan(value: string | number | undefined, greaterThan: number) {
@@ -40,7 +40,7 @@ export function validateGreaterThan(value: string | number | undefined, greaterT
     if (greaterThan === 0 && parseInt(value + "", 10) <= 0) {
         return "Значение должно быть положительным";
     }
-    return (parseInt(value + "", 10) <= greaterThan) ? `Значение должно быть больше ${greaterThan}` : null;
+    return (parseInt(value + "", 10) < greaterThan) ? `Значение должно быть больше ${greaterThan}` : null;
 }
 
 export function validateLessThan(value: string | number | undefined, lessThan: number) {

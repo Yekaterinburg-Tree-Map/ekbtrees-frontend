@@ -60,7 +60,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     title: 'Диаметр кроны (в метрах)',
                     value: '',
                     type: 'number',
-                    validate: (v) => validateIsNotNegativeNumber(v) || validateLessThan(v, 50),
+                    validate: (v) => validateIsNotNegativeNumber(v) || validateLessThan(v, 50) || validateGreaterThan(v,1),
                     parse: (value: string) => parseFloat(value)
                 },
                 heightOfTheFirstBranch: {
@@ -109,7 +109,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     title: 'Обхват самого толстого ствола (в\u00A0сантиметрах)',
                     value: '',
                     type: 'number',
-                    validate: (v) => validateIsNotNegativeNumber(v) || validateLessThan(v, 1600),
+                    validate: (v) => validateIsNotNegativeNumber(v) || validateLessThan(v, 1600) || validateGreaterThan(v,1),
                     parse: (value: string) => parseFloat(value)
                 },
                 fileIds: [],

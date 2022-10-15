@@ -1,3 +1,3 @@
-import RegistrationForm from './Registration-form';
+import {RegistrationForm} from "./Registration-form";
 
-export default RegistrationForm;
+export {RegistrationForm};
