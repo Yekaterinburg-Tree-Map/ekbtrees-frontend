@@ -62,12 +62,6 @@ export function RegistrationForm({user, history}: IRegistrationFormProps) {
         <form className={styles.registrationForm}
               onSubmit={submit}>
           <h2 className={styles.title}>Регистрация</h2>
-          <input type="text" placeholder="Имя"
-                 onChange={e => setRegistrationData({...registrationData, firstName: e.target.value})}
-                 required/>
-          <input type="text" placeholder="Фамилия"
-                 onChange={e => setRegistrationData({...registrationData, lastName: e.target.value})}
-                 required/>
           <input type="email" placeholder="Введите почту"
                  onChange={e => setRegistrationData({...registrationData, email: e.target.value})} required/>
           <input type="password" placeholder="Придумайте пароль"
