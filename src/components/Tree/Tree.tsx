@@ -102,7 +102,7 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{id: string
 				value: treeHeight ?? null
 			},
 			species: {
-				title: 'Порода',
+				title: 'Вид',
 				value: species?.title ?? null
 			},
 			status: {

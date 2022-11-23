@@ -139,7 +139,7 @@ export class FileUpload extends Component<IFileUploadProps, IFileUploadState> {
 					open={this.state.open}
 					onSave={this.handleSave.bind(this)}
 					showPreviews={true}
-					maxFileSize={5000000}
+					maxFileSize={50000000}
 					filesLimit={10}
 					dropzoneText="Перенесите сюда загружаемые картинки или кликникте в область загрузки"
 					dialogTitle="Загрузить картинки"
@@ -169,7 +169,7 @@ export class FileUpload extends Component<IFileUploadProps, IFileUploadState> {
 					open={this.state.open}
 					onSave={this.handleSave.bind(this)}
 					showPreviews={true}
-					maxFileSize={5000000}
+					maxFileSize={50000000}
 					filesLimit={10}
 					dropzoneText="Перенесите сюда загружаемые файлы или кликникте в область загрузки"
 					dialogTitle="Загрузить файлы"

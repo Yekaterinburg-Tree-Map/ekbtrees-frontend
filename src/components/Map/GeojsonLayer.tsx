@@ -374,19 +374,19 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
     const renderButtons = () => user &&
         window.location.pathname === "/map" &&
         <MapButtonContainer>
-            {(mapState != MapState.default) && (
+            {(mapState !== MapState.default) && (
                 <MapButtonGeneral
                     state={mapState}
                     changeState={HandleAddTreeCancel}
                     getTitle={(s: number) => "Отмена"}
-                    isDisabled={(s: number) => s == MapState.default}
+                    isDisabled={(s: number) => s === MapState.default}
                     styleName={MapButtonStyles.mapButtonSecondary} />
             )}
             <MapButtonGeneral
                 state={mapState}
                 changeState={HandleMapStateChange}
                 getTitle={HandleMapStateButtonTitleChange}
-                isDisabled={(s: number) => s == MapState.addTreeBegin}
+                isDisabled={(s: number) => s === MapState.addTreeBegin}
                 styleName={MapButtonStyles.mapButtonSuccess} />
         </MapButtonContainer>
 
@@ -554,7 +554,7 @@ function getMarkerClusterGroup(state: number, data: IMapDataSeparateTrees | IMap
                     ))}
             </MarkerClusterGroup>);
     } else {
-        // console.log(map.getZoom(), 'zoom');
+        console.log(map.getZoom(), 'zoom');
         return (
             <MarkerClusterGroup disableClusteringAtZoom={19}>
                 {data.json

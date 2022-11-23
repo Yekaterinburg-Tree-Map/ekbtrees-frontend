@@ -117,7 +117,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
                 validate: (v) => validateIsNotNegativeNumber(v) || validateLessThan(v, 100),
             },
             species: {
-                title: 'Порода',
+                title: 'Вид',
                 values: species && [species],
                 value: species?.id,
                 loading: false,
