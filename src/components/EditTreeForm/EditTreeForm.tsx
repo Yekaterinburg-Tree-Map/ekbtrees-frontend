@@ -518,7 +518,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
 
         return (
             <div className={styles.imagesWrapper}>
-                <h3 className={styles.title}>Картинки</h3>
+                <h3 className={styles.title}>Фотографии</h3>
                 <FileUpload
                     files={images}
                     onDelete={this.handleDeleteFile('images')}

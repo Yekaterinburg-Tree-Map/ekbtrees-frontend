@@ -12,8 +12,8 @@ export default class Footer extends Component<IFooterProps, IFooterState> {
             <footer className={styles.footerWrapper} data-theme={this.props.theme}>
                 <div className={styles.info}>
                     <div className={styles.slogan}><span>Ekb</span><span>Trees</span></div>
-                    <span>Copyrights EkbTrees</span>
-                    <span className={styles.copyright}>All rights reserved.</span>
+                    {/*<span>Copyrights EkbTrees</span>*/}
+                    {/*<span className={styles.copyright}>All rights reserved.</span>*/}
                     <div className={styles.images}>
                         <a href="https://t.me/parklandekb" target="_blank"><img className={styles.image} src={telegramIcon} alt={"telegram"} /></a>
                         <a href="https://vk.com/parklandekb" target="_blank"><img className={styles.image} src={vkIcon} alt={"vk"} /></a>

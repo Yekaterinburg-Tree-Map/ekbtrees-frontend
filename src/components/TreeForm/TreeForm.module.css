@@ -208,9 +208,8 @@
 
     .block {
         flex-direction: column;
-        padding: 25px;
+        padding: 20px;
         z-index: 9999;
-        top: 25px;
     }
 
     [class^="image"] {
@@ -302,4 +301,7 @@
     .block {
         width: 100%;
     }
+  .close i {
+    font-size: 17px;
+  }
 }

@@ -1,16 +1,16 @@
 .mainWrapper {
-    flex: 1 0 auto;
-    margin-top: 110px;
-    height: fit-content;
-    background-color: var(--background-color);
+  flex: 1 0 auto;
+  margin-top: 70px;
+  height: fit-content;
+  background-color: var(--background-color);
 }
 
 @media screen and (min-width: 1024px) {
-    .mainWrapper {
-        margin-top: 0;
-    }
+  .mainWrapper {
+    margin-top: 0;
+  }
 }
 
 .fullMap {
-    height: calc(100vh - 200px);
+  height: calc(100vh - 120px);
 }

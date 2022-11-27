@@ -468,7 +468,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
         const { images, uploadingImages } = this.state;
         return (
             <section className={styles.imagesWrapper}>
-                <h3 className={styles.title}> Картинки </h3>
+                <h3 className={styles.title}>Фотографии</h3>
                 <FileUpload
                     files={images ?? []}
                     onDelete={this.handleDeleteFile('images')}

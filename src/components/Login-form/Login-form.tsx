@@ -69,7 +69,7 @@ export default class LoginForm extends Component<ILoginFormProps, ILoginFormStat
             .then(async response => {
                 if (response.status === 200) {
                     this.setState({ error: false }, handleCookie);
-                    // window.location.href = '/';
+                    window.location.href = '/map';
                 } else {
                     this.setState({ error: true });
                 }
