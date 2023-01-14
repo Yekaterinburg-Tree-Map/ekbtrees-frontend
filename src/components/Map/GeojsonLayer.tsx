@@ -32,6 +32,7 @@ import MapButtonGeneral from "../MapAdditionalControls";
 import MapButtonContainer from "../MapAdditionalControls/MapButtonContainer";
 import MapButtonStyles from "../MapAdditionalControls/MapButtonStyles.module.css";
 import mapIcon from "../../common/images/map_marker.png";
+import {IMapButtonState} from "../MapButton/types";
 
 const DG = require('2gis-maps');
 
@@ -225,13 +226,18 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
     };
 
     // FIXME: What type of events should 2-gis have
-    const handleTreeClick = (e: any, item: IJsonMapTree) => {
+    const handleTreeClick = React.useCallback((e: any, item: IJsonMapTree) => {
+      console.log(mapState)
+      debugger
+        if(mapState === MapState.addTreeBegin){
+          return;
+        }
         waitingLoadData.current = true;
 
         item.id && setActiveTreeId(item.id);
 
         map.setView([e.latlng.lat, e.latlng.lng]);
-    }
+    },[map, mapState])
 
     // FIXME: What type of events should 2-gis have
     const handleClick = useCallback((event: any) => {
@@ -262,7 +268,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
         }
         // FIXME: saving last markerLayer to clean after cancel
         lastMarkerLayer = markerLayer;
-    }, [map, markerLayer]);
+    }, [map, markerLayer,mapState]);
 
     const clearLayer = (mapLayer: any) => {
         for (const layer in mapLayer._layers) {
@@ -347,6 +353,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
     }
 
     const HandleMapStateChange = (state: number) => {
+      debugger;
         switch (state) {
             case MapState.default:
                 setMapState(MapState.addTreeBegin);
