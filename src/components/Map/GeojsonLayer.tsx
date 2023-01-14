@@ -408,89 +408,90 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
 }
 
 function setUpTreeCircles(
-    state: number,
-    data: IMapDataSeparateTrees | IMapDataClustered,
-    handleTreeClick: any,
-    layer: any,
-    map: any,
-    history: any
+  state: number,
+  data: IMapDataSeparateTrees | IMapDataClustered,
+  handleTreeClick: any,
+  layer: any,
+  map: any,
+  history: any
 ) {
-    if (data.isClusterData) {
-        data.json.forEach(item => {
-            const { latitude, longitude } = item.centre;
-            const size = 30;
-            const clusterMarkerDivStyle = `
+  if (data.isClusterData) {
+    data.json.forEach(item => {
+      const { latitude, longitude } = item.centre;
+      const size = 30;
+      const clusterMarkerDivStyle = `
                 width: ${size}px;
                 height: ${size}px;
                 margin: 5px;
                 border-radius: 20px;
                 background-color:rgba(110,204,57,0.6);
                 text-align: center;
-                    font-size: 12px;
+                font-size: 12px;
+                opacity:.7;
             `;
 
-            const clusterMarkerSpanStyle = `
+      const clusterMarkerSpanStyle = `
                 line-height: 30px;
             `;
 
-            const markerIcon = divIcon({
-                html: `<div style="${clusterMarkerDivStyle}"><span style="${clusterMarkerSpanStyle}">${item.count}</span></div>`,
-                className: "circle-div-icon",
-                iconSize: [40, 40]
-            });
+      const markerIcon = divIcon({
+        html: `<div style="${clusterMarkerDivStyle}"><span style="${clusterMarkerSpanStyle}">${item.count}</span></div>`,
+        className: "circle-div-icon",
+        iconSize: [40, 40]
+      });
 
-            DG.marker([latitude, longitude], { icon: markerIcon })
-                .on("click", () => {
-                    if (window.location.pathname !== "/map") {
-                        history.push("/map")
-                        return;
-                    }
-                    map.setView([latitude, longitude], 30 * 2)
-                }).addTo(layer);
-        });
-    } else {
-        data.json.forEach(item => {
-            const { latitude, longitude } = item.geographicalPoint;
-            let color: string = DefaultTreeColor;
+      DG.marker([latitude, longitude], { icon: markerIcon })
+        .on("click", () => {
+          if (window.location.pathname !== "/map") {
+            history.push("/map")
+            return;
+          }
+          map.setView([latitude, longitude], 30 * 2)
+        }).addTo(layer);
+    });
+  } else {
+    data.json.forEach(item => {
+      const { latitude, longitude } = item.geographicalPoint;
+      let color: string = DefaultTreeColor;
 
-            if (item.species) {
-                const species = item.species.title;
-                if (species in TreeSpeciesColors) {
-                    color = TreeSpeciesColors[species];
-                }
-            }
+      if (item.species) {
+        const species = item.species.title;
+        if (species in TreeSpeciesColors) {
+          color = TreeSpeciesColors[species];
+        }
+      }
 
-            let circleRadius = item.diameterOfCrown / 2;
-            const minCircleRadius = 2;
-            circleRadius = circleRadius < minCircleRadius ? minCircleRadius : circleRadius;
+      let circleRadius = item.diameterOfCrown / 2;
+      const minCircleRadius = 2;
+      circleRadius = circleRadius < minCircleRadius ? minCircleRadius : circleRadius;
+      console.log(circleRadius)
+      const treeCircle = DG.circle([latitude, longitude], {
+        radius: circleRadius,
+        color: "red",
+        fillColor: color,
+        fill: true,
+        fillOpacity: .6,
+        weight:item.approvedByModerator ? 1 : 0,
+        opacity: item.approvedByModerator ? 1 : 0
+      }).addTo(layer);
 
-            const treeCircle = DG.circle([latitude, longitude], {
-                radius: circleRadius,
-                color: "red",
-                fillColor: color,
-                fill: true,
-                fillOpacity: 1,
-                weight: item.approvedByModerator ? 0 : 1,
-                opacity: 1.0
-            }).addTo(layer);
+      const touchCircleRadius = 9;
 
-            const touchCircleRadius = 9;
-
-            if (circleRadius >= touchCircleRadius) {
-                treeCircle.on('click', (e: any) => handleTreeClick(e, item));
-            } else {
-                DG.circle([latitude, longitude], {
-                    radius: touchCircleRadius,
-                    fillColor: "red",
-                    fill: true,
-                    weight: 0,
-                    fillOpacity: 0,
-                    opacity: 0
-                }).addTo(layer)
-                // .on('click', (e: any) => handleTreeClick(e, item));
-            }
-        });
-    }
+      if (circleRadius >= touchCircleRadius) {
+        treeCircle.on('click', (e: any) => handleTreeClick(e, item));
+      } else {
+        DG.circle([latitude, longitude], {
+          radius: touchCircleRadius,
+          fillColor: "red",
+          fill: true,
+          weight: 0,
+          fillOpacity: 0,
+          opacity: 0
+        }).addTo(layer)
+        // .on('click', (e: any) => handleTreeClick(e, item));
+      }
+    });
+  }
 }
 
 const handleLayerClick = (trees: { data: IJsonMapTree[] }, threshold: number, handleTreeClick: any) => (event: any) => {
