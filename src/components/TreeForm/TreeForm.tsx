@@ -51,11 +51,6 @@ export const TreeForm = ({ activeTree, onClose, changeState, user }: ITreeFormPr
                 </div>
                 <hr className={styles.hr} />
                 <div className={styles.row}>
-                    <span className={styles.rowName}>Визуальная оценка состояния</span>
-                    <span className={styles.rowValue}>{activeTree?.conditionAssessment}</span>
-                </div>
-                <hr className={styles.hr} />
-                <div className={styles.row}>
                     <span className={styles.rowName}>Обхват самого толстого ствола (см)</span>
                     <span className={styles.rowValue}>{activeTree?.diameterOfCrown}</span>
                 </div>

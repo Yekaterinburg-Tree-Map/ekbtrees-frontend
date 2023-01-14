@@ -21,7 +21,6 @@ import {
 } from "../../common/types";
 import {IEditTreeFormProps, IEditTreeFormState} from "./types";
 import {
-    conditionAssessmentOptions,
     treePlantingTypeOptions,
     treeStatusOptions,
     validateIsNotNegativeNumber,
@@ -61,7 +60,6 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
     convertTree (tree: IJsonTree) : IEditedTree {
         const {
             age,
-            conditionAssessment,
             diameterOfCrown,
             heightOfTheFirstBranch,
             fileIds,
@@ -75,7 +73,6 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
             id
         } = tree;
 
-        const conditionAssessmentId = conditionAssessmentOptions.find(op => op.title === conditionAssessment)?.id ?? '';
         const treeStatusOptionId = treeStatusOptions.find(op => op.title === status)?.id ?? '';
         const treePlantingTypeId = treePlantingTypeOptions.find(op => op.title === treePlantingType)?.id ?? '';
 
@@ -85,12 +82,6 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
                 value: age,
                 type: 'number',
                 validate: validateIsNotNegativeNumber,
-            },
-            conditionAssessment: {
-                title: 'Визуальная оценка состояния',
-                value: conditionAssessmentId,
-                values: conditionAssessmentOptions,
-                loading: false
             },
             diameterOfCrown: {
                 title: 'Диаметр кроны (в метрах)',

@@ -12,8 +12,7 @@ import {
     FileGroupType, IPostJsonTree, IGeographicalPoint, IFile
 } from "../../common/types";
 import { IAddNewTreeFormProps, IAddNewTreeFormState } from "./types";
-import {
-    conditionAssessmentOptions, treePlantingTypeOptions, treeStatusOptions,
+import { treePlantingTypeOptions, treeStatusOptions,
     validateIsNotNegativeNumber, validateLessThan, validateIsSet, validateGreaterThan,
 } from "../../common/treeForm";
 import Modal from "../Modal";
@@ -48,12 +47,6 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     value: '',
                     validate: validateIsSet,
                     // required: true,
-                    loading: false
-                },
-                conditionAssessment: {
-                    title: 'Визуальная оценка состония',
-                    value: '',
-                    values: conditionAssessmentOptions,
                     loading: false
                 },
                 diameterOfCrown: {
@@ -189,11 +182,13 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     }
                     data.geographicalPoint[treeKey as keyof IGeographicalPoint] = parseFloat(String(value));
                 } else {
-                    data[treeKey] = value;
+                    // @ts-ignore
+                  data[treeKey] = value;
                 }
             } else {
                 if (treeKey !== 'latitude' && treeKey !== 'longitude') {
-                    data[treeKey] = tree[treeKey];
+                    // @ts-ignore
+                  data[treeKey] = tree[treeKey];
                 }
             }
         });

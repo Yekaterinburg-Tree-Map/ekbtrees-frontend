@@ -50,7 +50,6 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: strin
     const {
       age,
       created,
-      conditionAssessment,
       diameterOfCrown,
       heightOfTheFirstBranch,
       numberOfTreeTrunks,
@@ -80,10 +79,6 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: strin
       created: {
         title: 'Дата добавления записи',
         value: created ? formatDate(created) : null
-      },
-      conditionAssessment: {
-        title: 'Визуальная оценка состояния',
-        value: conditionAssessment
       },
       diameterOfCrown: {
         title: 'Диаметр кроны (в метрах)',

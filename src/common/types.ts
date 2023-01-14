@@ -62,7 +62,6 @@ export interface ITreeProperty {
 export interface INewTree {
     latitude: ITreeProperty;
     longitude: ITreeProperty;
-    conditionAssessment: ITreeProperty;
     age: ITreeProperty;
     diameterOfCrown: ITreeProperty;
     heightOfTheFirstBranch: ITreeProperty;
@@ -84,7 +83,6 @@ export interface IEditedTree {
     trunkGirth?: ITreeProperty;
     diameterOfCrown?: ITreeProperty;
     heightOfTheFirstBranch?: ITreeProperty;
-    conditionAssessment?: ITreeProperty;
     age?: ITreeProperty;
     treePlantingType?: ITreeProperty;
     created?: ITreeProperty;
@@ -114,7 +112,6 @@ export interface ITreeModelConverted {
     species: ITreePropertyConverted;
     latitude: ITreePropertyConverted;
     longitude: ITreePropertyConverted;
-    conditionAssessment: ITreePropertyConverted;
     age: ITreePropertyConverted;
     diameterOfCrown: ITreePropertyConverted;
     heightOfTheFirstBranch: ITreePropertyConverted;
@@ -142,7 +139,6 @@ export interface IJsonTree {
     trunkGirth?: number;
     diameterOfCrown?: number;
     heightOfTheFirstBranch?: number;
-    conditionAssessment?: any;
     age?: number;
     treePlantingType?: string;
     created?: number;
