@@ -43,7 +43,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     type: 'string'
                 },
                 speciesId: {
-                    title: 'Вид',
+                    title: 'Род/вид дерева',
                     values: [],
                     value: '',
                     validate: validateIsSet,
