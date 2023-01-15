@@ -227,9 +227,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
 
     // FIXME: What type of events should 2-gis have
     const handleTreeClick = React.useCallback((e: any, item: IJsonMapTree) => {
-      console.log(mapState)
-      debugger
-        if(mapState === MapState.addTreeBegin){
+       if(mapState === MapState.addTreeBegin){
           return;
         }
         waitingLoadData.current = true;
@@ -464,7 +462,7 @@ function setUpTreeCircles(
       let circleRadius = item.diameterOfCrown / 2;
       const minCircleRadius = 2;
       circleRadius = circleRadius < minCircleRadius ? minCircleRadius : circleRadius;
-      console.log(circleRadius)
+
       const treeCircle = DG.circle([latitude, longitude], {
         radius: circleRadius,
         color: "red",
@@ -475,7 +473,7 @@ function setUpTreeCircles(
         opacity: item.approvedByModerator ? 1 : 0
       }).addTo(layer);
 
-      const touchCircleRadius = 9;
+      const touchCircleRadius = circleRadius;
 
       if (circleRadius >= touchCircleRadius) {
         treeCircle.on('click', (e: any) => handleTreeClick(e, item));
@@ -562,7 +560,6 @@ function getMarkerClusterGroup(state: number, data: IMapDataSeparateTrees | IMap
                     ))}
             </MarkerClusterGroup>);
     } else {
-        console.log(map.getZoom(), 'zoom');
         return (
             <MarkerClusterGroup disableClusteringAtZoom={19}>
                 {data.json
