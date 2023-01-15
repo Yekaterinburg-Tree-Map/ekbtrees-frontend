@@ -158,7 +158,7 @@ export default class ProfileSettings extends Component<IProfileSettingsProps, IP
                     </div>
                     <div className={cn([styles.profileGroup, styles.order1])}>
                         <label className={styles.profileFlex}>
-                            <span>Id</span>
+                            <span>User id</span>
                             <input name="id" type="text" className={styles.profileInput} defaultValue={user?.id}
                                    disabled/>
                         </label>
@@ -186,8 +186,8 @@ export default class ProfileSettings extends Component<IProfileSettingsProps, IP
                                className={cn([styles.profileInput, styles.textInfo])} {...this.aboutUsLayoutAttrs} />
                     </label>
                     <div className={cn([styles.profileControls, styles.order3])}>
-                      <button type="button" className={styles.profileBtn}>Отменить</button>
-                      <button type="submit" className={styles.profileBtn}>Сохранить</button>
+                        <button type="submit" className={styles.profileBtn}>Подтвердить</button>
+                        <button type="button" className={styles.profileBtn}>Отменить</button>
                     </div>
                 </form>
             </Fragment>

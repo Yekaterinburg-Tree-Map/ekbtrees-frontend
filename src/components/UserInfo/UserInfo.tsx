@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './UserInfo.module.css';
-import userProfileIcon from '../../img/userProfileIcon.svg';
+import Man from '../../img/man.png';
 import UserMenu from '../UserMenu';
 import cn from 'classnames';
 import { closest } from '../../helpers/dom';
@@ -82,12 +82,12 @@ export default class UserInfo extends Component<IUserInfoProps, IUserInfoState> 
                     <div className={styles.user}>
                         <div>
                             <div className={styles.userName}>{`${this.props.user?.firstName}\xA0${this.props.user?.lastName}`}</div>
-                            {/*<div className={styles.userRole}>*/}
-                            {/*    {this.props.user?.roles.join(', ')}*/}
-                            {/*</div>*/}
+                            <div className={styles.userRole}>
+                                {this.props.user?.roles.join(', ')}
+                            </div>
                         </div>
                         <Link to="/profileSettings">
-                            <img src={userProfileIcon} className={styles.userIcon} alt="profile-icon" />
+                            <img src={Man} className={styles.userIcon} alt="profile-icon" />
                         </Link>
                     </div>
                     <div className={styles.userControls}>
