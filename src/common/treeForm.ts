@@ -3,7 +3,8 @@
 
 export const treeStatusOptions = [
     { id: 1, title: 'Живое' },
-    { id: 2, title: 'Не живое' }
+    { id: 2, title: 'Не живое' },
+  { id: 3, title: 'Пень' }
 ];
 
 export const treePlantingTypeOptions = [

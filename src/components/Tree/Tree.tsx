@@ -3,7 +3,7 @@ import styles from './Tree.module.css'
 import modalStyles from "../Modal/Modal.module.css";
 import {Link} from "react-router-dom";
 import Spinner from "../Spinner";
-import {approveTree, getTree, deleteTree} from "../../api/tree";
+import {approveTree, getTree, deleteTree, getCommentsTrees} from "../../api/tree";
 import {getFilesByTree, deleteFiles} from "../../api/files";
 import {formatDate} from '../../helpers/date';
 import FileUpload from "../FileUpload";
@@ -17,7 +17,7 @@ import PageHeader from "../PageHeader";
 import {PAGES} from '../../constants/pages';
 
 
-export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: string }, StaticContext, LocationState>, ITreeState> {
+export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: string }, StaticContext, LocationState>, ITreeState & {comment: ""}> {
   static defaultProps = {
     user: null
   }
@@ -29,10 +29,10 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: strin
   private operationInProgress: boolean = false;
   private canApprove: boolean = false;
   private approved: boolean = false;
+  private comment: string | undefined;
 
-  constructor(props: ITreeProps & RouteComponentProps<{ id: string }, StaticContext, LocationState>) {
+  constructor(props: ITreeProps & RouteComponentProps<{ id: string }, StaticContext, LocationState >) {
     super(props);
-
     this.state = {
       tree: null,
       loading: true,
@@ -42,7 +42,8 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: strin
       showModal: false,
       modalTitle: '',
       handleClick: undefined,
-      isDangerModal: false
+      isDangerModal: false,
+      comment: "",
     }
   }
 
@@ -122,7 +123,7 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: strin
 
   componentDidMount() {
     this.treeId = this.props.match.params.id;
-
+    this.comment = "";
     const {location} = this.props;
 
     if (location.state && location.state.prevPosition) {
@@ -133,9 +134,17 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: strin
 
     if (this.treeId) {
       this.getTree(this.treeId);
+      this.getComments(Number(this.treeId));
     }
   }
 
+  getComments = (treeId: number)=>{
+    debugger;
+    getCommentsTrees(treeId)
+      .then(result=>{
+        this.setState({comment:result[0]?.text});
+      })
+  }
   getTree = (treeId: string | number) => {
     const {user} = this.props;
     const isModerator = Boolean(user?.roles.includes('superuser') || user?.roles.includes('moderator'));
@@ -355,9 +364,19 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: strin
 
   renderTable() {
     return (
-      <div className={styles.tbody}>
-        {this.renderRows()}
-      </div>
+      <>
+        <div className={styles.tbody}>
+          {this.renderRows()}
+        </div>
+        <div className={styles.col}>
+          {this.state.comment &&
+            <div className={styles.comment}>Примечание: {" "}
+              <span style={{fontWeight:400, overflowWrap:"anywhere"}}>
+                {this.state.comment}
+              </span>
+            </div>}
+        </div>
+      </>
     )
   }
 

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import React, { Component } from 'react';
-import {addTree} from "../../api/tree";
+import {addComment, addTree} from "../../api/tree";
 import FileUpload from "../FileUpload";
 import TextField from '../TextField';
 import Select from '../Select';
@@ -20,7 +20,7 @@ import PageHeader from "../PageHeader";
 import {PAGES} from '../../constants/pages';
 
 
-export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAddNewTreeFormState> {
+export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAddNewTreeFormState & { comment: string }> {
     constructor(props: IAddNewTreeFormProps) {
         super(props);
 
@@ -28,6 +28,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
             errors: {},
             modalShow: false,
             successfullyAdded: false,
+            comment:"",
             tree: {
                 latitude: {
                     disabled: true,
@@ -78,7 +79,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     parse: (value: string) => parseFloat(value)
                 },
                 age: {
-                    title: 'Возраст (в годах)',
+                    title: 'Возраст (в годах, если он известен)',
                     value: '',
                     type: 'number',
                     parse: (value: string) => parseInt(value, 10),
@@ -194,6 +195,9 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
         });
         return data;
     }
+    handleAddComment = (treeId: number) => {
+      addComment({text:this.state.comment,treeId});
+    }
 
     handleAddTree = (event: any) => {
         event.preventDefault();
@@ -207,7 +211,8 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
 
         const data: IPostJsonTree = this.convertINewTreeToIPostJsonTree(tree);
         addTree(data as { geographicalPoint: { latitude: number | null, longitude: number | null } })
-            .then(_ => {
+            .then(treeId => {
+                this.handleAddComment(treeId)
                 const lat = data.geographicalPoint?.latitude;
                 const lng = data.geographicalPoint?.longitude;
                 if (lat && lng) {
@@ -347,10 +352,16 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
     renderMainInformation() {
         return (
             <div className={styles.block}>
-                <p className={styles.mainTitle}>Основная информация</p>
+                <p className={styles.mainTitle}>Новое дерево</p>
                 <div className={styles.wrapperFlex}>
                     {this.renderItems()}
                 </div>
+              <textarea  placeholder={"Примечание"}
+                         rows={6}
+                         onChange={event => this.setState({comment: event.target.value})}
+                         style={{resize:"none", width:"80%", maxWidth:"600px",
+                           padding:"5px 10px", margin:"15px auto", display:"block"}} />
+
             </div>
         )
     }

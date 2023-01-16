@@ -78,7 +78,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
 
         return {
             age: {
-                title: 'Возраст (в годах)',
+                title: 'Возраст (в годах, если он известен)',
                 value: age,
                 type: 'number',
                 validate: validateIsNotNegativeNumber,
