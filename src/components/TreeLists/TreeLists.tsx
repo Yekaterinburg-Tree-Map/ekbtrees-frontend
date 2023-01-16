@@ -18,7 +18,7 @@ const locale: ITreeListsStateLocale = {
         creationDate: 'Дата добавления',
         height: 'Высота',
         image: "Изображение",
-        species: 'Вид'
+        species: 'Род/вид дерева'
     }
 }
 
@@ -55,7 +55,7 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
                     <img src={image || defaultTreeImage} alt='tree' className={styles.tableImgMobile} />
                 </div>
                 <div className={styles.treeTableItemWrapperHeadingMobile}>
-                    <span>Вид</span>
+                    <span>Род/вид дерева</span>
                     <span>Возраст</span>
                     <span>Высота</span>
                     <span>Дата добавления</span>

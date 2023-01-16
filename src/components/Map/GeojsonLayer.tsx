@@ -464,8 +464,8 @@ function setUpTreeCircles(
         fillColor: color,
         fill: true,
         fillOpacity: .6,
-        weight:item.approvedByModerator ? 1 : 0,
-        opacity: item.approvedByModerator ? 1 : 0
+        weight:item.approvedByModerator ? 0 : 1,
+        opacity: item.approvedByModerator ? 0 : 1
       }).addTo(layer);
 
       const touchCircleRadius = circleRadius;

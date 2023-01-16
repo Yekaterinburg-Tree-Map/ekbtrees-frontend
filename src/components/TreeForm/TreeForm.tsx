@@ -41,7 +41,7 @@ export const TreeForm = ({ activeTree, onClose, changeState, user }: ITreeFormPr
                 </div>
                 <hr className={styles.hr} />
                 <div className={styles.row}>
-                    <span className={styles.rowName}>Вид</span>
+                    <span className={styles.rowName}>Род/вид дерева</span>
                     <span className={styles.rowValue}>{activeTree?.species?.title}</span>
                 </div>
                 <hr className={styles.hr} />
