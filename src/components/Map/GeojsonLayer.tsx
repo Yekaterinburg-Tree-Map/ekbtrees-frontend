@@ -38,7 +38,7 @@ const DG = require('2gis-maps');
 let lastLambda: any = null;
 let lastMarkerLayer: any = null;
 
-const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMarker, user }: IGeojsonLayerProps) => {
+const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMarker, user }: IGeojsonLayerProps) => { // !!! Если ипользуешь setMapState, обнови руками mapStateRef
     const [activeTreeId, setActiveTreeId] = useState<string | number | null>(null);
     const [activeTreeData, setActiveTreeData] = useState<IJsonTree | null>(null);
     const [mapData, setMapData] = useState<IMapDataSeparateTrees | IMapDataClustered | null>(null);
@@ -46,6 +46,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
     const componentMounted = useRef<boolean>(false);
     const markerRef = useRef<ILatLng | null>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const mapStateRef = useRef<number>(0) // Пришлось делать реф, так как на обработчики клика попадает старое состояние mapState, mapState оставил для обратной совместимости
 
     // User geolocation
 
@@ -193,14 +194,21 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
                 setMapData({ isClusterData: false, json: jsonData });
                 treeData.current.data = jsonData;
                 setUpTreeCircles(
-                    mapState,
+                    mapStateRef.current,
                     { isClusterData: false, json: jsonData },
                     handleTreeClick,
                     treesLayer,
                     map,
                     history
                 );
-                treesLayer.on("click", handleLayerClick(treeData.current, 9, handleTreeClick));
+                treesLayer.on("click", ()=> {
+                  if(mapStateRef.current === MapState.addTreeBegin){
+                    return;
+                  }
+
+                  handleLayerClick(treeData.current, 9, handleTreeClick) // TODO: понять за что вообще отвечает, без него всё работает также
+
+                });
                 treesLayer.addTo(map);
 
                 waitingLoadData.current = false;
@@ -226,6 +234,10 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
 
     // FIXME: What type of events should 2-gis have
     const handleTreeClick = (e: any, item: IJsonMapTree) => {
+        if(mapStateRef.current === MapState.addTreeBegin){
+          return;
+        }
+
         waitingLoadData.current = true;
 
         item.id && setActiveTreeId(item.id);
@@ -254,6 +266,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
 
         if (mapState === MapState.addTreeBegin) {
             setMapState(MapState.addTreeSelected)
+            mapStateRef.current = 2;
             updateMarkerRef(event);
             DG.marker(markerRef.current, { draggable: true })
                 .addTo(markerLayer)
@@ -276,6 +289,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
         setActiveTreeData(null);
         waitingLoadData.current = false;
         setMapState(MapState.default)
+        mapStateRef.current = 0;
     }
 
     const handleZoomEndMoveEnd = useCallback(() => {
@@ -344,15 +358,18 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
         clearLayer(lastMarkerLayer);
         lastMarkerLayer.removeFrom(map);
         setMapState(MapState.default);
+        mapStateRef.current = 0
     }
 
     const HandleMapStateChange = (state: number) => {
         switch (state) {
             case MapState.default:
+                mapStateRef.current = 1
                 setMapState(MapState.addTreeBegin);
                 break;
             case MapState.addTreeSelected:
                 setMapState(MapState.addTreeSubmit);
+                mapStateRef.current = 3
                 break;
         }
     }
@@ -393,7 +410,10 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
     return (
         <>
             <div className={stylesCN}>
-                {activeTreeData && <TreeForm activeTree={activeTreeData} onClose={handleClose} changeState={setMapState} user={user} />}
+                {activeTreeData && <TreeForm activeTree={activeTreeData} onClose={handleClose} changeState={(state: number)=>{
+                  setMapState(state);
+                  mapStateRef.current = state;
+                }} user={user} />}
             </div>
             {!activeTreeData && renderButtons()}
         </>

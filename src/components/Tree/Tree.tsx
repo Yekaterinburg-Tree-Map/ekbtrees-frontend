@@ -139,7 +139,6 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: strin
   }
 
   getComments = (treeId: number)=>{
-    debugger;
     getCommentsTrees(treeId)
       .then(result=>{
         this.setState({comment:result[0]?.text});
