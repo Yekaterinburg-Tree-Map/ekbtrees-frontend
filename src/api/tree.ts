@@ -29,6 +29,12 @@ export const addComment = (body: { text: string, treeId: number }) => {
   })
 }
 
+export const editComment = (body: { text: string, commentId: number }) => {
+  return RequestService.putData(`${baseUrl}comment/${body.commentId}`, JSON.stringify(body), {
+    'Content-Type': 'application/json'
+  })
+}
+
 export const getCommentsTrees = ( treeId: number) => {
   return RequestService.getData(`${baseUrl}comment/by-tree/${treeId}`);
 }

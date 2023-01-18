@@ -69,3 +69,14 @@ code {
   --login-form: rgba(0, 0, 0, 0.3);
   --background-color: #2c2c2c;
 }
+
+/* Hide arrows from MUI TextField*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

@@ -141,7 +141,7 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: strin
   getComments = (treeId: number)=>{
     getCommentsTrees(treeId)
       .then(result=>{
-        this.setState({comment:result[0]?.text});
+        this.setState({comment:result?.[0]?.text});
       })
   }
   getTree = (treeId: string | number) => {
@@ -369,11 +369,13 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: strin
         </div>
         <div className={styles.col}>
           {this.state.comment &&
-            <div className={styles.comment}>Примечание: {" "}
-              <span style={{fontWeight:400, overflowWrap:"anywhere"}}>
+            <>
+              <div className={styles.comment}>Примечание: </div>
+              <span  className={styles.comment}style={{overflowWrap:"anywhere"}}>
                 {this.state.comment}
               </span>
-            </div>}
+            </>
+          }
         </div>
       </>
     )

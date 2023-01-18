@@ -1,7 +1,7 @@
 import cn from "classnames";
 import React, {ChangeEvent, Component} from 'react';
 import styles from './EditTreeForm.module.css';
-import {editTree, getTree} from "../../api/tree";
+import {editComment, editTree, getCommentsTrees, getTree} from "../../api/tree";
 import {
     getFilesByTree,
     getFilesByIds,
@@ -51,7 +51,9 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
             uploadingImages: false,
             modalShow: false,
             successfullyEdited: false,
-            errors: {}
+            errors: {},
+            commentId:null,
+            comment:""
         }
 
         this.treeId = this.props.match.params.id;
@@ -177,6 +179,12 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
                                     loadingFiles: false
                                 })
                             })
+                        getCommentsTrees(Number(this.treeId))
+                          .then(comments => {
+                            const commentData = comments?.[0];
+                            this.setState({comment: commentData?.text})
+                            this.setState({commentId: commentData?.id})
+                          })
                     })
                 })
                 .catch(error => {
@@ -267,6 +275,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
         // console.log(data);
         editTree(data)
             .then(_ => {
+                editComment({commentId: this.state.commentId,text:this.state.comment})
                 const lat = data.geographicalPoint?.latitude;
                 const lng = data.geographicalPoint?.longitude;
                 if (lat && lng) {
@@ -406,6 +415,17 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
                 <div className={styles.wrapperFlex}>
                     {this.renderItems()}
                 </div>
+                <div className={styles.col}>
+                  {this.state.comment !== undefined &&
+                  <textarea
+                    placeholder={"Примечание"}
+                    rows={6}
+                    value={this.state.comment}
+                    onChange={event => this.setState({comment: event.target.value})}
+                    style={{resize:"none", width:"80%", maxWidth:"600px",
+                      padding:"5px 10px", margin:"15px auto", display:"block"}} />
+                  }
+              </div>
             </div>
         )
     }
