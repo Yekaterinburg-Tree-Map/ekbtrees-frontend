@@ -3,7 +3,7 @@
     transition: 0.5s;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     height: 100%;
     /*pointer-events: none;*/
 }
