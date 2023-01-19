@@ -1,104 +1,107 @@
 .footerWrapper {
-    display: flex;
-    justify-content: flex-end;
-    background-color: var(--footer);
-    color: white;
-    font-family: "Poppins", sans-serif;
+  display: flex;
+  justify-content: flex-end;
+  background-color: var(--footer);
+  color: white;
+  font-family: "Poppins", sans-serif;
 }
 
 .info {
-    display: flex;
-    flex-direction: column;
-    padding: 30px 50px;
-    margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 50px;
+  margin-right: auto;
 }
 
 .slogan {
-    margin-bottom: 10px;
-    font-size: 30px;
+  font-size: 25px;
 }
 
 .slogan span {
-    font-weight: 700;
-    font-family: "Poppins", sans-serif;
-    margin-bottom: 10px;
+  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+  margin-bottom: 10px;
 }
 
 .slogan :last-child {
-    color: #aec400;
+  color: #aec400;
 }
 
 .column {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-    padding: 50px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  padding: 50px;
 }
 
 .link {
-    color: #d9dbe1
+  color: #d9dbe1
 }
 
 .link:hover {
-    color: #1d53aa;
+  color: #1d53aa;
 }
 
 .nameColumn {
-    margin-bottom: 5px;
-    font-size: 20px;
-    font-weight: 500;
-    color: white;
+  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
 }
 
 .images {
-    margin: 20px 0 0 0;
-    display: flex;
-    justify-content: space-between;
+  margin: 20px 0 0 0;
+  display: flex;
+  justify-content: space-between;
 }
 
 .image {
-    width: 40px;
+  width: 40px;
 }
 
 .email {
-    color: #d9dbe1;
+  color: #d9dbe1;
 }
 
 .copyright {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 @media screen and (max-width: 1024px) {
-    .column {
-        padding: 30px;
-    }
+  .column {
+    padding: 30px;
+  }
 
-    .info {
-        padding: 30px;
-    }
+  .info {
+    padding: 30px;
+  }
 }
 
 @media screen and (max-width: 830px) {
-    .footerWrapper {
-        flex-direction: column;
-    }
+  .footerWrapper {
+    flex-direction: column;
+  }
 
-    .column {
-        align-items: center;
-        padding: 15px;
-    }
+  .column {
+    align-items: center;
+    padding: 10px;
+  }
 
-    .email {
-        padding-bottom: 15px;
-    }
+  .image {
+    width: 25px;
+  }
 
-    .nameColumn {
-        font-weight: 500px;
-    }
+  .email {
+    padding-bottom: 15px;
+  }
 
-    .info {
-        padding: 30px 0 0 0;
-        align-items: center;
-        margin-right: 0;
-    }
+  .nameColumn {
+    font-weight: 500;
+  }
+
+  .info {
+    padding: 15px 0 0 0;
+    align-items: center;
+    margin-right: 0;
+  }
 }

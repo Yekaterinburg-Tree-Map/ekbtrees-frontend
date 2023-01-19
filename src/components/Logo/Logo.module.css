@@ -1,26 +1,36 @@
 .logo {
-    display: flex;
-    align-items: center;
-    font-weight: 700;
-    font-family: "Poppins", sans-serif;
-    font-size: 40px;
-    margin: 0;
-    padding: 15px 0;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+  font-size: 40px;
+  margin: 0;
+  padding: 15px 0;
 }
 
 .logoImage {
-    height: 80px;
+  height: 80px;
 }
 
 .logoText {
-    margin-left: 14px;
-    margin-top: 12px;
+  margin-left: 14px;
+  margin-top: 12px;
 }
 
 .firstPart {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .secondPart {
-    color: #aec400;
+  color: #aec400;
+}
+
+@media screen and (max-width: 1024px) {
+  .logo {
+    font-size: 32px;
+  }
+
+  .logoImage {
+    height: 50px;
+  }
 }

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import React, { Component } from 'react';
-import {addTree} from "../../api/tree";
+import {addComment, addTree} from "../../api/tree";
 import FileUpload from "../FileUpload";
 import TextField from '../TextField';
 import Select from '../Select';
@@ -12,8 +12,7 @@ import {
     FileGroupType, IPostJsonTree, IGeographicalPoint, IFile
 } from "../../common/types";
 import { IAddNewTreeFormProps, IAddNewTreeFormState } from "./types";
-import {
-    conditionAssessmentOptions, treePlantingTypeOptions, treeStatusOptions,
+import { treePlantingTypeOptions, treeStatusOptions,
     validateIsNotNegativeNumber, validateLessThan, validateIsSet, validateGreaterThan,
 } from "../../common/treeForm";
 import Modal from "../Modal";
@@ -21,7 +20,7 @@ import PageHeader from "../PageHeader";
 import {PAGES} from '../../constants/pages';
 
 
-export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAddNewTreeFormState> {
+export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAddNewTreeFormState & { comment: string }> {
     constructor(props: IAddNewTreeFormProps) {
         super(props);
 
@@ -29,6 +28,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
             errors: {},
             modalShow: false,
             successfullyAdded: false,
+            comment:"",
             tree: {
                 latitude: {
                     disabled: true,
@@ -43,17 +43,11 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     type: 'string'
                 },
                 speciesId: {
-                    title: 'Порода',
+                    title: 'Род/вид дерева',
                     values: [],
                     value: '',
                     validate: validateIsSet,
                     // required: true,
-                    loading: false
-                },
-                conditionAssessment: {
-                    title: 'Визуальная оценка состония',
-                    value: '',
-                    values: conditionAssessmentOptions,
                     loading: false
                 },
                 diameterOfCrown: {
@@ -85,7 +79,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     parse: (value: string) => parseFloat(value)
                 },
                 age: {
-                    title: 'Возраст (в годах)',
+                    title: 'Возраст (в годах, если он известен)',
                     value: '',
                     type: 'number',
                     parse: (value: string) => parseInt(value, 10),
@@ -189,15 +183,20 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     }
                     data.geographicalPoint[treeKey as keyof IGeographicalPoint] = parseFloat(String(value));
                 } else {
-                    data[treeKey] = value;
+                    // @ts-ignore
+                  data[treeKey] = value;
                 }
             } else {
                 if (treeKey !== 'latitude' && treeKey !== 'longitude') {
-                    data[treeKey] = tree[treeKey];
+                    // @ts-ignore
+                  data[treeKey] = tree[treeKey];
                 }
             }
         });
         return data;
+    }
+    handleAddComment = (treeId: number) => {
+      addComment({text:this.state.comment,treeId});
     }
 
     handleAddTree = (event: any) => {
@@ -212,7 +211,8 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
 
         const data: IPostJsonTree = this.convertINewTreeToIPostJsonTree(tree);
         addTree(data as { geographicalPoint: { latitude: number | null, longitude: number | null } })
-            .then(_ => {
+            .then(treeId => {
+                this.handleAddComment(treeId)
                 const lat = data.geographicalPoint?.latitude;
                 const lng = data.geographicalPoint?.longitude;
                 if (lat && lng) {
@@ -352,10 +352,16 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
     renderMainInformation() {
         return (
             <div className={styles.block}>
-                <p className={styles.mainTitle}>Основная информация</p>
+                <p className={styles.mainTitle}>Новое дерево</p>
                 <div className={styles.wrapperFlex}>
                     {this.renderItems()}
                 </div>
+              <textarea  placeholder={"Примечание"}
+                         rows={6}
+                         onChange={event => this.setState({comment: event.target.value})}
+                         style={{resize:"none", width:"80%", maxWidth:"600px",
+                           padding:"5px 10px", margin:"15px auto", display:"block"}} />
+
             </div>
         )
     }
@@ -468,7 +474,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
         const { images, uploadingImages } = this.state;
         return (
             <section className={styles.imagesWrapper}>
-                <h3 className={styles.title}> Картинки </h3>
+                <h3 className={styles.title}>Фотографии</h3>
                 <FileUpload
                     files={images ?? []}
                     onDelete={this.handleDeleteFile('images')}

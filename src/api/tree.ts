@@ -23,6 +23,22 @@ export const addTree = (body: {geographicalPoint: {latitude: number | null, long
 	})
 }
 
+export const addComment = (body: { text: string, treeId: number }) => {
+  return RequestService.postData(`${baseUrl}comment`, JSON.stringify(body), {
+    'Content-Type': 'application/json'
+  })
+}
+
+export const editComment = (body: { text: string, commentId: number }) => {
+  return RequestService.putData(`${baseUrl}comment/${body.commentId}`, JSON.stringify(body), {
+    'Content-Type': 'application/json'
+  })
+}
+
+export const getCommentsTrees = ( treeId: number) => {
+  return RequestService.getData(`${baseUrl}comment/by-tree/${treeId}`);
+}
+
 export const approveTree = (id: string | number) => {
     return RequestService.postData(`${baseUrl}tree/approve/${id}`, null);
 }

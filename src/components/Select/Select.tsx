@@ -49,6 +49,9 @@ export const Select = (props: ISelectProps) => {
                     native={false}
                     onChange={handleChange}
                     variant="outlined"
+                    MenuProps={{style:{
+                    maxHeight:"500px"}  // Если не ограничивать, список слишком большой
+                    }}
                     inputProps={{
                         name: item.title,
                         id,

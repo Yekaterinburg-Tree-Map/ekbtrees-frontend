@@ -38,7 +38,7 @@ const DG = require('2gis-maps');
 let lastLambda: any = null;
 let lastMarkerLayer: any = null;
 
-const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMarker, user }: IGeojsonLayerProps) => {
+const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMarker, user }: IGeojsonLayerProps) => { // !!! Если ипользуешь setMapState, обнови руками mapStateRef
     const [activeTreeId, setActiveTreeId] = useState<string | number | null>(null);
     const [activeTreeData, setActiveTreeData] = useState<IJsonTree | null>(null);
     const [mapData, setMapData] = useState<IMapDataSeparateTrees | IMapDataClustered | null>(null);
@@ -46,6 +46,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
     const componentMounted = useRef<boolean>(false);
     const markerRef = useRef<ILatLng | null>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const mapStateRef = useRef<number>(0) // Пришлось делать реф, так как на обработчики клика попадает старое состояние mapState, mapState оставил для обратной совместимости
 
     // User geolocation
 
@@ -193,14 +194,21 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
                 setMapData({ isClusterData: false, json: jsonData });
                 treeData.current.data = jsonData;
                 setUpTreeCircles(
-                    mapState,
+                    mapStateRef.current,
                     { isClusterData: false, json: jsonData },
                     handleTreeClick,
                     treesLayer,
                     map,
                     history
                 );
-                treesLayer.on("click", handleLayerClick(treeData.current, 9, handleTreeClick));
+                treesLayer.on("click", ()=> {
+                  if(mapStateRef.current === MapState.addTreeBegin){
+                    return;
+                  }
+
+                  handleLayerClick(treeData.current, 9, handleTreeClick) // TODO: понять за что вообще отвечает, без него всё работает также
+
+                });
                 treesLayer.addTo(map);
 
                 waitingLoadData.current = false;
@@ -226,6 +234,10 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
 
     // FIXME: What type of events should 2-gis have
     const handleTreeClick = (e: any, item: IJsonMapTree) => {
+        if(mapStateRef.current === MapState.addTreeBegin){
+          return;
+        }
+
         waitingLoadData.current = true;
 
         item.id && setActiveTreeId(item.id);
@@ -254,6 +266,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
 
         if (mapState === MapState.addTreeBegin) {
             setMapState(MapState.addTreeSelected)
+            mapStateRef.current = 2;
             updateMarkerRef(event);
             DG.marker(markerRef.current, { draggable: true })
                 .addTo(markerLayer)
@@ -276,6 +289,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
         setActiveTreeData(null);
         waitingLoadData.current = false;
         setMapState(MapState.default)
+        mapStateRef.current = 0;
     }
 
     const handleZoomEndMoveEnd = useCallback(() => {
@@ -344,15 +358,18 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
         clearLayer(lastMarkerLayer);
         lastMarkerLayer.removeFrom(map);
         setMapState(MapState.default);
+        mapStateRef.current = 0
     }
 
     const HandleMapStateChange = (state: number) => {
         switch (state) {
             case MapState.default:
+                mapStateRef.current = 1
                 setMapState(MapState.addTreeBegin);
                 break;
             case MapState.addTreeSelected:
                 setMapState(MapState.addTreeSubmit);
+                mapStateRef.current = 3
                 break;
         }
     }
@@ -374,26 +391,29 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
     const renderButtons = () => user &&
         window.location.pathname === "/map" &&
         <MapButtonContainer>
-            {(mapState != MapState.default) && (
+            {(mapState !== MapState.default) && (
                 <MapButtonGeneral
                     state={mapState}
                     changeState={HandleAddTreeCancel}
                     getTitle={(s: number) => "Отмена"}
-                    isDisabled={(s: number) => s == MapState.default}
+                    isDisabled={(s: number) => s === MapState.default}
                     styleName={MapButtonStyles.mapButtonSecondary} />
             )}
             <MapButtonGeneral
                 state={mapState}
                 changeState={HandleMapStateChange}
                 getTitle={HandleMapStateButtonTitleChange}
-                isDisabled={(s: number) => s == MapState.addTreeBegin}
+                isDisabled={(s: number) => s === MapState.addTreeBegin}
                 styleName={MapButtonStyles.mapButtonSuccess} />
         </MapButtonContainer>
 
     return (
         <>
             <div className={stylesCN}>
-                {activeTreeData && <TreeForm activeTree={activeTreeData} onClose={handleClose} changeState={setMapState} user={user} />}
+                {activeTreeData && <TreeForm activeTree={activeTreeData} onClose={handleClose} changeState={(state: number)=>{
+                  setMapState(state);
+                  mapStateRef.current = state;
+                }} user={user} />}
             </div>
             {!activeTreeData && renderButtons()}
         </>
@@ -401,89 +421,90 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
 }
 
 function setUpTreeCircles(
-    state: number,
-    data: IMapDataSeparateTrees | IMapDataClustered,
-    handleTreeClick: any,
-    layer: any,
-    map: any,
-    history: any
+  state: number,
+  data: IMapDataSeparateTrees | IMapDataClustered,
+  handleTreeClick: any,
+  layer: any,
+  map: any,
+  history: any
 ) {
-    if (data.isClusterData) {
-        data.json.forEach(item => {
-            const { latitude, longitude } = item.centre;
-            const size = 30;
-            const clusterMarkerDivStyle = `
+  if (data.isClusterData) {
+    data.json.forEach(item => {
+      const { latitude, longitude } = item.centre;
+      const size = 30;
+      const clusterMarkerDivStyle = `
                 width: ${size}px;
                 height: ${size}px;
                 margin: 5px;
                 border-radius: 20px;
                 background-color:rgba(110,204,57,0.6);
                 text-align: center;
-                    font-size: 12px;
+                font-size: 12px;
+                opacity:.7;
             `;
 
-            const clusterMarkerSpanStyle = `
+      const clusterMarkerSpanStyle = `
                 line-height: 30px;
             `;
 
-            const markerIcon = divIcon({
-                html: `<div style="${clusterMarkerDivStyle}"><span style="${clusterMarkerSpanStyle}">${item.count}</span></div>`,
-                className: "circle-div-icon",
-                iconSize: [40, 40]
-            });
+      const markerIcon = divIcon({
+        html: `<div style="${clusterMarkerDivStyle}"><span style="${clusterMarkerSpanStyle}">${item.count}</span></div>`,
+        className: "circle-div-icon",
+        iconSize: [40, 40]
+      });
 
-            DG.marker([latitude, longitude], { icon: markerIcon })
-                .on("click", () => {
-                    if (window.location.pathname !== "/map") {
-                        history.push("/map")
-                        return;
-                    }
-                    map.setView([latitude, longitude], 30 * 2)
-                }).addTo(layer);
-        });
-    } else {
-        data.json.forEach(item => {
-            const { latitude, longitude } = item.geographicalPoint;
-            let color: string = DefaultTreeColor;
+      DG.marker([latitude, longitude], { icon: markerIcon })
+        .on("click", () => {
+          if (window.location.pathname !== "/map") {
+            history.push("/map")
+            return;
+          }
+          map.setView([latitude, longitude], 30 * 2)
+        }).addTo(layer);
+    });
+  } else {
+    data.json.forEach(item => {
+      const { latitude, longitude } = item.geographicalPoint;
+      let color: string = DefaultTreeColor;
 
-            if (item.species) {
-                const species = item.species.title;
-                if (species in TreeSpeciesColors) {
-                    color = TreeSpeciesColors[species];
-                }
-            }
+      if (item.species) {
+        const species = item.species.title;
+        if (species in TreeSpeciesColors) {
+          color = TreeSpeciesColors[species];
+        }
+      }
 
-            let circleRadius = item.diameterOfCrown / 2;
-            const minCircleRadius = 2;
-            circleRadius = circleRadius < minCircleRadius ? minCircleRadius : circleRadius;
+      let circleRadius = item.diameterOfCrown / 2;
+      const minCircleRadius = 2;
+      circleRadius = circleRadius < minCircleRadius ? minCircleRadius : circleRadius;
 
-            const treeCircle = DG.circle([latitude, longitude], {
-                radius: circleRadius,
-                color: "red",
-                fillColor: color,
-                fill: true,
-                fillOpacity: 1,
-                weight: item.approvedByModerator ? 0 : 1,
-                opacity: 1.0
-            }).addTo(layer);
+      const treeCircle = DG.circle([latitude, longitude], {
+        radius: circleRadius,
+        color: "red",
+        fillColor: color,
+        fill: true,
+        fillOpacity: .6,
+        weight:item.approvedByModerator ? 0 : 1,
+        opacity: item.approvedByModerator ? 0 : 1
+      }).addTo(layer);
 
-            const touchCircleRadius = 9;
+      const touchCircleRadius = circleRadius;
 
-            if (circleRadius >= touchCircleRadius) {
-                treeCircle.on('click', (e: any) => handleTreeClick(e, item));
-            } else {
-                DG.circle([latitude, longitude], {
-                    radius: touchCircleRadius,
-                    fillColor: "red",
-                    fill: true,
-                    weight: 0,
-                    fillOpacity: 0,
-                    opacity: 0
-                }).addTo(layer)
-                // .on('click', (e: any) => handleTreeClick(e, item));
-            }
-        });
-    }
+      if (circleRadius >= touchCircleRadius) {
+        treeCircle.on('click', (e: any) => handleTreeClick(e, item));
+      } else {
+        DG.circle([latitude, longitude], {
+          radius: touchCircleRadius,
+          fillColor: "red",
+          fill: true,
+          weight: 0,
+          fillOpacity: 0,
+          opacity: 0
+        }).addTo(layer)
+        // .on('click', (e: any) => handleTreeClick(e, item));
+      }
+    });
+  }
 }
 
 const handleLayerClick = (trees: { data: IJsonMapTree[] }, threshold: number, handleTreeClick: any) => (event: any) => {
@@ -554,7 +575,6 @@ function getMarkerClusterGroup(state: number, data: IMapDataSeparateTrees | IMap
                     ))}
             </MarkerClusterGroup>);
     } else {
-        // console.log(map.getZoom(), 'zoom');
         return (
             <MarkerClusterGroup disableClusteringAtZoom={19}>
                 {data.json
