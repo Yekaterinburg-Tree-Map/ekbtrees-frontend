@@ -7,6 +7,7 @@ import AuthForm from '../AuthForm';
 import vkIcon from '../../img/vkSignUp.png';
 import { ILogingFormUser } from "../../common/types";
 import { ILoginFormProps, ILoginFormState } from "./types";
+import {toast} from "react-hot-toast";
 
 
 export default class LoginForm extends Component<ILoginFormProps, ILoginFormState> {
@@ -68,8 +69,14 @@ export default class LoginForm extends Component<ILoginFormProps, ILoginFormStat
         })
             .then(async response => {
                 if (response.status === 200) {
-                    this.setState({ error: false }, handleCookie);
-                    window.location.href = '/map';
+                  toast.success('Вы успешно вошли', {
+                    style: {
+                      border: '1px solid #aec400',
+                      padding: '16px',
+                    },
+                  });
+                  this.setState({ error: false }, handleCookie);
+
                 } else {
                     this.setState({ error: true });
                 }

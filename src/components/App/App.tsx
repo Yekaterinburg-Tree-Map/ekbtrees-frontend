@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import jwt_decode from 'jwt-decode';
 import Cookies from 'universal-cookie';
 import Main from '../Main';
@@ -9,6 +9,7 @@ import RequestService from "../../helpers/requests";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Footer from '../Footer';
 import styles from './App.module.css';
+import {Toaster} from "react-hot-toast";
 
 const cookies = new Cookies();
 
@@ -89,6 +90,7 @@ class App extends Component<IAppProps & RouteComponentProps, IAppState> {
                     <Header user={user} onCookieRemove={this.removeCookie} switchTheme={this.switchTheme} theme={this.state.theme} />
                     <Main user={user} onCookie={this.handleCookie} theme={this.state.theme} />
                     <Footer theme={this.state.theme} />
+                    <Toaster/>
                 </div>
             </>
         )

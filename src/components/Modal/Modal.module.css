@@ -47,7 +47,7 @@
 }
 
 .heading {
-    height: 60px;
+    height: 40px;
     justify-content: flex-end;
 }
 
@@ -61,16 +61,15 @@
 }
 
 .modalContent button {
-    padding: 10px 20px;
-    background-color: black;
-    color: white;
-    font-size: 40px;
-    font-weight: 700;
-    min-width: 170px;
+  padding: 7px 38px;
+  background-color: black;
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
 }
 
 .modalContent p {
-    font-size: 35px;
+    font-size: 25px;
     color: rgba(2, 57, 11, 0.46);
     font-weight: 600;
 }

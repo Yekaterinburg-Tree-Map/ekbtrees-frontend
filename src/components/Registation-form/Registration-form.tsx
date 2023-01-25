@@ -18,6 +18,7 @@ export function RegistrationForm({user, history}: IRegistrationFormProps) {
     error: false,
     isMailExist: false
   });
+  const [showMessage, setShowMessage] = React.useState<boolean>(false)
 
   const errorContent = () => {
     return (
@@ -46,8 +47,8 @@ export function RegistrationForm({user, history}: IRegistrationFormProps) {
       })
     if (response.ok) {
       setError({error: false, isMailExist: false})
-      history.push("/login")
-
+      setShowMessage(true);
+      setTimeout(() => history.push("/login"),3000)
     } else {
       setError({error: true, isMailExist: true})
     }
@@ -70,7 +71,9 @@ export function RegistrationForm({user, history}: IRegistrationFormProps) {
           <input type="password" placeholder="Подтвердите пароль"
                  onChange={e => setSecondPassword(e.target.value)}
                  required/>
-
+          {showMessage && <div style={{color:"#aec400"}}> Вы успешно зарегистрировались в системе. <br />
+            Сейчас вы перейдёте на страницу входа.
+          </div>}
 
           <div className={styles.loginMessage}>
             {error.error && errorContent()}
