@@ -27,7 +27,7 @@ export const TextField = (props: ITextFieldProps) => {
 				onChange={onChange}
 				// variant="filled"
 				variant="outlined"
-				id={id}
+        size={"small"}
 				label={item.title}
 				value={item.value}
 				error={!!errorMessage}
