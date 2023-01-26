@@ -202,7 +202,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
                     history
                 );
                 treesLayer.on("click", ()=> {
-                  if(mapStateRef.current === MapState.addTreeBegin){
+                  if(mapStateRef.current === MapState.addTreeBegin || mapStateRef.current === MapState.addTreeSelected){
                     return;
                   }
 
@@ -234,7 +234,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
 
     // FIXME: What type of events should 2-gis have
     const handleTreeClick = (e: any, item: IJsonMapTree) => {
-        if(mapStateRef.current === MapState.addTreeBegin){
+        if(mapStateRef.current === MapState.addTreeBegin || mapStateRef.current === MapState.addTreeSelected){
           return;
         }
 

@@ -41,7 +41,7 @@ export const Select = (props: ISelectProps) => {
 
     return (
         <div className={styles.root}>
-            <FormControl  required={required} error={required && !selected}>
+            <FormControl  required={required} error={required && !selected} size={"small"}>
                 <InputLabel className={styles.label} id={`label-for-select-${item.title}`} variant="outlined" htmlFor={id}>{item.title}</InputLabel>
                 <UISelect
                     labelId={`label-for-select-${item.title}`}
@@ -50,7 +50,7 @@ export const Select = (props: ISelectProps) => {
                     onChange={handleChange}
                     variant="outlined"
                     MenuProps={{style:{
-                    maxHeight:"500px"}  // Если не ограничивать, список слишком большой
+                    maxHeight:"400px"}  // Если не ограничивать, список слишком большой
                     }}
                     inputProps={{
                         name: item.title,
