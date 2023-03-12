@@ -101,18 +101,15 @@
 .weDoInner {
   font-size: 30px;
   margin: 25px 50px 0 50px;
-  background-color: var(--dark-gray-black);
+  background-color: white;
   color: white;
   display: flex;
 }
 
 .weDoContent {
   padding: 50px;
+  color: black;
   margin: 0;
-}
-
-.weDoImage {
-  width: 400px;
 }
 
 .login,
