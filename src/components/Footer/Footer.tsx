@@ -17,7 +17,7 @@ export default class Footer extends Component<IFooterProps, IFooterState> {
                     <div className={styles.images}>
                         <a href="https://t.me/parklandekb" target="_blank"><img className={styles.image} src={telegramIcon} alt={"telegram"} /></a>
                         <a href="https://vk.com/parklandekb" target="_blank"><img className={styles.image} src={vkIcon} alt={"vk"} /></a>
-                        <a href="https://parklandekb.ru" target="_blank"><img className={styles.image} src={websiteIcon} alt={"website"} /></a>
+                        {/*<a href="https://parklandekb.ru" target="_blank"><img className={styles.image} src={websiteIcon} alt={"website"} /></a>*/}
                     </div>
 
                 </div>
