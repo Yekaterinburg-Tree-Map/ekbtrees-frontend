@@ -42,6 +42,6 @@
     }
 
     .headerSplit {
-        height: 60px;
+        display: none;
     }
 }

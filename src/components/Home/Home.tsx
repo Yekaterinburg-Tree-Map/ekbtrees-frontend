@@ -80,7 +80,7 @@ export default class Home extends Component<IHomeProps> {
                     <div className={styles.weDoInner}>
                         <p className={styles.weDoContent}>
                           Благоприятный климат для жизни:
-                          <ul style={{paddingLeft:"50px"}}>
+                          <ul>
                             <li>сохраняют ментальное и психическое здоровье горожан</li>
                             <li>очищают воздух и насыщают его фитонцидами</li>
                             <li>регулируют скорость ветра и направляют воздушные потоки</li>
@@ -93,8 +93,8 @@ export default class Home extends Component<IHomeProps> {
                             <li>снижают уровень шума</li>
                           </ul>
                           Экономия бюджета:
-                          <ul style={{paddingLeft:"50px"}}>
-                          <li>снижение затрат на энергию</li>
+                          <ul>
+                            <li>снижение затрат на энергию</li>
                             <li>снижение затрат на водоотведение</li>
                             <li>снижение затрат на медицину</li>
                           </ul>
