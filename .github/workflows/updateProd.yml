@@ -7,11 +7,11 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        node-version: [14.x]
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14.16'
       - run: npm install
       - run: npm run build
         env:
@@ -24,4 +24,3 @@ jobs:
           source: "build/*"
           target: ${{ secrets.TARGET_DIR }}
           strip_components: 1
-          node-version: '14.x'
