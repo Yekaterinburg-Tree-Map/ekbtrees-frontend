@@ -24,3 +24,4 @@ jobs:
           source: "build/*"
           target: ${{ secrets.TARGET_DIR }}
           strip_components: 1
+          node-version: '14.x'
