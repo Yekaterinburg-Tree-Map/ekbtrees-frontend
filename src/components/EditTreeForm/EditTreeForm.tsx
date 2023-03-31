@@ -556,8 +556,8 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
     renderButtons () {
         return (
             <div className={styles.buttons}>
-                <button disabled={this.state.uploadingFiles || this.state.uploadingImages} className={styles.addButton} onClick={this.handleEditTree}>Редактировать</button>
                 <button onClick={this.props.history.goBack} className={styles.cancelButton}>Отмена</button>
+                <button disabled={this.state.uploadingFiles || this.state.uploadingImages} className={styles.addButton} onClick={this.handleEditTree}>Редактировать</button>
             </div>
         )
     }

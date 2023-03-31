@@ -25,6 +25,8 @@ export default class Footer extends Component<IFooterProps, IFooterState> {
                     <span className={styles.nameColumn}>Компания</span>
                     {/* <NavLink className={styles.link} exact to='/aboutUs' activeClassName="active">О нас</NavLink> */}
                     <Link className={styles.link} to='/saveTrees'>Что мы делаем&nbsp;?</Link>
+                    <a className={styles.link} target="_blank" href='https://docs.google.com/forms/d/e/1FAIpQLSd6-7QvV6rCbGrxeMc9Ui1CUyEgDLtHMh-X7itlGhVjMWyVSw/viewform'>Нашли ошибку&nbsp;?</a>
+                    <a className={styles.link} target="_blank" href='https://docs.google.com/forms/d/e/1FAIpQLSd6-7QvV6rCbGrxeMc9Ui1CUyEgDLtHMh-X7itlGhVjMWyVSw/viewform'>Отзывы и пожелания</a>
                 </div>
                 {/* <div className={styles.column}>
                     <span className={styles.nameColumn}>Помощь</span>

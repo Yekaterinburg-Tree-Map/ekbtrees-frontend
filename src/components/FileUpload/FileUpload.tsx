@@ -153,7 +153,7 @@ export class FileUpload extends Component<IFileUploadProps, IFileUploadState> {
 				/>
 				<div className={styles.addingFilesWrapper}>
 					<button className={styles.addBtn} onClick={this.handleOpen.bind(this)}>
-						Добавить фотографии
+						Добавить фото
 					</button>
 				</div>
 			</>

@@ -278,9 +278,9 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
     }, [map, markerLayer]);
 
     const clearLayer = (mapLayer: any) => {
-        for (const layer in mapLayer._layers) {
-            mapLayer._layers[layer].removeFrom(map);
-            delete mapLayer._layers[layer];
+        for (const layer in mapLayer?._layers) {
+            mapLayer?._layers?.[layer]?.removeFrom(map);
+            delete mapLayer?._layers?.[layer];
         }
     };
 
@@ -356,7 +356,7 @@ const GeojsonLayer = ({ map, mapState, setMapState, setMapViewOnUser, pointerMar
 
     const HandleAddTreeCancel = (s: number) => {
         clearLayer(lastMarkerLayer);
-        lastMarkerLayer.removeFrom(map);
+        lastMarkerLayer?.removeFrom(map);
         setMapState(MapState.default);
         mapStateRef.current = 0
     }
