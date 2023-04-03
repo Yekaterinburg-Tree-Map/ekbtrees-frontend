@@ -186,8 +186,8 @@ export default class ProfileSettings extends Component<IProfileSettingsProps, IP
                                className={cn([styles.profileInput, styles.textInfo])} {...this.aboutUsLayoutAttrs} />
                     </label>
                     <div className={cn([styles.profileControls, styles.order3])}>
-                        <button type="submit" className={styles.profileBtn}>Подтвердить</button>
                         <button type="button" className={styles.profileBtn}>Отменить</button>
+                        <button type="submit" className={styles.profileBtn}>Подтвердить</button>
                     </div>
                 </form>
             </Fragment>

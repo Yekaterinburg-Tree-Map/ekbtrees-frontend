@@ -45,14 +45,14 @@ export default class ListWidget<T> extends Component<IListsProps<T>, IListsState
             objects: []
         }), () => {
             const params = new URLSearchParams(this.props.search);
-            
+
             if (this.state.currentPage === 0) {
                 params.delete('page');
             } else {
                 params.set('page', `${this.state.currentPage + 1}`);
             }
 
-            this.props.history.push({search: params.toString()}); 
+            this.props.history.push({search: params.toString()});
 
             this.getObjects();
         });
@@ -76,7 +76,7 @@ export default class ListWidget<T> extends Component<IListsProps<T>, IListsState
 
         return (
             <>
-                {this.props.renderTable(this.state.objects)}
+                {!loading && this.props.renderTable(this.state.objects)}
                 {loading &&
                     <div className={styles.spinner}>
                         <Spinner />

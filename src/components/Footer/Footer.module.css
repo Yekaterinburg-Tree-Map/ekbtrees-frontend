@@ -31,7 +31,7 @@
   display: flex;
   flex-direction: column;
   row-gap: 10px;
-  padding: 50px;
+  padding: 35px;
 }
 
 .link {
@@ -39,7 +39,7 @@
 }
 
 .link:hover {
-  color: #1d53aa;
+  color: #aec400;
 }
 
 .nameColumn {
@@ -61,6 +61,10 @@
 
 .email {
   color: #d9dbe1;
+}
+
+.email:hover {
+  color: #aec400;
 }
 
 .copyright {

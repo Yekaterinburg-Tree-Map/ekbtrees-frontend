@@ -37,20 +37,36 @@
 .buttons {
     margin-top: 43px;
     display: flex;
-    padding: 42px 36px;
-    background-color: #02390B;
-    justify-content: space-between;
+    padding: 20px 36px;
+    background-color: transparent;
+    justify-content: space-around;
 }
 
 .addButton,
 .cancelButton {
-    border-radius: 6px;
-    background-color: #AEC400;
+    border: 1px solid #02390B;
+    border-radius: 24px;
+    background-color: #02390B;
     color: white;
-    height: 73px;
+    height: 48px;
     width: 40%;
+    max-width: 427px;
     font-size: 20px;
     font-weight: 600;
+}
+
+.cancelButton {
+  color: #02390B;
+  border: 2px solid #02390B;
+  background-color: transparent;
+}
+
+.cancelButton:hover {
+  border: 3px solid #02390B;
+}
+
+.addButton:hover {
+  opacity: .6;
 }
 
 .block {
@@ -129,8 +145,7 @@
     .buttons {
         margin-top: 43px;
         display: flex;
-        padding: 42px 36px;
-        background-color: #02390B;
+        padding: 20px 36px;
     }
 
     .blockWrapper:first-child {
@@ -219,17 +234,6 @@
         color: #4b4b4b;
         max-width: 215px;
         width: 100%;
-    }
-
-    .addButton,
-    .cancelButton {
-        border-radius: 6px;
-        background-color: #AEC400;
-        color: white;
-        height: 73px;
-        width: 427px;
-        font-size: 20px;
-        font-weight: 600;
     }
 
     .blockWrapperDesktop {
