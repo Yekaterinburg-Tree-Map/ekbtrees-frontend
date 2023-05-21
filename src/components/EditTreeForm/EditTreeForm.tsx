@@ -21,8 +21,13 @@ import {
 } from "../../common/types";
 import {IEditTreeFormProps, IEditTreeFormState} from "./types";
 import {
+    branchStateOptions,
+    corticalStateOptions,
+    pruningOptions,
+    rootConditionOptions,
     treePlantingTypeOptions,
     treeStatusOptions,
+    trunkStateOptions,
     validateIsNotNegativeNumber,
     validateLessThan,
     validateGreaterThan
@@ -72,11 +77,21 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
             status,
             treePlantingType,
             trunkGirth,
-            id
+            id,
+            pruning,
+            rootCondition,
+            trunkStates,
+            branchStates,
+            corticalStates
         } = tree;
 
         const treeStatusOptionId = treeStatusOptions.find(op => op.title === status)?.id ?? '';
         const treePlantingTypeId = treePlantingTypeOptions.find(op => op.title === treePlantingType)?.id ?? '';
+        const pruningOptionId = pruningOptions.find(op => op.title === pruning)?.id ?? '';
+        const rootConditionOptionId = rootConditionOptions.find(op => op.title === rootCondition)?.id ?? '';
+        const trunkStateOptionIds = trunkStateOptions.filter(op => trunkStates?.includes(op.title)).map(op => op.id);
+        const branchStateOptionIds = branchStateOptions.filter(op => branchStates?.includes(op.title)).map(op => op.id);
+        const corticalStateOptionIds = corticalStateOptions.filter(op => corticalStates?.includes(op.title)).map(op => op.id);
 
         return {
             age: {
@@ -132,6 +147,34 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
                 value: trunkGirth,
                 type: 'number',
                 validate: (v) => validateIsNotNegativeNumber(v) || validateLessThan(v, 1600),
+            },
+            pruning: {
+                title: 'Обрезка',
+                value: pruningOptionId,
+                values: pruningOptions,
+            },
+            rootCondition: {
+                title: 'Прикорневые условия',
+                value: rootConditionOptionId,
+                values: rootConditionOptions,
+            },
+            trunkStates: {
+                title: 'Состояние стволов',
+                value: trunkStateOptionIds,
+                values: trunkStateOptions,
+                multiple: true
+            },
+            branchStates: {
+                title: 'Состояние ветвей',
+                value: branchStateOptionIds,
+                values: branchStateOptions,
+                multiple: true
+            },
+            corticalStates: {
+                title: 'Состояние коры',
+                value: corticalStateOptionIds,
+                values: corticalStateOptions,
+                multiple: true
             },
             id,
             fileIds: fileIds || [],
@@ -206,7 +249,10 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
             }
             const field = tree[editTreeKey];
             if (field && "validate" in field && field.validate) {
-                const errorMessage = field.validate(field.value);
+                const {value} = field;
+                const validate = field.validate as (val: typeof value) => string | null;
+                const errorMessage = validate(value);
+                
                 if (errorMessage) {
                     errors[editTreeKey] = errorMessage;
                 }
@@ -244,6 +290,16 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
                 } else if (jsonTreeKey === "treePlantingType") {
                     //@ts-ignore: must be protected by a condition from above
                     data[jsonTreeKey] = treePlantingTypeOptions.find(op => op.id === tree[jsonTreeKey].value)?.title ;
+                } else if (jsonTreeKey === 'pruning') {
+                    data[jsonTreeKey] = pruningOptions.find(op => op.id === tree[jsonTreeKey]?.value)?.title;
+                } else if (jsonTreeKey === 'rootCondition') {
+                    data[jsonTreeKey] = rootConditionOptions.find(op => op.id === tree[jsonTreeKey]?.value)?.title;
+                } else if (jsonTreeKey === 'trunkStates') {
+                    data[jsonTreeKey] = trunkStateOptions.filter(op => tree[jsonTreeKey]?.value?.includes(op.id)).map(op => op.title);
+                } else if (jsonTreeKey === 'branchStates') {
+                    data[jsonTreeKey] = branchStateOptions.filter(op => tree[jsonTreeKey]?.value?.includes(op.id)).map(op => op.title);
+                } else if (jsonTreeKey === 'corticalStates') {
+                    data[jsonTreeKey] = corticalStateOptions.filter(op => tree[jsonTreeKey]?.value?.includes(op.id)).map(op => op.title);
                 } else {
                     const val = parseInt(rawVal, 10);
                     data[jsonTreeKey] = isNaN(val) ? rawVal : val;
@@ -265,6 +321,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
         }
 
         const isValid = this.validateTree(tree);
+
         if (!isValid) {
             return;
         }
@@ -291,13 +348,22 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
 
     handleChange = (fieldName: keyof IEditedTree) => (event: ChangeEvent<{ name?: string | undefined; value: unknown; }>) => {
         const {tree} = this.state;
+        
         if (tree === null || tree === undefined) {
             return;
         }
-        if (fieldName !== 'id' && fieldName !== 'geographicalPoint' && fieldName !== 'fileIds')
-            tree[fieldName]!.value = "" + event.target.value as any; // to use unknown value
+        
+        if (fieldName !== 'id' && fieldName !== 'geographicalPoint' && fieldName !== 'fileIds') {
+            const newTree: IEditedTree = {
+                ...tree,
+                [fieldName]: {
+                    ...tree[fieldName],
+                    value: Array.isArray(event.target.value) ? event.target.value : event.target.value as any // to use unknown value
+                }
+            };
 
-        this.setState({tree})
+            this.setState({tree: newTree})
+        }
     }
 
     handleOpenSelect = (type: string) => () => {
@@ -380,12 +446,22 @@ export class EditTreeForm extends Component<IEditTreeFormProps & RouteComponentP
             if (tree[key]) {
                 if (key !== 'id' && key !== 'geographicalPoint' && key !== 'fileIds') {
                     if (Object.prototype.hasOwnProperty.call(tree[key], 'values')) {
+                        const {value} = tree[key] || {};
+                        const selectedValues: Array<string | number> = Array.isArray(value) 
+                        ? value 
+                        : value ? [value] : []
+
                         result.push(
                             <div key={index} className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
                                 <Select
+                                    title={tree[key]?.title || ''}
                                     onChange={this.handleChange(key)}
                                     onOpen={this.handleOpenSelect(key)}
-                                    item={tree[key]!} id={key} // must be protected by a condition from above
+                                    id={key} // must be protected by a condition from above
+                                    multiple={tree[key]?.multiple}
+                                    selectedValues={selectedValues}
+                                    loading={!!tree[key]?.loading}
+                                    options={tree[key]?.values || []}
                                 />
                             </div>
                         );

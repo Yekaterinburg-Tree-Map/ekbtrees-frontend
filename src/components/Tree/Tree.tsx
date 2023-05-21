@@ -61,7 +61,12 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: strin
       trunkGirth,
       updated,
       geographicalPoint,
-      id
+      id,
+      pruning,
+      rootCondition,
+      trunkStates,
+      branchStates,
+      corticalStates
     } = tree;
 
     return {
@@ -76,10 +81,6 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: strin
       age: {
         title: 'Возраст (в годах)',
         value: age as number
-      },
-      created: {
-        title: 'Дата добавления записи',
-        value: created ? formatDate(created) : null
       },
       diameterOfCrown: {
         title: 'Диаметр кроны (в метрах)',
@@ -113,11 +114,36 @@ export class Tree extends Component<ITreeProps & RouteComponentProps<{ id: strin
         title: 'Обхват самого толстого ствола (в сантиметрах)',
         value: trunkGirth ?? null
       },
+
+      id: id ?? 0, // FIXME: is it possible to not know tree id
+      pruning: {
+        title: 'Обрезка',
+        value: pruning ?? null,
+      },
+      rootCondition: {
+        title: 'Прикорневые условия',
+        value: rootCondition ?? null,
+      },
+      trunkStates: {
+        title: 'Состояние стволов',
+        value: trunkStates && trunkStates.length ? trunkStates?.join(', ') : null
+      },
+      branchStates: {
+        title: 'Состояние ветвей',
+        value: branchStates && branchStates.length ? branchStates?.join(', ') : null
+      },
+      corticalStates: {
+        title: 'Состояние коры',
+        value: corticalStates && corticalStates.length ? corticalStates?.join(', ') : null
+      },
+      created: {
+        title: 'Дата добавления записи',
+        value: created ? formatDate(created) : null
+      },
       updated: {
         title: 'Дата последнего редактирования',
         value: updated ? formatDate(updated) : null
       },
-      id: id ?? 0 // FIXME: is it possible to not know tree id
     }
   }
 

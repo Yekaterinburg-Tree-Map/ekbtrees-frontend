@@ -113,6 +113,11 @@
 .col:nth-child(1) {
     flex-grow: 1;
     font-weight: 600;
+    min-width: 40%;
+}
+
+.col:nth-child(2) {
+    text-align: end;
 }
 
 .approved {

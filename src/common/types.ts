@@ -47,49 +47,62 @@ export interface ITreePropertyValue {
     title: string;
 }
 
-export interface ITreeProperty {
+export type TreePropertyValue = string | number | Array<string | number> | undefined;
+
+export interface ITreeProperty<T> {
     title?: string;
-    value?: string | number;
+    value?: T;
     values?: ITreePropertyValue[];
     type?: 'string' | 'number';
     parse?: any;
     loading?: boolean;
     disabled?: boolean;
-    validate?: (val: string | number | undefined) => string | null;
+    validate?: (val: T | undefined) => string | null;
     required?: boolean;
+    multiple?: boolean;
 }
 
 export interface INewTree {
-    latitude: ITreeProperty;
-    longitude: ITreeProperty;
-    age: ITreeProperty;
-    diameterOfCrown: ITreeProperty;
-    heightOfTheFirstBranch: ITreeProperty;
-    numberOfTreeTrunks: ITreeProperty;
-    treeHeight: ITreeProperty;
-    speciesId: ITreeProperty;
-    status: ITreeProperty;
-    treePlantingType: ITreeProperty;
-    trunkGirth: ITreeProperty;
+    latitude: ITreeProperty<string | number | undefined>;
+    longitude: ITreeProperty<string | number | undefined>;
+    age: ITreeProperty<string | number | undefined>;
+    diameterOfCrown: ITreeProperty<string | number | undefined>;
+    heightOfTheFirstBranch: ITreeProperty<string | number | undefined>;
+    numberOfTreeTrunks: ITreeProperty<string | number | undefined>;
+    treeHeight: ITreeProperty<string | number | undefined>;
+    speciesId: ITreeProperty<string | number | undefined>;
+    status: ITreeProperty<string | number | undefined>;
+    treePlantingType: ITreeProperty<string | number | undefined>;
+    trunkGirth: ITreeProperty<string | number | undefined>;
     fileIds: number[];
+    pruning: ITreeProperty<string | number | undefined>; 
+    rootCondition: ITreeProperty<string | number | undefined>; 
+    trunkStates: ITreeProperty<Array<string | number> | undefined>; 
+    branchStates: ITreeProperty<Array<string | number> | undefined>; 
+    corticalStates: ITreeProperty<Array<string | number> | undefined>; 
 }
 
 export interface IEditedTree {
     id?: number;
     geographicalPoint?: IGeographicalPoint;
-    species?: ITreeProperty;
-    treeHeight?: ITreeProperty;
-    numberOfTreeTrunks?: ITreeProperty;
-    trunkGirth?: ITreeProperty;
-    diameterOfCrown?: ITreeProperty;
-    heightOfTheFirstBranch?: ITreeProperty;
-    age?: ITreeProperty;
-    treePlantingType?: ITreeProperty;
-    created?: ITreeProperty;
-    updated?: ITreeProperty;
-    authorId?: ITreeProperty;
-    status?: ITreeProperty;
+    species?: ITreeProperty<string | number | undefined>;
+    treeHeight?: ITreeProperty<string | number | undefined>;
+    numberOfTreeTrunks?: ITreeProperty<string | number | undefined>;
+    trunkGirth?: ITreeProperty<string | number | undefined>;
+    diameterOfCrown?: ITreeProperty<string | number | undefined>;
+    heightOfTheFirstBranch?: ITreeProperty<string | number | undefined>;
+    age?: ITreeProperty<string | number | undefined>;
+    treePlantingType?: ITreeProperty<string | number | undefined>;
+    created?: ITreeProperty<string | number | undefined>;
+    updated?: ITreeProperty<string | number | undefined>;
+    authorId?: ITreeProperty<string | number | undefined>;
+    status?: ITreeProperty<string | number | undefined>;
     fileIds?: (string | number)[];
+    pruning?: ITreeProperty<string | number | undefined>;
+    rootCondition?: ITreeProperty<string | number | undefined>; 
+    trunkStates?: ITreeProperty<Array<string | number> | undefined>; 
+    branchStates?: ITreeProperty<Array<string | number> | undefined>; 
+    corticalStates?: ITreeProperty<Array<string | number> | undefined>; 
 }
 
 
@@ -121,6 +134,11 @@ export interface ITreeModelConverted {
     status: ITreePropertyConverted;
     treePlantingType: ITreePropertyConverted;
     trunkGirth: ITreePropertyConverted;
+    pruning: ITreePropertyConverted;
+    rootCondition: ITreePropertyConverted;
+    trunkStates: ITreePropertyConverted;
+    branchStates: ITreePropertyConverted;
+    corticalStates: ITreePropertyConverted;
 }
 
 export type ResourceAction = "uploadingFiles" | "uploadingImages";
@@ -148,7 +166,12 @@ export interface IJsonTree {
     fileIds?: number[];
     editable?: boolean;
     deletable?: boolean;
-    approvedByModerator?: boolean
+    approvedByModerator?: boolean;
+    pruning?: string; 
+    rootCondition?: string; 
+    trunkStates?: Array<string>; 
+    branchStates?: Array<string>; 
+    corticalStates?: Array<string>;
 }
 
 
@@ -169,6 +192,11 @@ export interface IPostJsonTree {
     authorId?: string;
     status?: string;
     fileIds?: number[];
+    pruning?: string; 
+    rootCondition?: string; 
+    trunkStates?: Array<string>; 
+    branchStates?: Array<string>; 
+    corticalStates?: Array<string>;
 }
 
 export interface IJsonTreeWithImage extends  IJsonTree {

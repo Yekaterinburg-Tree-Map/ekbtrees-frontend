@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export const Select = (props: ISelectProps) => {
-    const {id, item, onChange, onOpen, required} = props;
+    const {id, loading, onChange, onOpen, options, required, multiple, selectedValues, title} = props;
     const styles = useStyles();
     const [selected, setSelected] = useState<boolean>(false);
 
@@ -29,36 +29,39 @@ export const Select = (props: ISelectProps) => {
         onChange(event, child);
     }
 
-    const renderOptions = (values: ISelectOption[]) => {
-        if (item.loading) {
+    const renderOptions = (options: ISelectOption[]) => {
+        if (loading) {
             return <MenuItem disabled>
                 <Spinner/>
             </MenuItem>;
         }
 
-        return values.map(value => <MenuItem value={value.id} key={value.id}>{value.title}</MenuItem>);
+        return options.map(value => <MenuItem value={value.id} key={value.id}>{value.title}</MenuItem>);
     }
+
+    const value = multiple ? selectedValues : selectedValues[0];
 
     return (
         <div className={styles.root}>
             <FormControl  required={required} error={required && !selected} size={"small"}>
-                <InputLabel className={styles.label} id={`label-for-select-${item.title}`} variant="outlined" htmlFor={id}>{item.title}</InputLabel>
+                <InputLabel className={styles.label} id={`label-for-select-${title}`} variant="outlined" htmlFor={id}>{title}</InputLabel>
                 <UISelect
-                    labelId={`label-for-select-${item.title}`}
+                    labelId={`label-for-select-${title}`}
                     onOpen={onOpen}
                     native={false}
                     onChange={handleChange}
                     variant="outlined"
                     MenuProps={{style:{
-                    maxHeight:"400px"}  // Если не ограничивать, список слишком большой
+                        maxHeight:"400px"}  // Если не ограничивать, список слишком большой
                     }}
                     inputProps={{
-                        name: item.title,
+                        name: title,
                         id,
                     }}
-                    value={item.value}
+                    value={value}
+                    multiple={multiple}
                 >
-                    {renderOptions(item.values ?? [])}
+                    {renderOptions(options)}
                 </UISelect>
             </FormControl>
         </div>

@@ -8,12 +8,27 @@ import styles from "./AddNewTreeForm.module.css";
 import {getFilesByIds, deleteFile, uploadFiles} from "../../api/files";
 import {getTypesOfTrees} from "../../api/treeTypes";
 import {
-    ResourceAction, INewTree, ITreePropertyValue,
-    FileGroupType, IPostJsonTree, IGeographicalPoint, IFile
+    ResourceAction, 
+    INewTree, 
+    ITreePropertyValue,
+    FileGroupType, 
+    IPostJsonTree, 
+    IGeographicalPoint, 
+    IFile
 } from "../../common/types";
 import { IAddNewTreeFormProps, IAddNewTreeFormState } from "./types";
-import { treePlantingTypeOptions, treeStatusOptions,
-    validateIsNotNegativeNumber, validateLessThan, validateIsSet, validateGreaterThan,
+import {
+    branchStateOptions,
+    corticalStateOptions,
+    treePlantingTypeOptions, 
+    treeStatusOptions,
+    pruningOptions,
+    rootConditionOptions,
+    trunkStateOptions,
+    validateIsNotNegativeNumber, 
+    validateLessThan,
+    validateIsSet, 
+    validateGreaterThan,
 } from "../../common/treeForm";
 import Modal from "../Modal";
 import PageHeader from "../PageHeader";
@@ -85,7 +100,6 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     parse: (value: string) => parseInt(value, 10),
                     validate: validateIsNotNegativeNumber,
                 },
-
                 status: {
                     title: 'Статус дерева',
                     values: treeStatusOptions,
@@ -107,6 +121,39 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     parse: (value: string) => parseFloat(value)
                 },
                 fileIds: [],
+                pruning: {
+                    title: 'Обрезка',
+                    value: '',
+                    values: pruningOptions,
+                    parse: this.toStr
+                },
+                rootCondition: {
+                    title: 'Прикорневые условия',
+                    value: '',
+                    values: rootConditionOptions,
+                    parse: this.toStr
+                },
+                trunkStates: {
+                    title: 'Состояние стволов',
+                    value: [],
+                    values: trunkStateOptions,
+                    parse: this.toArrayStr,
+                    multiple: true
+                },
+                branchStates: {
+                    title: 'Состояние ветвей',
+                    value: [],
+                    values: branchStateOptions,
+                    parse: this.toArrayStr,
+                    multiple: true
+                },
+                corticalStates: {
+                    title: 'Состояние коры',
+                    value: [],
+                    values: corticalStateOptions,
+                    parse: this.toArrayStr,
+                    multiple: true
+                }
             },
             files: [],
             images: [],
@@ -129,6 +176,10 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
         return `${item ? item.title : ''}`;
     }
 
+    toArrayStr = (value: Array<string | number>, values: ITreePropertyValue[]) => {
+        return values.filter(item => value.includes(item.id)).map(item => item.title);
+    }
+
     validateTree(tree: INewTree) {
         const errors: { [key: string]: string } = {};
 
@@ -136,8 +187,12 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
             const newTreeKey = key as keyof INewTree;
             const field = tree[newTreeKey];
             if (Array.isArray(field)) return;
-            if (field.validate) {
-                const errorMessage = field.validate(field.value);
+
+            const {value} = field;
+            const validate = field.validate as (val: typeof value) => string | null;
+            
+            if (validate) {
+                const errorMessage = validate(value);
                 if (errorMessage !== null) {
                     errors[newTreeKey] = errorMessage;
                 }
@@ -195,6 +250,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
         });
         return data;
     }
+
     handleAddComment = (treeId: number) => {
       addComment({text:this.state.comment,treeId});
     }
@@ -232,9 +288,16 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
             return;
         }
         const { tree } = this.state;
-        tree[fieldName].value = event.target.value as string;
+        
+        const newTree: INewTree = {
+            ...tree,
+            [fieldName]: {
+                ...tree[fieldName],
+                value: Array.isArray(event.target.value) ? event.target.value : event.target.value as string
+            }
+        };
 
-        this.setState({ tree });
+        this.setState({ tree: newTree });
     }
 
     handleOpenSelect = (fieldId: string) => () => {
@@ -314,20 +377,29 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
         Object.keys(tree).forEach((key, index) => {
             const treeKey = key as keyof INewTree;
             // TODO: find other way to filter this case
-            if (treeKey == 'fileIds') {
+            if (treeKey === 'fileIds') {
                 // should be in else branch
                 return;
             }
             if (tree[treeKey]) {
                 if (Object.prototype.hasOwnProperty.call(tree[treeKey], 'values')) {
+                    const {value} = tree[treeKey];
+                    const selectedValues: Array<string | number> = Array.isArray(value) 
+                    ? value 
+                    : value ? [value] : []
+
                     result.push(
                         <div key={index} className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
                             <Select
+                                title={tree[treeKey].title || ''}
                                 onChange={this.handleChange(treeKey)}
                                 onOpen={this.handleOpenSelect(key)}
-                                item={tree[treeKey]}
+                                options={tree[treeKey].values || []}
                                 id={key}
                                 required={tree[treeKey].required}
+                                multiple={tree[treeKey].multiple}
+                                selectedValues={selectedValues}
+                                loading={!!tree[treeKey].loading}
                             />
                         </div>
                     )

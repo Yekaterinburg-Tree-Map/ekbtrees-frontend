@@ -2,10 +2,10 @@ import {ITreeProperty, IUser} from "../../common/types";
 
 // Maybe it would be better to use TextField instead of inputs
 export interface IEditUserInfo {
-    firstName: ITreeProperty;
-    lastName: ITreeProperty;
-    email: ITreeProperty;
-    phone: ITreeProperty;
+    firstName: ITreeProperty<string| undefined>;
+    lastName: ITreeProperty<string | undefined>;
+    email: ITreeProperty<string | undefined>;
+    phone: ITreeProperty<string | undefined>;
 }
 
 export interface IUserInfo {

@@ -1,13 +1,16 @@
 import {ChangeEvent, ReactNode} from "react";
-import {ITreeProperty} from "../../common/types";
 
 
 export interface ISelectProps {
     id: string;
-    item: ITreeProperty;
     onChange: (event: ChangeEvent<{ name?: string | undefined; value: unknown; }>, child?: ReactNode) => void;
     onOpen: (event: ChangeEvent<{}>) => void;
     required?: boolean;
+    multiple?: boolean;
+    selectedValues: Array<string | number>;
+    options: Array<ISelectOption>;
+    title: string;
+    loading: boolean;
 }
 
 export interface ISelectState { }
