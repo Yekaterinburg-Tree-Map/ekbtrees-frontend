@@ -558,11 +558,21 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
         )
     }
 
+    handleCancel = () => {
+        const {lat, lng} = this.props.match.params;
+
+        if (lat && lng) {
+            this.props.setMapViewPosition({ lat: parseFloat(lat), lng: parseFloat(lng) });
+        }
+
+        this.props.history.goBack();
+    }
+
     renderButtons() {
         return (
             <div className={styles.buttons}>
                 <button
-                    onClick={this.props.history.goBack}
+                    onClick={this.handleCancel}
                     className={styles.cancelButton}
                 >
                     Отмена
