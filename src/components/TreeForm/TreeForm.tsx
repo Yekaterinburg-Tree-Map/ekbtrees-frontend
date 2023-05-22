@@ -51,7 +51,7 @@ export const TreeForm = ({ activeTree, onClose, changeState, user }: ITreeFormPr
                 </div>
                 <hr className={styles.hr} />
                 <div className={styles.row}>
-                    <span className={styles.rowName}>Обхват самого толстого ствола (см)</span>
+                    <span className={styles.rowName}>Диаметр кроны (в метрах)</span>
                     <span className={styles.rowValue}>{activeTree?.diameterOfCrown}</span>
                 </div>
                 <hr className={styles.hr} />
