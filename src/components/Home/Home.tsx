@@ -105,6 +105,17 @@ export default class Home extends Component<IHomeProps> {
         )
     }
 
+    renderVideo  () {
+        return (
+            <section className={styles.videoContent}>
+                <header className={styles.videoHeader}>Видео-инструкция</header> 
+                <div className={styles.video}>
+                    <iframe src="https://www.youtube-nocookie.com/embed/O0Bbvvxnd34" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
+                </div>
+            </section>
+        );
+    }
+
     render() {
         return (
             <>
@@ -112,6 +123,7 @@ export default class Home extends Component<IHomeProps> {
                 {this.renderGetStartSection()}
                 {this.renderInvitationSection()}
                 {this.renderWhatWeDoSection()}
+                {this.renderVideo()}
             </>
         )
     }
