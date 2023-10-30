@@ -12,6 +12,7 @@ export interface IJsonMapTree {
     geographicalPoint: IGeographicalPoint;
     diameterOfCrown: number;
     species: ITreePropertyValue;
+    status: string;
 }
 
 export interface IJsonMapTreeCluster {

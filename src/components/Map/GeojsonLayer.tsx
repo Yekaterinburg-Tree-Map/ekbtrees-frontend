@@ -467,8 +467,11 @@ function setUpTreeCircles(
       const { latitude, longitude } = item.geographicalPoint;
       let color: string = DefaultTreeColor;
 
-      if (item.species) {
+      if (item.status === 'Пень') {
+        color = '#000000';
+      } else if (item.species) {
         const species = item.species.title;
+        
         if (species in TreeSpeciesColors) {
           color = TreeSpeciesColors[species];
         }
