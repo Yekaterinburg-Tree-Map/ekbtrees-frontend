@@ -19,13 +19,28 @@ const MapContain = (props: IMapContainProps) => {
 	const setMapViewOnUser = useRef<boolean>(true);
 	const setMarkerOnView = useRef<boolean>(false);
 
-	let position = defaultPosition;
-	let zoom = defaultZoom
+  // Yekaterinburg square coordinates
+  const topLeftCorner: [number, number] = [57.2889, 59.8557];
+  const bottomRightCorner: [number, number] = [56.3889, 61.3557];
 
-	if (mapViewPosition) {
-		position = [mapViewPosition.lat, mapViewPosition.lng] ;
-		zoom = 30;
-	}
+  // Checking is location in Yekaterinburg square
+  const isPositionInRectangle = (position: [number, number], topLeft: [number, number], bottomRight: [number, number]) => {
+    const [lat, lng] = position;
+    const [topLeftLat, topLeftLng] = topLeft;
+    const [bottomRightLat, bottomRightLng] = bottomRight;
+
+    return lat >= bottomRightLat && lat <= topLeftLat &&
+      lng >= topLeftLng && lng <= bottomRightLng;
+  };
+
+  // Determine initial position and zoom
+  let position = defaultPosition;
+  let zoom = defaultZoom;
+
+  if (mapViewPosition && isPositionInRectangle([mapViewPosition.lat, mapViewPosition.lng], topLeftCorner, bottomRightCorner)) {
+    position = [mapViewPosition.lat, mapViewPosition.lng];
+    zoom = 30;
+  }
 
 	useEffect(() => {
 		setMapViewOnUser.current = mapViewPosition === undefined;
